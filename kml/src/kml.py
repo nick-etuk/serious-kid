@@ -13,9 +13,9 @@ class KML:
         self.stack = []
 
         self.word_boundaries = [' ', '.', ',', ';', ':', '!', "\n"]
-        self.sentence_boundaries = ['.', "\n"]
+        self.sentence_boundaries = ['.', '?', "\n"]
 
-        self.tag_content_function = {
+        self.get_content_function = {
             'keyword': {
                 'get_content': self.next_word
             },
@@ -70,14 +70,28 @@ class KML:
         return False
 
     def prev_word(self):
-        result = ""
-        start = self.cursor_pos
+        result = ''
+        start = self.cursor_pos - 1
+        end = self.cursor_pos -1
+        char = self.content[start]
         while start > 0 and self.content[start] not in self.word_boundaries:
+            char = self.content[start]
             start -= 1
         #if start > 0:start += 1
-        result = self.content[start:self.cursor_pos]
+        result = self.content[start:end + 1]
         self.cursor_pos = start
         return result
+
+    def z_prev_word(self):
+        result = ''
+        end = self.cursor_pos
+        start = 0
+        for boundary in self.word_boundaries:
+            end = self.content.find(boundary)
+            if end: break
+        if not end:end = len(self.content)
+            
+        result = self.content[start:end]
 
     def next_word(self):
         result = ""
@@ -89,7 +103,7 @@ class KML:
         self.cursor_pos = i
         return result
 
-    def next_sentence(self):
+    def old_next_sentence(self):
         result = ""
         i = self.cursor_pos + 1
         end = len(self.content)
@@ -101,6 +115,19 @@ class KML:
         self.cursor_pos = i
         return result
 
+    def next_sentence(self):
+        result = ''
+        start = self.cursor_pos + 1
+        end = 0
+        for boundary in self.sentence_boundaries:
+            end = self.content.find(boundary)
+            if end: break
+        if not end:end = len(self.content)
+            
+        result = self.content[start:end]
+        return result
+
+
     def prev_sentence(self):
         result = ""
         i = self.cursor_pos
@@ -111,11 +138,11 @@ class KML:
         self.cursor_pos = i
         return result
 
-    def get_tag_content(self, tag: str) -> str:
+    def next_tag_content(self, tag: str) -> str:
         tag = tag.lower()
-        if not tag in self.tag_content_function:
+        if not tag in self.get_content_function:
             if not tag in self.tag_full_name:
-                print(f'unknown tag {tag}')
+                print(f'unknown tag <{tag}>')
                 return
             tag = self.tag_full_name[tag]
-        return self.tag_content_function[tag]['get_content']()
+        return self.get_content_function[tag]['get_content']()

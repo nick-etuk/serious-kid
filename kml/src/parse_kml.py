@@ -1,5 +1,5 @@
 import os
-#from config import data_dir
+from config import data_dir
 from icecream import ic
 #from lib import named_tuple_factory
 #from init import init, log
@@ -21,7 +21,7 @@ def get_tags(id: int, content: str):
 
 
 def get_paragraphs():
-    data_dir = "/mnt/g/data/serious_kid"
+    #data_dir = "/mnt/g/data/serious_kid"
     filename = os.path.join(data_dir, "volcanoes.kml.txt")
     with open(filename, 'r') as f:
         content = f.read()
