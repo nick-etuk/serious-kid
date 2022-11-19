@@ -7,11 +7,17 @@ from kml import KML
 
 
 def get_tags(id: int, content: str):
-    print(f"Paragaph {id} tags:")
+    print(f"Paragaph {id}")
+    print(f"{content}")
+
     kml = KML(content)
-    while kml.find(":"):
+    while kml.find_next(":"):
+        kml.push()
         tag = kml.prev_word()
-        print(tag)
+        kml.pop()
+        #content = tag_content[tag]['get_content'](kml)
+        content = kml.get_tag_content(tag)
+        print(f'{tag}={content}')
 
 
 def get_paragraphs():
@@ -41,3 +47,5 @@ def get_paragraphs():
 if __name__ == "__main__":
     #    init()
     get_paragraphs()
+    # print('topic:Volcanoes'.find(':'))
+    # print('topic:Volcanoes'[5])
