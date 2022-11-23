@@ -4,11 +4,12 @@ from datetime import datetime
 import socket
 
 host = socket.gethostname()
+# print('host name:'+host)
 
 ini_file_path = {
-    'Evesham': '/mnt/e/Google Drive/asterlan sync/serious_kid.ini',
-    'Thinkpad-Dan': r'/mnt/c/Users/nick_/Google Drive/asterlan sync/config'
-    }
+    'Evesham': r'/mnt/e/Google Drive/asterlan sync/config/serious_kid.ini',
+    'Thinkpad-Dan': r'/mnt/c/Users/nick_/Google Drive/asterlan sync/config/serious_kid.ini'
+}
 
 config = configparser.ConfigParser()
 config.read(ini_file_path[host])

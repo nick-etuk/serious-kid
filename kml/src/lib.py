@@ -55,7 +55,7 @@ def previous_values_days_ago(account_id: int, product_id: int, days: float):
         conn.row_factory = named_tuple_factory
         c = conn.cursor()
         row = c.execute(sql, (f'-{days-1} days', account_id,
-                        product_id,)).fetchone()
+                        product_id)).fetchone()
 
     return row
 
@@ -77,7 +77,7 @@ def previous_values_by_seq(seq, account_id, product_id):
         conn.row_factory = named_tuple_factory
         c = conn.cursor()
         row = c.execute(sql, (seq, account_id,
-                        product_id,)).fetchone()
+                        product_id)).fetchone()
 
     return row
 
@@ -104,7 +104,7 @@ def previous_values_by_run_id(run_id, account_id, product_id):
         conn.row_factory = named_tuple_factory
         c = conn.cursor()
         row = c.execute(sql, (run_id, account_id,
-                        product_id,)).fetchone()
+                        product_id)).fetchone()
 
     return row
 

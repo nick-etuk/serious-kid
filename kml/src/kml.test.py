@@ -1,9 +1,10 @@
 from kml import KML
 
+
 def prev_word():
     tests = [
-        { 
-            'condition':'q:what is the name of the biggest volcano?',
+        {
+            'condition': 'q:what is the name of the biggest volcano?',
             'expected': 'q'
         },
         {
@@ -15,7 +16,7 @@ def prev_word():
             'expected': ''
         }
     ]
-    
+
     for test in tests:
         kml = KML(test['condition'])
         kml.find_next(":")
@@ -27,23 +28,71 @@ def prev_word():
         print(f"exepected:{test['expected']}   got:{actual}")
         #assert(actual == test['expected'])
 
+
+def next_word():
+    tests = [
+        {
+            'condition': 'q:what is the name of the biggest volcano?',
+            'expected': 'what'
+        },
+        {
+            'condition': 'on the other hand, hard:vesper is defined as',
+            'expected': 'vesper'
+        },
+        {
+            'condition': ':colon at start',
+            'expected': 'colon'
+        },
+        {
+            'condition':
+                """
+                Volcanoes are a type of topic:natural Hazard. 
+                Other natural hazards are topic:earthquakes, topic:tsunamis, topic:storms, topic:landslides and topic:floods
+                """,
+            'expected': [
+                'topic=natural',
+                'topic=earthquakes',
+                'topic=tsunamis',
+                'topic=storms',
+                'topic=landslides',
+                'topic=floods'
+            ]
+        }
+    ]
+
+    for test in tests:
+        kml = KML(test['condition'])
+        kml.find_next(":")
+        kml.push()
+        actual = kml.next_word()
+        kml.pop()
+
+        print(test['condition'])
+        print(f"exepected:{test['expected']}   got:{actual}")
+        # as
+
+
 def next_sentence():
     test_cases = [
         'q:what is the name of the biggest volcano?',
         'question: where is the north pole? on the other hand, hard:vesper is defined as',
+        'topic: no word break',
+        'q:no word break'
     ]
-    
-    for content in test_cases:
-        kml = KML(content)
+
+    for test in test_cases:
+        print(f'{test}')
+        kml = KML(test)
         kml.find_next(":")
         kml.push()
-        tag = kml.prev_word()
+        tag_name = kml.prev_word()
         kml.pop()
-        content = kml.next_tag_content(tag)
-        print(f'{tag}={content}')
+        content = kml.next_tag_content(tag_name)
 
+        print(f'{tag_name}={content}')
 
 
 if __name__ == "__main__":
-    #prev_word()
-    next_sentence()
+    # prev_word()
+    # next_sentence()
+    next_word()
