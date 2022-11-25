@@ -73,7 +73,7 @@ class KML:
         tag = tag.lower()
         if not tag in self.tag_info:
             if not tag in self.tag_full_name:
-                print(f'unknown tag <{tag}>')
+                print(f'unknown tag [{tag}]')
                 return 'unknown'
             return self.tag_full_name[tag]
         return tag
@@ -84,8 +84,29 @@ class KML:
     def get_tag_type(self, tag):
         return self.tag_info[tag]['type']
 
-    def pos(self):
+    def get_pos(self):
         return self.cursor_pos
+
+    def get_content(self):
+        return self.content
+
+    def delete_chars(self, start, length):
+        # print(f'=>delete_chars')
+        #print(f'old content[{self.content}]')
+        end = start + length
+        before = self.content[0:start]
+        after = self.content[end:]
+        after = after.replace(':', ' ', 1)
+        self.content = before + after
+        # print(f'before[{before}]')
+        # print(f'after[{after}]')
+        #print(f'new content[{self.content}]')
+        if self.cursor_pos <= start:
+            pass
+        if self.cursor_pos > end:
+            self.cursor_pos -= length
+        if start <= self.cursor_pos <= end:
+            self.cursor_pos = start
 
     def push(self):
         self.stack.append(self.cursor_pos)

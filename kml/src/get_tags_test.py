@@ -1,12 +1,14 @@
+import pytest
 from kml import KML
 from get_tags import get_tags
+from icecream import ic
 
 
 def test_get_tags():
     tests = [
         {
             'condition': 'q:what is the name of the biggest volcano?',
-            'expected': [('q', 'what is the name of the biggest volcano?')]
+            'expected': [('question', 'what is the name of the biggest volcano?')]
         },
         {
             'condition': 'on the other hand, hard:vesper is defined as',
@@ -36,12 +38,20 @@ def test_get_tags():
             'condition': 'mixed case tags, Hard:vesper is defined as',
             'expected': [('hard', 'vesper')]
         },
+        {
+            'condition': 'heading:keyword:Magma and lava',
+            'expected': [('keyword', 'Magma'), ('heading', 'Magma and lava')]
+        }
     ]
 
     for test in tests:
-        actual = get_tags(test['condition'])
+        expected = test['expected']
+        actual, updated_content = get_tags(test['condition'])
+
+        ic(expected)
+        ic(actual)
         # print(test['condition'])
-        assert test['expected'] == actual
+        assert expected == actual
 
 
 if __name__ == "__main__":

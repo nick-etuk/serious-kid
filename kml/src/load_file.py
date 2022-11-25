@@ -69,7 +69,7 @@ def load_file(level_id, subject_id, filename: str) -> int:
         print(para)
         kml = KML(para)
         has_sentence_tags = False
-        tags = get_tags(para)
+        tags, updated_para = get_tags(para)
         for tag in tags:
             if kml.get_tag_type(tag[0]) == TAG_TYPE['sentence']:
                 has_sentence_tags = True
@@ -78,7 +78,7 @@ def load_file(level_id, subject_id, filename: str) -> int:
             para_id, descr = get_last_item('snippet', 'P', file_id)
         else:
             para_id = save_para(level_id=level_id,
-                                subject_id=subject_id, content=para, file_id=file_id)
+                                subject_id=subject_id, content=updated_para, file_id=file_id)
 
         for tag in tags:
             save_tag(level_id=level_id, subject_id=subject_id,
