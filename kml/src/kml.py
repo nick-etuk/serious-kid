@@ -15,46 +15,48 @@ class KML:
         self.word_boundaries = [' ', '.', ',', ';', ':', '!', "\n"]
         self.sentence_boundaries = ['.', '?', "\n"]
 
+        self.content_function = {
+            TAG_TYPE['word']: self.next_word,
+            TAG_TYPE['sentence']: self.next_sentence,
+            TAG_TYPE['unknown']: self.unknown_tag
+        }
+
         self.tag_info = {
             'keyword': {
-                'get_content': self.next_word,
                 'code': 'K',
                 'type': TAG_TYPE['word']
             },
             'hard': {
-                'get_content': self.next_word,
                 'code': 'H',
                 'type': TAG_TYPE['word']
             },
             'topic': {
-                'get_content': self.next_word,
                 'code': 'T',
                 'type': TAG_TYPE['word']
             },
             'amazing': {
-                'get_content': self.next_sentence,
                 'code': 'AM',
                 'type': TAG_TYPE['sentence']
             },
             'question': {
-                'get_content': self.next_sentence,
                 'code': 'Q',
                 'type': TAG_TYPE['sentence']
             },
             'answers': {
-                'get_content': self.next_sentence,
                 'code': 'A',
                 'type': TAG_TYPE['sentence']
             },
             'heading': {
-                'get_content': self.next_sentence,
                 'code': 'HE',
                 'type': TAG_TYPE['sentence']
             },
             'unknown': {
-                'get_content': self.unknown_tag,
                 'code': '',
                 'type': TAG_TYPE['unknown']
+            },
+            'spelling': {
+                'code': 'SP',
+                'type': TAG_TYPE['word']
             }
         }
 
@@ -202,4 +204,5 @@ class KML:
         return result.strip()
 
     def next_tag_content(self, tag: str) -> str:
-        return self.tag_info[self.fullname(tag)]['get_content']()
+        # return self.tag_info[self.fullname(tag)]['get_content']()
+        return self.content_function[self.tag_info[self.fullname(tag)]['type']]()
