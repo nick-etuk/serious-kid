@@ -6,13 +6,13 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 */
 import { nextPage } from '../services/pagination/next-page';
-import { snippet } from '../services/data/data.interface';
+import { Snippet, Question } from '../services/data/data.interface';
 import { useState } from 'react';
 import { getStudentPos } from '../services/student/progress';
 import { log } from '../../utils/log';
 import { listSnippets } from '../services/data';
-
-
+import { getQuestions, refineQuestions, Step } from '../services/journey';
+import { syncDB } from '../services/data/watermelon-db';
 
 export function TabOneScreen() {
   //var pageSnippets: snippet[] = [];
@@ -39,7 +39,19 @@ export function TabOneScreen() {
     }
   }
 
+  function askQuestions(step: Step) {
+    const snippets = listSnippets(step.start, step.end);
+    const questions = getQuestions(snippets);
+    const refined = refineQuestions(questions);
+    //navigate to questions(refined)
+
+  }
   function nextPageClick() {
+    if (lastSnippetID === step.end) {
+      askQuestions(step);
+      return;
+    };
+
     pageHistory.push(studentPos);
     const result = getPage(lastSnippetID + 1);
     setPageContent(result.jsx);
@@ -53,13 +65,26 @@ export function TabOneScreen() {
     const result = getPage( prevPageStart);
     setPageContent(result.jsx);
     setStudentPos(prevPageStart);
+    studenContext.pos = prevPageStart;
     setlastSnippetID(result.lastSnippetID);
   }
 
-  const [studentPos, setStudentPos] = useState(getStudentPos(1));
+  const [studentPos, setStudentPos] = useState(getStudentPos(1));    
   const result = getPage(1);
   pageHistory.push(1);
   const [pageContent, setPageContent] = useState(result.jsx);
+
+  const step:Step = {
+    id: 1,
+    start: 1,
+    end: 9
+  };
+
+  const studenContext = {
+    pos: getStudentPos(1),
+    lastSnippetID: result.lastSnippetID
+  };
+
   const [lastSnippetID, setlastSnippetID] = useState(result.lastSnippetID);
 
   //const actual = listSnippets(3, 6);
@@ -71,6 +96,8 @@ export function TabOneScreen() {
       <div></div>
       {studentPos > 1 && <button onClick={prevPageClick}>Previous</button>}
       <button onClick={nextPageClick}>Next</button>
+      <br></br>
+      <button onClick={syncDB}>Sync Databases</button>
     </div>
   );
 }

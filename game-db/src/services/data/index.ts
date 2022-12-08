@@ -1,7 +1,7 @@
-import { snippet } from "./data.interface";
+import { Question, Snippet } from "./data.interface";
 import { getSnippet } from "./get-snippet";
 import { listSnippets } from "./list-snippets";
 
 export { getSnippet, listSnippets };
 
-export type { snippet };
+export type { Snippet, Question };

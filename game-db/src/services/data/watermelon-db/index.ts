@@ -6,6 +6,7 @@ import LokiJSAdapter from "@nozbe/watermelondb/adapters/lokijs";
 import { schema } from "./model/schema";
 import migrations from "./model/migrations";
 import Snippet from "./model/snippet";
+import { syncDB } from "./sync-db";
 
 const adapter = new LokiJSAdapter({
   schema,
@@ -47,4 +48,4 @@ const database = new Database({
   modelClasses: [Snippet],
 });
 
-export { database };
+export { database, syncDB };
