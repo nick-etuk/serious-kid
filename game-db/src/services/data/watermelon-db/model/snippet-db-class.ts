@@ -1,7 +1,9 @@
 import { Model, Q } from "@nozbe/watermelondb";
 import { children, lazy } from "@nozbe/watermelondb/decorators";
 
-export default class Snippet extends Model {
+export default class SnippetDbClass extends Model {
   static table = "snippet";
-  // @lazy list = Q.where("snippet_id", Q.between(1, 3));
+  list() {
+    Q.where("snippet_id", Q.between(1, 3));
+  }
 }

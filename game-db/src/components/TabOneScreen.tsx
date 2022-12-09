@@ -6,13 +6,14 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 */
 import { nextPage } from '../services/pagination/next-page';
-import { Snippet, Question } from '../services/data/data.interface';
-import { useState } from 'react';
+import { Snippet } from '../services/data/data.interface';
+import React, { useState, useEffect } from 'react';
 import { getStudentPos } from '../services/student/progress';
 import { log } from '../../utils/log';
 import { listSnippets } from '../services/data';
 import { getQuestions, refineQuestions, Step } from '../services/journey';
 import { syncDB } from '../services/data/watermelon-db';
+import { resetDB } from '../services/data/watermelon-db/sync-db';
 
 export function TabOneScreen() {
   //var pageSnippets: snippet[] = [];
@@ -21,58 +22,78 @@ export function TabOneScreen() {
   //let pageContentStr = '';
   const pageHistory: number[] = [];
 
-  function getPage(start: number) {
+  interface pageResult {
+    snippets: Snippet[];
+    lastSnippetID: number;
+  }
+
+  async function getPageSub(start: number):Promise<pageResult> {
     log(0, 'pos:', start, true);
-    const pageSnippets = nextPage(start);
+    const pageSnippets = await nextPage(start);
 
     const x = pageSnippets.reduce((a, i) => a + i.id + ',', '');
     console.log('snippets:' + x);
     //log(0, 'snippets:'+x, null, true);
 
-    const result = pageSnippets.map(s =>
-      <p key={s.id}>{s.content}</p>
-    );
+    const result = pageSnippets;
 
-    return {
-      jsx: result,
+    return await Promise.resolve({
+      snippets: result,
       lastSnippetID: pageSnippets[pageSnippets.length - 1].id
-    }
+    });
   }
 
-  function askQuestions(step: Step) {
-    const snippets = listSnippets(step.start, step.end);
+  async function askQuestions(step: Step) {
+    const snippets = await listSnippets(step.start, step.end);
     const questions = getQuestions(snippets);
     const refined = refineQuestions(questions);
+    console.log(refined);
     //navigate to questions(refined)
 
   }
-  function nextPageClick() {
+  async function nextPageClick() {
     if (lastSnippetID === step.end) {
       askQuestions(step);
       return;
-    };
+    }
 
     pageHistory.push(studentPos);
-    const result = getPage(lastSnippetID + 1);
-    setPageContent(result.jsx);
-    setStudentPos(result.lastSnippetID);
-    setlastSnippetID(result.lastSnippetID);
+    const result = await getPageSub(lastSnippetID + 1);
+    //setPageContent(result.snippets);
+    //setStudentPos(result.lastSnippetID);
+    //setlastSnippetID(result.lastSnippetID);
   }
 
-  function prevPageClick() {
+  async function prevPageClick() {
     log(0, 'pageHistory:', pageHistory, true);
     const prevPageStart = pageHistory.pop() ?? 1;
-    const result = getPage( prevPageStart);
-    setPageContent(result.jsx);
+    const result = await getPageSub(prevPageStart);
+    //setPageContent(result.snippets);
     setStudentPos(prevPageStart);
     studenContext.pos = prevPageStart;
-    setlastSnippetID(result.lastSnippetID);
+    //setlastSnippetID(result.lastSnippetID);
   }
 
-  const [studentPos, setStudentPos] = useState(getStudentPos(1));    
-  const result = getPage(1);
+  //const x = await listSnippets(1,3);
+  //log(0, 'snippets 1 to 3:', x, true);
+  //const [studentPos, setStudentPos] = useState(getStudentPos(1));    
+  const [studentPos, setStudentPos] = useState(1);    
+
+  const [loading, setLoading] = useState(true);
+  const [pageNum, setPageNum] = useState(1);
+  const [pageContent, setPageContent] = useState([] as Snippet[]);
+  const [lastSnippetID, setlastSnippetID] = useState(3);
+
+
+  const getPage = async(start: number) => {
+    setLoading(true);
+    const result = await getPageSub(start).then((x) => x);
+    setPageContent(result.snippets);
+    setlastSnippetID(result.lastSnippetID);
+    setLoading(false);
+  };
+  
   pageHistory.push(1);
-  const [pageContent, setPageContent] = useState(result.jsx);
 
   const step:Step = {
     id: 1,
@@ -82,22 +103,31 @@ export function TabOneScreen() {
 
   const studenContext = {
     pos: getStudentPos(1),
-    lastSnippetID: result.lastSnippetID
+    lastSnippetID: 3
   };
 
-  const [lastSnippetID, setlastSnippetID] = useState(result.lastSnippetID);
+  //const [lastSnippetID, setlastSnippetID] = useState(result.lastSnippetID);
 
   //const actual = listSnippets(3, 6);
   //log(0, 'snippets 3 to 6:', actual);
 
+  useEffect(() => {
+    getPage(pageNum);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNum]);
+  
+  if (loading) return (<div>Loading...</div>);
+
   return (
     <div>
-      {pageContent}
+      {pageContent.map(s =>
+        <p key={s.id}>{s.content}</p>)}
       <div></div>
-      {studentPos > 1 && <button onClick={prevPageClick}>Previous</button>}
-      <button onClick={nextPageClick}>Next</button>
+      {<button onClick={()=>setPageNum(pageHistory.pop() ?? 1)}>Previous</button>}
+      <button onClick={() => { setPageNum(lastSnippetID + 1);pageHistory.push(lastSnippetID + 1) }}>Next</button>
       <br></br>
-      <button onClick={syncDB}>Sync Databases</button>
+      <button onClick={resetDB}>Reset Database</button>
+      <button onClick={syncDB}>Sync Database</button>
     </div>
   );
 }

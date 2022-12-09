@@ -5,13 +5,13 @@ import SQLiteAdapter from "@nozbe/watermelondb/adapters/sqlite";
 import LokiJSAdapter from "@nozbe/watermelondb/adapters/lokijs";
 import { schema } from "./model/schema";
 import migrations from "./model/migrations";
-import Snippet from "./model/snippet";
+import SnippetDbClass from "./model/snippet-db-class";
 import { syncDB } from "./sync-db";
 
 const adapter = new LokiJSAdapter({
   schema,
   // (You might want to comment out migrations for development purposes -- see Migrations documentation)
-  // migrations,
+  migrations,
   useWebWorker: false,
   useIncrementalIndexedDB: true,
   dbName: "serious-kid", // optional db name
@@ -45,7 +45,7 @@ const adapter = new LokiJSAdapter({
 
 const database = new Database({
   adapter,
-  modelClasses: [Snippet],
+  modelClasses: [SnippetDbClass],
 });
 
 export { database, syncDB };
