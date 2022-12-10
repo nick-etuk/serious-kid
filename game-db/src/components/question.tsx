@@ -12,10 +12,9 @@ import { getStudentPos } from '../services/student/progress';
 import { log } from '../../utils/log';
 import { listSnippets } from '../services/data';
 import { getQuestions, refineQuestions, Step } from '../services/journey';
-import { syncDB } from '../services/data/watermelon-db';
-import { resetDB } from '../services/data/watermelon-db/sync-db';
+import { Link } from 'react-router-dom';
 
-export function TabOneScreen() {
+export function StepPage() {
   //var pageSnippets: snippet[] = [];
   //var pageContent1: JSX.Element[] = [];
   //var pageContent: JSX.Element[] = [];
@@ -98,7 +97,7 @@ export function TabOneScreen() {
   const step:Step = {
     id: 1,
     start: 1,
-    end: 9
+    end: 6
   };
 
   const studenContext = {
@@ -124,10 +123,8 @@ export function TabOneScreen() {
         <p key={s.id}>{s.content}</p>)}
       <div></div>
       {<button onClick={()=>setPageNum(pageHistory.pop() ?? 1)}>Previous</button>}
-      <button onClick={() => { setPageNum(lastSnippetID + 1);pageHistory.push(lastSnippetID + 1) }}>Next</button>
-      <br></br>
-      <button onClick={resetDB}>Reset Database</button>
-      <button onClick={syncDB}>Sync Database</button>
+      <button onClick={() => { setPageNum(lastSnippetID + 1); pageHistory.push(lastSnippetID + 1) }}>Next</button>
+      {lastSnippetID===step.end && <Link to="/question/1">Questions</Link>}
     </div>
   );
 }

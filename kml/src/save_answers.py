@@ -16,7 +16,8 @@ def save_answer(level_id: int, subject_id: str, question_id: int, answer_id: int
 
 
 def save_answers(level_id: int, subject_id: str, content: str, file_id: int):
-    snippet_id, descr = get_last_item('snippet', 'Q', file_id)
+    snippet_id, descr = get_last_item(
+        'snippet', 'P', level_id=level_id, subject_id=subject_id, id=file_id)
     answers = content.split(',')
     for index, answer in enumerate(answers):
         print(f'Answer to {descr}: {index}.{answer.strip()}')
