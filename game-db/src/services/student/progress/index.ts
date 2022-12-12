@@ -1,3 +1,5 @@
-import { getStudentPos } from "./get-student-pos";
+import { getStudentStep } from "./get-student-step";
+import { nextStep } from "./next-step";
+import { setStudentStep } from "./set-student-step";
 
-export { getStudentPos };
+export { getStudentStep, nextStep, setStudentStep };

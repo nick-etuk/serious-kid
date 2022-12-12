@@ -1,7 +1,11 @@
+import { Snippet } from "../data";
+
 interface Step {
-  id: number;
+  stepId: number;
   start: number;
   end: number;
+  currentSnippetId: number;
+  snippets: Snippet[];
 }
 
 export type { Step };

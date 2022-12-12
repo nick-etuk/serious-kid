@@ -1,4 +1,5 @@
 import express from "express";
+import { getQuestions } from "./questions/get-questions";
 const cors = require("cors");
 
 import { getBackendChanges } from "./sync-db";
@@ -34,6 +35,18 @@ app.get("/push", async (req, res) => {
     statusCode: 200,
     headers: headers,
     body: {},
+  };
+  res.send(response);
+});
+
+app.get("/questions", async (req, res) => {
+  console.log("=>questions:");
+  log(0, "snippets:", req.query.s, true);
+  const questions = await getQuestions(req.query.s as string);
+  const response = {
+    statusCode: 200,
+    headers: headers,
+    body: questions,
   };
   res.send(response);
 });

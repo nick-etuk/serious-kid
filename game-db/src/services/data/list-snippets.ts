@@ -5,15 +5,15 @@ import { snippetDb } from "./snippet-json";
 import { database } from "./watermelon-db";
 import SnippetDbClass from "./watermelon-db/model/snippet-db-class";
 
-export async function listSnippets(
-  start: number,
-  end: number
-): Promise<Snippet[]> {
+async function zlistSnippets(start: number, end: number): Promise<Snippet[]> {
   return await listSnippetsJson(start, end);
 }
 
-function listSnippetsJson(start: number, end: number): Snippet[] {
-  return snippetDb.filter((s) => s.id >= start && s.id <= end);
+async function listSnippetsJson(
+  start: number,
+  end: number
+): Promise<Snippet[]> {
+  return snippetDb.filter((s) => s.snippetId >= start && s.snippetId <= end);
 }
 
 async function listSnippetsDB(start: number, end: number): Promise<Snippet[]> {
@@ -34,3 +34,4 @@ async function listSnippetsDB2(start: number, end: number): Promise<Snippet[]> {
   log(0, "db snippets v2:", result, true);
   return result as unknown as Snippet[];
 }
+export { listSnippetsJson as listSnippets };
