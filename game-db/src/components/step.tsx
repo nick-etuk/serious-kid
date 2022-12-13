@@ -49,21 +49,27 @@ export function StepPage({ steps, display }:StepProps) {
     getPage(pageFirstSnippetID);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageFirstSnippetID]);
-  
+
+  useEffect(() => {
+    log(0,'next step click. snippetId set to',steps[stepNum].snippets[0].snippetId)
+    setPageFirstSnippetID(steps[stepNum].snippets[0].snippetId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepNum]);
+
   if (loading) return (<div>Loading...</div>);
 
     return (
     <div>
     { lastSnippetID <= steps[stepNum].end && 
           <div>
-            <p>Step {stepNum}: Step Snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')} Page:{pageSnippetList}</p>
-            {pageContent.map(s => <p key={s.snippetId}>{s.descr}</p>)}
+            <p>Step {stepNum}: Step Snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')} Page:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}</p>
+            {pageContent.map(s => <p key={s.snippetId}>{s.descr}   [{s.snippetId}]</p>)}
             <div></div>
             <button onClick={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)}>Previous</button>
             <button onClick={() => { setPageFirstSnippetID(lastSnippetID + 1); pageHistory.push(lastSnippetID + 1) }}>Next</button>
-            <button onClick={() => { setStepNum(stepNum - 1); setPageFirstSnippetID(steps[stepNum].snippets[0].snippetId) }}>Previous Step</button>
-            <button onClick={() => { setStepNum(stepNum + 1); log(0,'next step click. id set to',steps[stepNum].snippets[0].snippetId) ;setPageFirstSnippetID(steps[stepNum].snippets[0].snippetId) }}>Next Step</button>
-
+            <br/><br/>
+            <button onClick={() => { setStepNum(x => x - 1) }}>Previous Step</button>
+            <button onClick={() => { setStepNum(x => x + 1) }}>Next Step</button>
         </div>
             }
     { lastSnippetID > steps[stepNum].end && 

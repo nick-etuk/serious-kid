@@ -28,7 +28,7 @@ export function App() {
     const [stepNum, setStepNum] = useState(0);
 
     useEffect(() => {
-        log(0, '=>useEffect');
+        log(0, '=>App.useEffect');
         getSteps(); /*to-do fix this */
     // eslint-disable-next-line react-hooks/exhaustive-deps
     });
@@ -37,9 +37,6 @@ export function App() {
     const snippetList = steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '');
 
     return (
-        <>
-            <button onClick={()=>setStepNum(stepNum - 1)}>App Previous Step</button>
-            <button onClick={() => { setStepNum(stepNum + 1) }}>App Next Step</button>
         <Routes>
             <Route path="/" element={<Layout stepNum={stepNum} snippetList={snippetList} />}>
                 <Route index element={<Home />} />
@@ -48,7 +45,5 @@ export function App() {
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
-        </>
-
-            )
+    )
 }
