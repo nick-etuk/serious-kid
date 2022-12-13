@@ -2,15 +2,16 @@ import { nextPage } from '../services/pagination/next-page';
 import { Snippet } from '../services/data/data.interface';
 import React, { useState, useEffect } from 'react';
 import { log } from '../../utils/log';
-import { AppProps } from '../app.interface';
+import { StepProps } from '../app.interface';
 import { QuestionPage } from './questions';
 
-export function StepPage({ step, questions, display }:AppProps) {
+export function StepPage({ steps, display }:StepProps) {
   //var pageSnippets: snippet[] = [];
   //var pageContent1: JSX.Element[] = [];
   //var pageContent: JSX.Element[] = [];
   //let pageContentStr = '';
   const pageHistory: number[] = [];
+  let pageSnippetList = '';
 
   interface pageResult {
     snippets: Snippet[];
@@ -19,9 +20,8 @@ export function StepPage({ step, questions, display }:AppProps) {
 
   function getPageSub(currentSnippetId: number):pageResult {
     log(0, 'currentSnippetId', currentSnippetId, true);
-    const result = nextPage(currentSnippetId, step.snippets, display);
-    const x = result.reduce((a, i) => a + i.snippetId + ',', '');
-    console.log('snippets:' + x);
+    const result = nextPage(currentSnippetId, steps[stepNum].snippets, display);
+    pageSnippetList = result.reduce((a, i) => a + i.snippetId + ',', '');
     return {
       snippets: result,
       lastSnippetID: result[result.length - 1].snippetId
@@ -37,31 +37,37 @@ export function StepPage({ step, questions, display }:AppProps) {
     setLoading(false);
   };
   
-  pageHistory.push(step.currentSnippetId);
+  const [stepNum, setStepNum] = useState(0);
+  const initialSnippetId = steps[0].snippets[0].snippetId;
+  pageHistory.push(initialSnippetId);
   const [loading, setLoading] = useState(true);
-  const [pageNum, setPageNum] = useState(step.currentSnippetId);
+  const [pageFirstSnippetID, setPageFirstSnippetID] = useState(initialSnippetId);
   const [pageContent, setPageContent] = useState([] as Snippet[]);
-  const [lastSnippetID, setlastSnippetID] = useState(3);
+  const [lastSnippetID, setlastSnippetID] = useState(3); //*to-do: fix this
 
   useEffect(() => {
-    getPage(pageNum);
+    getPage(pageFirstSnippetID);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageNum]);
+  }, [pageFirstSnippetID]);
   
   if (loading) return (<div>Loading...</div>);
 
     return (
     <div>
-    { lastSnippetID <= 3 /*step.end*/ && 
-        <div>
+    { lastSnippetID <= steps[stepNum].end && 
+          <div>
+            <p>Step {stepNum}: Step Snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')} Page:{pageSnippetList}</p>
             {pageContent.map(s => <p key={s.snippetId}>{s.descr}</p>)}
             <div></div>
-            <button onClick={()=>setPageNum(pageHistory.pop() ?? 1)}>Previous</button>
-            <button onClick={() => { setPageNum(lastSnippetID + 1); pageHistory.push(lastSnippetID + 1) }}>Next</button>
+            <button onClick={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)}>Previous</button>
+            <button onClick={() => { setPageFirstSnippetID(lastSnippetID + 1); pageHistory.push(lastSnippetID + 1) }}>Next</button>
+            <button onClick={() => { setStepNum(stepNum - 1); setPageFirstSnippetID(steps[stepNum].snippets[0].snippetId) }}>Previous Step</button>
+            <button onClick={() => { setStepNum(stepNum + 1); log(0,'next step click. id set to',steps[stepNum].snippets[0].snippetId) ;setPageFirstSnippetID(steps[stepNum].snippets[0].snippetId) }}>Next Step</button>
+
         </div>
             }
-    { lastSnippetID > 3 /*step.end*/ && 
-       <QuestionPage questions={questions} step={step} display={display} />
+    { lastSnippetID > steps[stepNum].end && 
+       <QuestionPage questions={steps[stepNum].questions}/>
     }
             
     </div>)

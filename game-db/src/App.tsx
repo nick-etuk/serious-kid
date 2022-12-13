@@ -1,34 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
+import { StepPage } from './components/step'
+import { NotFound } from './components/not-found';
+import { Admin } from './components/admin';
+import { Layout } from './components/layout';
+import { Home } from './components/home';
+import { Step } from './services/journey';
+//import { log } from '../utils';
+import { nextLap } from './services/pagination/next-lap';
+import { log } from '../utils';
+//import { getStudentPos } from './services/student/progress';
 
-function App() {
-  const [count, setCount] = useState(0)
+export function App() {
+    let steps: Step[] = [];
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Serious Geography</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    function getSteps() {
+        log(0, '=>getSteps');
+        steps = nextLap(0, 80);
+        //log(0, 'steps', steps, true);
+    }
+    
+    const display = {
+        chars: 300
+    };
+
+    
+    const [stepNum, setStepNum] = useState(0);
+
+    useEffect(() => {
+        log(0, '=>useEffect');
+        getSteps(); /*to-do fix this */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    });
+    log(0, 'stepNum', stepNum, true);
+    getSteps();
+    const snippetList = steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '');
+
+    return (
+        <>
+            <button onClick={()=>setStepNum(stepNum - 1)}>App Previous Step</button>
+            <button onClick={() => { setStepNum(stepNum + 1) }}>App Next Step</button>
+        <Routes>
+            <Route path="/" element={<Layout stepNum={stepNum} snippetList={snippetList} />}>
+                <Route index element={<Home />} />
+                <Route path="step" element={<StepPage steps={steps} display={display} />} />
+                <Route path="admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+            </Route>
+        </Routes>
+        </>
+
+            )
 }
-
-export default App

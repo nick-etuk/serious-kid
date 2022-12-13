@@ -1,11 +1,12 @@
-import { Snippet } from "../data";
+import { Question, Snippet } from "../data";
 
 interface Step {
-  stepId: number;
+  stepNum: number;
   start: number;
   end: number;
   currentSnippetId: number;
   snippets: Snippet[];
+  questions: Question[];
 }
 
 export type { Step };

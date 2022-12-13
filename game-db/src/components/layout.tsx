@@ -1,7 +1,9 @@
 import React from 'react';
 import { Outlet, Link } from "react-router-dom";
+import { LayoutProps } from '../app.interface';
+import '../styles.css';
 
-export function Layout () {
+export function Layout ({ snippetList, stepNum}:LayoutProps) {
   return (
     <>
       <nav>

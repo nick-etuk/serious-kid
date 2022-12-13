@@ -2,9 +2,10 @@
 import { Answer, Question } from '../services/data/data.interface';
 import React, { useState } from 'react';
 import { log, recordAction } from '../../utils';
-import { AppProps } from '../app.interface';
+import { QuestionProps } from '../app.interface';
 
-export function QuestionPage({step, questions, display }:AppProps) {
+export function QuestionPage({ questions }:QuestionProps) {
+//export function QuestionPage(questions:Question[]) {
 
     function navigateNextStep() {
         //set student step in db to = student step + 1;

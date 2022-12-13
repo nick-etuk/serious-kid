@@ -21,7 +21,7 @@ export const snippetDb: Snippet[] = [
       {
         snippetId: 3,
         questionSeq: 1,
-        questionsnippetType: "T",
+        questionType: "T",
         descr: "who was Vulcan?",
         answers: [
           {
@@ -79,28 +79,73 @@ export const snippetDb: Snippet[] = [
   {
     snippetId: 10,
     snippetType: "P",
-    descr: `Volcanoes are classified as keyword:active, keyword:dormant or keyword:extinct.
-              This refers to the amount of volcanic activity. "Active" means there's regular activity, "dormant" means there's been recent activity, but the volcano is currently quiet, and "extinct" means it’s been so long since the last eruption that it’s unlikely to ever erupt again.
-              amazing:About 1,900 volcanoes on Earth are considered active, likely to explode again. Yikes!`,
+    descr: `Volcanoes are classified as keyword:active, keyword:dormant or keyword:extinct.`,
     questions: [],
   },
   {
     snippetId: 11,
-    snippetType: "HE",
-    descr: "Where they occur",
+    snippetType: "P",
+    descr: `This refers to the amount of volcanic activity. "Active" means there's regular activity, "dormant" means there's been recent activity, but the volcano is currently quiet, and "extinct" means it’s been so long since the last eruption that it’s unlikely to ever erupt again.`,
     questions: [],
   },
   {
     snippetId: 12,
     snippetType: "P",
-    descr: `Volcanoes are often found at meeting points of topic:tectonic plates:.
-              These plates are pieces of the Earth's surface that fit together just like a jigsaw puzzle.
-              Volcanoes can also occur over hard:mantle plumes:.
-              Mantle plumes are super-hot areas of rock inside the Earth!
-              Volcanoes don't just occur on land.
-              They can be found on the ocean floor and under ice caps, too!
-              Volcanoes exist throughout the solar system!
-              Other planets and moons have volcanoes, too.`,
+    descr: `amazing:About 1,900 volcanoes on Earth are considered active, likely to explode again. Yikes!`,
+    questions: [],
+  },
+  {
+    snippetId: 13,
+    snippetType: "HE",
+    descr: "Where they occur",
+    questions: [],
+  },
+  {
+    snippetId: 14,
+    snippetType: "P",
+    descr: `Volcanoes are often found at meeting points of topic:tectonic plates:.`,
+    questions: [],
+  },
+  {
+    snippetId: 15,
+    snippetType: "P",
+    descr: `These plates are pieces of the Earth's surface that fit together just like a jigsaw puzzle.`,
+    questions: [],
+  },
+  {
+    snippetId: 16,
+    snippetType: "P",
+    descr: `Volcanoes can also occur over hard:mantle plumes:.`,
+    questions: [],
+  },
+  {
+    snippetId: 17,
+    snippetType: "P",
+    descr: `Mantle plumes are super-hot areas of rock inside the Earth!`,
+    questions: [],
+  },
+  {
+    snippetId: 18,
+    snippetType: "P",
+    descr: `Volcanoes don't just occur on land.`,
+    questions: [],
+  },
+  {
+    snippetId: 19,
+    snippetType: "P",
+    descr: `They can be found on the ocean floor and under ice caps, too!`,
+    questions: [],
+  },
+  {
+    snippetId: 20,
+    snippetType: "P",
+    descr: `Volcanoes exist throughout the solar system!`,
+    questions: [],
+  },
+  {
+    snippetId: 21,
+    snippetType: "P",
+    descr: `Other planets and moons have volcanoes, too.`,
     questions: [],
   },
 ];

@@ -5,8 +5,8 @@ import { isEmpty } from "lodash";
 function log(
   severity: number,
   summary: string,
-  details: any = null,
-  always: boolean = false
+  details: object | string | number = {},
+  always = false
 ) {
   if (severity < LOG_FENCE) return;
   if (always === false && summary === "warningList") {
@@ -31,17 +31,17 @@ function log(
 
   if (details === Object(details)) {
     if (isEmpty(details) && !always) return;
-    console.log(objType + " " + objName);
+    console.log(objType + ": " + objName);
     console.log(JSON.stringify(details, null, 2));
   } else {
     if (["string", "number"].includes(objType)) {
-      if (summary && details) {
-        console.log(summary + ":" + details);
+      if (summary) {
+        console.log(summary + (details || details == 0 ? ": " : "") + details);
       } else {
         console.log(details);
       }
     } else {
-      typeof details + ":" + details;
+      typeof details + ": " + details;
     }
     //console.log(objType === ['string'] ? details : typeof details + ':' + details);
   }

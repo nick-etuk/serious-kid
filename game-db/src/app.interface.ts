@@ -7,6 +7,20 @@ interface AppProps {
   display: Display;
 }
 
+interface StepProps {
+  steps: Step[];
+  display: Display;
+}
+
+interface QuestionProps {
+  questions: Question[];
+}
+
+interface LayoutProps {
+  snippetList: string;
+  stepNum: number;
+}
+
 interface Display {
   height?: {
     pixels: number;
@@ -19,4 +33,4 @@ interface Display {
   chars: number;
 }
 
-export type { AppProps, Display };
+export type { AppProps, StepProps, QuestionProps, LayoutProps, Display };
