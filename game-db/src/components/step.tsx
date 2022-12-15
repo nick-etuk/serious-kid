@@ -5,11 +5,9 @@ import { log } from '../../utils/log';
 import { StepProps } from '../app.interface';
 import { QuestionPage } from './questions';
 
-export function StepPage({ steps, display }:StepProps) {
-  //var pageSnippets: snippet[] = [];
-  //var pageContent1: JSX.Element[] = [];
-  //var pageContent: JSX.Element[] = [];
-  //let pageContentStr = '';
+import { useAppSelector } from '../store/hooks'
+
+export function StepPage({ steps, display }: StepProps) {
   const pageHistory: number[] = [];
   let pageSnippetList = '';
 
@@ -37,8 +35,10 @@ export function StepPage({ steps, display }:StepProps) {
     setLoading(false);
   };
   
-  const [stepNum, setStepNum] = useState(0);
-  const initialSnippetId = steps[0].snippets[0].snippetId;
+  //const [stepNum, setStepNum] = useState(0);
+  const stepNum = useAppSelector(state => state.counter.value);
+
+  const initialSnippetId = steps[stepNum].snippets[0].snippetId;
   pageHistory.push(initialSnippetId);
   const [loading, setLoading] = useState(true);
   const [pageFirstSnippetID, setPageFirstSnippetID] = useState(initialSnippetId);
@@ -50,26 +50,26 @@ export function StepPage({ steps, display }:StepProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageFirstSnippetID]);
 
+  /*
   useEffect(() => {
     log(0,'next step click. snippetId set to',steps[stepNum].snippets[0].snippetId)
     setPageFirstSnippetID(steps[stepNum].snippets[0].snippetId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stepNum]);
-
+  */
   if (loading) return (<div>Loading...</div>);
 
     return (
     <div>
     { lastSnippetID <= steps[stepNum].end && 
           <div>
-            <p>Step {stepNum}: Step Snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')} Page:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}</p>
+            <p>Step {stepNum}: Step snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')} Page snippets:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}</p>
             {pageContent.map(s => <p key={s.snippetId}>{s.descr}   [{s.snippetId}]</p>)}
             <div></div>
             <button onClick={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)}>Previous</button>
             <button onClick={() => { setPageFirstSnippetID(lastSnippetID + 1); pageHistory.push(lastSnippetID + 1) }}>Next</button>
             <br/><br/>
-            <button onClick={() => { setStepNum(x => x - 1) }}>Previous Step</button>
-            <button onClick={() => { setStepNum(x => x + 1) }}>Next Step</button>
+            <QuestionPage questions={steps[stepNum].questions}/>
         </div>
             }
     { lastSnippetID > steps[stepNum].end && 

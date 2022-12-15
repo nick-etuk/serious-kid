@@ -32,7 +32,7 @@
             "request": "attach"
         },
         {
-            "name": "Debug in Exponent",
+            "name": "Debug in Expo",
             "cwd": "${workspaceFolder}",
             "type": "reactnative",
             "request": "launch",

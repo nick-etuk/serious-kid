@@ -9,6 +9,7 @@ import { Step } from './services/journey';
 //import { log } from '../utils';
 import { nextLap } from './services/pagination/next-lap';
 import { log } from '../utils';
+import { useAppSelector } from './store/hooks';
 //import { getStudentPos } from './services/student/progress';
 
 export function App() {
@@ -25,7 +26,8 @@ export function App() {
     };
 
     
-    const [stepNum, setStepNum] = useState(0);
+    //const [stepNum, setStepNum] = useState(0);
+    const stepNum = useAppSelector(state => state.counter.value);
 
     useEffect(() => {
         log(0, '=>App.useEffect');
@@ -34,11 +36,10 @@ export function App() {
     });
     log(0, 'stepNum', stepNum, true);
     getSteps();
-    const snippetList = steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '');
 
     return (
         <Routes>
-            <Route path="/" element={<Layout stepNum={stepNum} snippetList={snippetList} />}>
+            <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="step" element={<StepPage steps={steps} display={display} />} />
                 <Route path="admin" element={<Admin />} />

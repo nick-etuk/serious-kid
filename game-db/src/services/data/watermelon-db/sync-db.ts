@@ -2,11 +2,12 @@ import { synchronize } from "@nozbe/watermelondb/sync";
 import { database } from ".";
 
 export async function resetDB() {
-  await database.unsafeResetDatabase();
+  await database.write(async () => {
+    await database.unsafeResetDatabase();
+  });
 }
 
 export async function syncDB() {
-  await database.unsafeResetDatabase();
   await synchronize({
     database,
     pullChanges: async ({ lastPulledAt, schemaVersion, migration }) => {
