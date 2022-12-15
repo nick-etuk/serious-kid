@@ -1,3 +1,5 @@
-import { getCurrentSnippet } from "./get-current-snippet";
+import { getStudentStep } from "./get-student-step";
+import { nextStep } from "./next-step";
+import { setStudentStep } from "./set-student-step";
 
-export { getCurrentSnippet };
+export { getStudentStep, nextStep, setStudentStep };

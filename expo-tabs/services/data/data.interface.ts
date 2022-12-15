@@ -1,9 +1,21 @@
-interface snippet {
-    id: number;
-    type: string,
-    content: string
-};
+interface Snippet {
+  snippetId: number;
+  snippetType: string;
+  descr: string;
+  questions: Question[];
+}
 
-export type {
-    snippet
-};
+interface Question {
+  snippetId: number;
+  questionSeq: number;
+  questionType: string;
+  descr: string;
+  answers: Answer[];
+}
+
+interface Answer {
+  answerSeq: number;
+  descr: string;
+}
+
+export type { Snippet, Question, Answer };
