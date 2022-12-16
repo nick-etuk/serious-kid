@@ -1,6 +1,9 @@
 import { nextPage } from '../services/pagination/next-page';
 import { Snippet } from '../services/data/data.interface';
 import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+
+import { styles } from '../styles';
 import { log } from '../utils';
 import { StepProps } from '../app.interface';
 import { QuestionPage } from './questions';
@@ -8,8 +11,8 @@ import { QuestionPage } from './questions';
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { showQuestionsAction } from '../store/show-questions-slice';
 
-import { View } from 'react-native';
 import { NavButton } from './button';
+import { renderSnippet } from './render-snippet';
 
 export function StepPage({ steps, display }: StepProps) {
   const pageHistory: number[] = [];
@@ -67,23 +70,31 @@ export function StepPage({ steps, display }: StepProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stepNum]);
   */
-  if (loading) return (<View>Loading...</View>);
+  if (loading) return (<View><Text>Loading...</Text></View>);
 
     return (
-    <View>
-      { pageLastSnippetId <= steps[stepNum].end && !showQuestions &&
-          <View>
-            <p>Step {stepNum}: Page snippets:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}  Step snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')}</p>
-            {pageContent.map(s => <p key={s.snippetId}>{s.descr}   [{s.snippetId}]</p>)}
-            <View></View>
-            {pageFirstSnippetId > steps[stepNum].start && <NavButton title='Previous' onPress={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)} />}
-            {pageLastSnippetId < steps[stepNum].end && <NavButton title='Next' onPress={() => { setPageFirstSnippetID(pageLastSnippetId + 1); pageHistory.push(pageLastSnippetId + 1) }} />}
-            {pageLastSnippetId === steps[stepNum].end && <NavButton title='Test me' onPress={() => { dispatch(showQuestionsAction()) }} />}
-            <br/><br/>
+        <View style={styles.container}>
+            <View style={styles.contentContainer}> 
+                <View style={styles.titleWrapper}>
+                    <Text>Step {stepNum}: Page snippets:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}  Step snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')}</Text>
+                </View>
+                <View style={styles.inputWrapper}>
+                    { pageLastSnippetId <= steps[stepNum].end && !showQuestions &&
+                        <View>
+                            <>
+                                {pageContent.map(s => renderSnippet(s))}
+                            </>
+                        </View>
+                    }
+                    {showQuestions && <QuestionPage questions={steps[stepNum].questions} stepStart={steps[stepNum].start} /> }        
+                </View>
+            </View>
+            <View style={styles.footer}>
+                {pageFirstSnippetId > steps[stepNum].start && <NavButton title='Previous' onPress={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)} />}
+                {pageLastSnippetId < steps[stepNum].end && <NavButton title='Next' onPress={() => { setPageFirstSnippetID(pageLastSnippetId + 1); pageHistory.push(pageLastSnippetId + 1) }} />}
+                {pageLastSnippetId === steps[stepNum].end && <NavButton title='Test me' onPress={() => { dispatch(showQuestionsAction()) }} />}
+            </View>
         </View>
-      }
-        {showQuestions && <QuestionPage questions={steps[stepNum].questions} stepStart={steps[stepNum].start} /> }        
-    </View>
     )
 }
 

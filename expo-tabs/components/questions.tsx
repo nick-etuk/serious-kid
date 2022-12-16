@@ -10,7 +10,7 @@ import { hideQuestionsAction } from '../store/show-questions-slice';
 import { setCurrentSnippetId } from '../store/current-snippet-id-slice';
 
 
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { AnswerButton, NavButton } from './button';
 
 export function QuestionPage({ questions, stepStart }:QuestionProps) {
@@ -40,7 +40,7 @@ export function QuestionPage({ questions, stepStart }:QuestionProps) {
 
     return (
         <View>  
-            <p>{q ? q.descr : 'There are no questions for this section'}</p>
+            <Text>{q ? q.descr : 'There are no questions for this section'}</Text>
             <br></br>
             {q && q.answers.map(a =>
                 <AnswerButton title={a.descr} key={a.answerSeq} onPress={() => {
@@ -56,5 +56,3 @@ export function QuestionPage({ questions, stepStart }:QuestionProps) {
         </View>
     );
 }
-
-

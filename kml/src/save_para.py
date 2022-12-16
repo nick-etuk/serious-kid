@@ -4,7 +4,7 @@ from lib import named_tuple_factory
 from utils_next_id import next_id
 
 
-def save_para(level_id: int, subject_id: str, content: str, file_id: int) -> int:
+def save_para(level_id: str, subject_id: str, content: str, file_id: int) -> int:
     if not content:
         return
 

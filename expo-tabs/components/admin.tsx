@@ -9,7 +9,7 @@ function ViewSnippets() {
     return (
     <View>
         {snippets.map(s =>
-            <p key={s.snippetId}>{s.snippetId}. {s.descr}</p>
+            <p key={s.snippetId}>{s.snippetId}. {s.descr}</Text>
         )}
     </View>
     )
