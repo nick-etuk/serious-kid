@@ -1,7 +1,7 @@
 import { Collection, Model, Q } from "@nozbe/watermelondb";
 import { log } from "../../utils";
 import { Snippet } from "./data.interface";
-import { snippetDb } from "./snippet-json";
+import { snippetTable } from "./files/snippet-table";
 import { database } from "./watermelon-db";
 import SnippetDbClass from "./watermelon-db/model/snippet-db-class";
 
@@ -13,7 +13,7 @@ async function listSnippetsJson(
   start: number,
   end: number
 ): Promise<Snippet[]> {
-  return snippetDb.filter((s) => s.snippetId >= start && s.snippetId <= end);
+  return snippetTable.filter((s) => s.snippetId >= start && s.snippetId <= end);
 }
 
 async function listSnippetsDB(start: number, end: number): Promise<Snippet[]> {
@@ -36,6 +36,7 @@ async function listSnippetsDB2(start: number, end: number): Promise<Snippet[]> {
   return result as unknown as Snippet[];
 }
 
+/*
 async function listSnippetsDB3(
   start: number,
   end: number
@@ -46,4 +47,8 @@ async function listSnippetsDB3(
   //log(0, "db snippets v2:", result, true);
   return await Promise.resolve(snippets);
 }
-export { listSnippetsJson as listSnippets, listSnippetsDB, listSnippetsDB3 };
+*/
+export {
+  listSnippetsJson as listSnippets,
+  listSnippetsDB /*, listSnippetsDB3 */,
+};

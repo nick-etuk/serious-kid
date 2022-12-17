@@ -1,7 +1,7 @@
 import { Image, Text } from 'react-native';
 import TextLink from 'react-native-text-link';
 import { Snippet } from '../services/data';
-import { snippetLinks } from '../services/data/snippet-links';
+import { snippetLinks } from '../services/data/files/snippet-link-table';
 import { fragments } from '../services/pagination/fragments';
 import { renderFragments } from '../services/pagination/render-fragments';
 

@@ -1,9 +1,9 @@
 //import { log } from "../../../utils";
-import { snippetDb } from "../../data/snippet-json";
+import { snippetTable } from "../../data/files/snippet-table";
 import { Step } from "../../journey";
 import { nextLap } from "../next-lap";
 
-let snippets = snippetDb.slice(1 - 1, 10);
+let snippets = snippetTable.slice(1 - 1, 10);
 let questions = snippets.filter((s) => s.questions).flatMap((s) => s.questions);
 
 const step1: Step = {
@@ -15,7 +15,7 @@ const step1: Step = {
   questions: questions,
 };
 
-snippets = snippetDb.slice(11 - 1, 14);
+snippets = snippetTable.slice(11 - 1, 14);
 questions = snippets.filter((s) => s.questions).flatMap((s) => s.questions);
 
 const step2: Step = {
@@ -27,7 +27,7 @@ const step2: Step = {
   questions: questions,
 };
 
-snippets = snippetDb.slice(15 - 1, 21);
+snippets = snippetTable.slice(15 - 1, 21);
 questions = snippets.filter((s) => s.questions).flatMap((s) => s.questions);
 
 const step3: Step = {

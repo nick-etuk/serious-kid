@@ -1,6 +1,6 @@
-import { Snippet } from "./data.interface";
+import { Snippet } from "../data.interface";
 
-export const snippetDb: Snippet[] = [
+export const snippetTable: Snippet[] = [
   {
     snippetId: 1,
     snippetType: "HE",

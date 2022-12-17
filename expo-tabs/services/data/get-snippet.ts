@@ -1,6 +1,6 @@
 import { Snippet } from "./data.interface";
-import { snippetDb } from "./snippet-json";
+import { snippetTable } from "./files/snippet-table";
 
 export function getSnippet(snippetId: number): Snippet | undefined {
-  return snippetDb.find((x) => x.snippetId === snippetId);
+  return snippetTable.find((x) => x.snippetId === snippetId);
 }

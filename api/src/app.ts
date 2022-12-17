@@ -2,7 +2,7 @@ import express from "express";
 import { getQuestions } from "./questions/get-questions";
 const cors = require("cors");
 
-import { getBackendChanges } from "./sync-db";
+import { getBackendChanges, getDictionary } from "./sync-db";
 import { log } from "./utils/log";
 
 const app = express();
@@ -47,6 +47,17 @@ app.get("/questions", async (req, res) => {
     statusCode: 200,
     headers: headers,
     body: questions,
+  };
+  res.send(response);
+});
+
+app.get("/dictionary", async (req, res) => {
+  console.log("=>dict:");
+  const result = await getDictionary();
+  const response = {
+    statusCode: 200,
+    //headers: headers,
+    body: result,
   };
   res.send(response);
 });

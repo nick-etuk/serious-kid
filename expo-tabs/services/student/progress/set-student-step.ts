@@ -1,4 +1,4 @@
-import { snippetDb } from "../../data/snippet-json";
+import { snippetTable } from "../../data/files/snippet-table";
 
 export function setStudentStep(studentID: number, stepNumber: number) {
   return true;

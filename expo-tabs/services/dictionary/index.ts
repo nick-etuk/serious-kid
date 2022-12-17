@@ -1,3 +1,3 @@
-import { lookupWord } from "./lookup-word";
+import { meaning } from "./meaning";
 
-export { lookupWord };
+export { meaning };

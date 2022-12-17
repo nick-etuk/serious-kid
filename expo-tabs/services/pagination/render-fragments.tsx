@@ -4,7 +4,7 @@ import { Fragment } from './fragments';
 import { styles } from '../../styles';
 import  TextLink  from  'react-native-text-link';
 import { Snippet } from '../data';
-import { snippetLinks } from '../data/snippet-links';
+import { snippetLinkTable } from '../data';
 
 function zrenderFragments(fragments: Fragment[], snippetId: number) {
     let result:JSX.Element[] = [];
@@ -50,7 +50,7 @@ interface LinkType {
 
 export function renderFragments(s: Snippet) {
     const links: LinkType[] = [];
-    for (const word of snippetLinks[s.snippetId]) {
+    for (const word of snippetLinkTable[s.snippetId]) {
         links.push({
             text: word,
             onPress: () => alert(`I know nothing about ${word}!`)

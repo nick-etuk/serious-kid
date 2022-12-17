@@ -1,9 +1,9 @@
 import { getSnippet, Snippet } from "../data";
-import { snippetDb } from "../data/snippet-json";
+import { snippetTable } from "../data/files/snippet-table";
 
 export function znextSnippet(current: number): Snippet | undefined {
-  const currentID = snippetDb[current].snippetId;
-  return snippetDb.find((x) => x.snippetId === currentID + 1);
+  const currentID = snippetTable[current].snippetId;
+  return snippetTable.find((x) => x.snippetId === currentID + 1);
 }
 
 export function nextSnippet(currentSnippetId: number): Snippet | undefined {
