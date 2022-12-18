@@ -5,6 +5,7 @@ import { styles } from '../../styles';
 import  TextLink  from  'react-native-text-link';
 import { Snippet } from '../data';
 import { snippetLinkTable } from '../data';
+import { meaning } from '../dictionary';
 
 function zrenderFragments(fragments: Fragment[], snippetId: number) {
     let result:JSX.Element[] = [];
@@ -45,7 +46,7 @@ function z3renderFragments(fragments: Fragment[], snippetId: number) {
 
 interface LinkType {
     text: string;
-    onPress: ()=>void;
+    onPress: ()=> void;
 }
 
 export function renderFragments(s: Snippet) {
@@ -53,8 +54,8 @@ export function renderFragments(s: Snippet) {
     for (const word of snippetLinkTable[s.snippetId]) {
         links.push({
             text: word,
-            onPress: () => alert(`I know nothing about ${word}!`)
+            onPress: ()=>alert(meaning(word))
         })
     }
-    return (<TextLink links={links}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
+    return (<TextLink key={s.snippetId} links={links}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
 }

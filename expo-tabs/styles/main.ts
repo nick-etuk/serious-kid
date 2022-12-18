@@ -27,4 +27,10 @@ export const styles = StyleSheet.create({
     fontWeight: "normal",
     color: "black",
   },
+  snippetNum: {
+    fontSize: 10,
+    fontWeight: "normal",
+    color: "skyblue",
+    border: 1,
+  },
 });
