@@ -3,7 +3,7 @@ import { Snippet } from '../services/data/data.interface';
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 
-import { styles } from '../styles';
+import { btnStyles, styles } from '../styles';
 import { log } from '../utils';
 import { StepProps } from '../app.interface';
 import { QuestionPage } from './questions';
@@ -75,10 +75,10 @@ export function StepPage({ steps, display }: StepProps) {
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}> 
-                <View style={styles.titleWrapper}>
+                <View style={styles.header}>
                     <Text>Step {stepNum}: Page snippets:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}  Step snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')}</Text>
                 </View>
-                <View style={styles.inputWrapper}>
+                <View style={styles.body}>
                     { pageLastSnippetId <= steps[stepNum].end && !showQuestions &&
                         <View>
                             <>
@@ -90,9 +90,9 @@ export function StepPage({ steps, display }: StepProps) {
                 </View>
             </View>
             <View style={styles.footer}>
-                {pageFirstSnippetId > steps[stepNum].start && <NavButton title='Previous' onPress={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)} />}
-                {pageLastSnippetId < steps[stepNum].end && <NavButton title='Next' onPress={() => { setPageFirstSnippetID(pageLastSnippetId + 1); pageHistory.push(pageLastSnippetId + 1) }} />}
-                {pageLastSnippetId === steps[stepNum].end && <NavButton title='Test me' onPress={() => { dispatch(showQuestionsAction()) }} />}
+                {pageFirstSnippetId > steps[stepNum].start && <NavButton title='Previous' style={btnStyles.prev} onPress={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)} />}
+                {pageLastSnippetId < steps[stepNum].end && <NavButton title='Next' style={btnStyles.next} onPress={() => { setPageFirstSnippetID(pageLastSnippetId + 1); pageHistory.push(pageLastSnippetId + 1) }} />}
+                {pageLastSnippetId === steps[stepNum].end && <NavButton title='Test me' style={btnStyles.next} onPress={() => { dispatch(showQuestionsAction()) }} />}
             </View>
         </View>
     )

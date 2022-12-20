@@ -1,4 +1,4 @@
-import { Image, Text } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import TextLink from 'react-native-text-link';
 import { Snippet } from '../services/data';
 import { snippetLinkTable } from '../services/data/files/snippet-link-table';
@@ -10,14 +10,18 @@ function simpleSnippet(s: Snippet) {
     let result = <></>;
     switch (s.snippetType) {
         case 'HE':
-            result = <Text key={s.snippetId} > {s.descr}[{s.snippetId}]</Text >;
+            result = <Text key={s.snippetId} style={styles.heading}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
             break;
         case 'I':
-            //result = <Image key={s.snippetId} source={require('../assets/images/' + s.descr)} style={{ height: 200, width: 200 }} />
-            result = <Text key={s.snippetId} > {s.descr}<Text style={styles.snippetNum}>[{s.snippetId}]</Text></Text >;
+            /* result =
+                <View key={s.snippetId} style={styles.image}>
+                    <Image key={s.snippetId} source={require('../assets/images/' + s.descr)} style={{ height: 200, width: 200 }} />
+                </View>
+                */
+            result = <Text key={s.snippetId}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
             break;
         default:
-            result = <Text key={s.snippetId} > {s.descr}<Text style={styles.snippetNum}>[{s.snippetId}]</Text></Text >;
+            result = <Text key={s.snippetId} style={styles.para}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
         }
     return result;
 }

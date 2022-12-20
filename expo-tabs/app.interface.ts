@@ -1,4 +1,4 @@
-import { GestureResponderEvent } from "react-native";
+import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
 import { Question } from "./services/data";
 import { Step } from "./services/journey";
 
@@ -26,6 +26,7 @@ interface LayoutProps {
 interface ButtonProps {
   onPress: ((event: GestureResponderEvent) => void) | undefined;
   title: string;
+  style: StyleProp<ViewStyle>;
 }
 
 interface Display {

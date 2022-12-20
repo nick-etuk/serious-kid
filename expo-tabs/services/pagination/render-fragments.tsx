@@ -57,5 +57,13 @@ export function renderFragments(s: Snippet) {
             onPress: ()=>alert(meaning(word))
         })
     }
-    return (<TextLink key={s.snippetId} links={links}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
+    return (<TextLink key={s.snippetId} links={links} textStyle={styles.para} textLinkStyle={styles.para}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
+}
+
+const linkStyle = {
+    fontFamily: styles.para.fontFamily,
+    fontSize: styles.para.fontSize,
+    lineHeight: styles.para.lineHeight,
+    fontWeight: styles.para.fontWeight,
+    color: styles.para.color
 }
