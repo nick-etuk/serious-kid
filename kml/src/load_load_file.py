@@ -1,9 +1,13 @@
 import os
+from dictionary_add_meanings import add_meanings
+from dictionary_hard_words import hard_words
+from dictionary_save_hard_word import save_hard_word
+from init import init
 from kml import KML
 from utils_get_last_item import get_last_item
 from save_tag import save_tag
 from save_para import save_para
-from get_tags import get_tags
+from tags_get_tags import get_tags
 
 from utils_next_id import next_id
 from config import data_dir
@@ -41,9 +45,8 @@ def load_file(level_id, subject_id, filename: str) -> int:
     with open(filename, 'r') as f:
         text = f.read()
 
-    # remove double new lines
-    while "\n\n" in text:
-        text = text.replace("\n\n", "\n")
+    # remove double newlines
+    text = text.replace("\n\n", "\n")
 
     paragraphs = text.split("\n")
 
@@ -69,7 +72,15 @@ def load_file(level_id, subject_id, filename: str) -> int:
             save_tag(level_id=level_id, subject_id=subject_id,
                      tag_name=tag[0], type=kml.get_tag_code(tag[0]), content=tag[1], para_id=para_id, file_id=file_id)
 
+    frequency_file = os.path.join(data_dir, 'word_frequency.csv')
+    hard = hard_words(filename, frequency_file)
+    for word in hard:
+        save_hard_word(level_id=level_id, subject_id=subject_id, word=word)
+    if hard:
+        add_meanings()
+
 
 if __name__ == "__main__":
-    # init()
-    load_file('HS', 'GEOG', 'volcanoes.kml.txt')
+    init()
+    #load_file('HS', 'GEOG', 'volcanoes.kml.txt')
+    load_file('HS', 'GEOG', 'tectonic plates.kml.txt')

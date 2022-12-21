@@ -5,10 +5,11 @@ function relativeLineHeight(fontSize: number) {
   return Math.floor(fontSize * multiplier);
 }
 
-const FONT_FAMILY = "garamond";
+const FONT_FAMILY = "opensans";
 const FONT_LARGE = 20;
-const FONT_NORMAL = 16;
+const FONT_NORMAL = 18;
 const FONT_SMALL = 12;
+const FONT_COLOUR = "rgb(37, 40, 42)"; // or rgb(36, 41, 47) (lighter) or rgb(45, 55, 72) (even lighter)
 
 export const styles = StyleSheet.create({
   container: {
@@ -44,28 +45,29 @@ export const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY,
     fontSize: FONT_NORMAL,
     fontWeight: "normal",
-    color: "skyblue",
+    color: FONT_COLOUR,
   },
   heading: {
+    color: FONT_COLOUR,
     fontFamily: FONT_FAMILY,
     fontSize: FONT_LARGE,
     fontWeight: "bold",
     marginTop: FONT_LARGE,
   },
   para: {
+    color: FONT_COLOUR,
     fontFamily: FONT_FAMILY,
     fontSize: FONT_NORMAL,
     lineHeight: relativeLineHeight(FONT_NORMAL),
     fontWeight: "normal",
-    color: "black",
   },
   snippetNum: {
+    color: FONT_COLOUR,
     fontFamily: FONT_FAMILY,
     fontSize: FONT_SMALL,
     fontWeight: "normal",
-    color: "skyblue",
     borderStyle: "solid",
-    borderColor: "skyblue",
+    borderColor: FONT_COLOUR,
     marginLeft: 10,
   },
 });

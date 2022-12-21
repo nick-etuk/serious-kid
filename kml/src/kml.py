@@ -15,7 +15,7 @@ class KML:
         self.word_boundaries = [' ', '.', ',', ';', ':', '!', "\n"]
         self.sentence_boundaries = ['.', '?', "\n"]
 
-        self.content_function = {
+        self.content_factory = {
             TAG_TYPE['word']: self.next_word,
             TAG_TYPE['sentence']: self.next_sentence,
             TAG_TYPE['unknown']: self.unknown_tag
@@ -32,7 +32,7 @@ class KML:
             },
             'topic': {
                 'code': 'T',
-                'type': TAG_TYPE['word']
+                'type': TAG_TYPE['sentence']
             },
             'amazing': {
                 'code': 'AM',
@@ -65,7 +65,7 @@ class KML:
             'a': 'answers',
             'answer': 'answers',
             'k': 'keyword',
-            'h': 'hard'
+            'h': 'heading'
         }
 
     def unknown_tag(self):
@@ -157,13 +157,18 @@ class KML:
 
     def next_word(self):
         result = ""
-        i = self.cursor_pos + 1
-        max_len = len(self.content)
-        while i > 0 and i < max_len and self.content[i] not in self.word_boundaries:
-            i += 1
+        end = self.cursor_pos + 1
+        next_char = self.content[end]
+        if next_char in ['"', "'"]:
+            end = self.content.find(next_char, end + 1)
+            result = self.content[self.cursor_pos + 2:end]
+        else:
+            max_len = len(self.content)
+            while end > 0 and end < max_len and self.content[end] not in self.word_boundaries:
+                end += 1
+            result = self.content[self.cursor_pos + 1:end]
 
-        result = self.content[self.cursor_pos + 1:i]
-        self.cursor_pos = i
+        self.cursor_pos = end
         return result.strip()
 
     def old_next_sentence(self):
@@ -205,4 +210,4 @@ class KML:
 
     def next_tag_content(self, tag: str) -> str:
         # return self.tag_info[self.fullname(tag)]['get_content']()
-        return self.content_function[self.tag_info[self.fullname(tag)]['type']]()
+        return self.content_factory[self.tag_info[self.fullname(tag)]['type']]()

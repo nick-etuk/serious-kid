@@ -1,10 +1,11 @@
 import sqlite3 as sl
 from config import db
+from dictionary_save_hard_word import save_hard_word
 from utils_get_last_item import get_last_item
 from lib import named_tuple_factory
 from utils_next_id import next_id
 from save_answers import save_answers
-from save_question import save_question
+from question_save_question import save_question
 
 
 def save_tag(level_id: int, subject_id: str, tag_name: str, type: str, content: str, para_id: int, file_id: int) -> int:
@@ -16,6 +17,9 @@ def save_tag(level_id: int, subject_id: str, tag_name: str, type: str, content: 
     elif tag_name == 'question':
         save_question(level_id=level_id, subject_id=subject_id,
                       snippet_id=para_id, content=content)
+    elif tag_name == 'hard':
+        save_hard_word(level_id=level_id, subject_id=subject_id,
+                       word=content)
         return
 
     sql = """

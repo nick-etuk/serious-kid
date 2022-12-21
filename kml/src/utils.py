@@ -6,20 +6,20 @@ from datetime import datetime
 from init import log
 
 
-def pause():
+def pause(pause_length: int):
+    log(f"Sleeping for {pause_length} seconds")
+    time.sleep(pause_length)
+
+
+def random_pause():
     random.seed(datetime.now())
-    # log = logging.getLogger(__name__)
-    # sleep for between 5 and ten seconds between each request
     pause_length = random.randint(10, 20)
-    # log(f"Sleeping for {pause_length} seconds")
     log(f"Sleeping for {pause_length} seconds")
 
     time.sleep(pause_length)
 
 
 def long_pause():
-    # log = logging.getLogger(__name__)
-    # sleep for between 5 and ten minutes between each brand
     if config.debug_local_files_only:
         return
     pause_length = random.randint(5*60, 10*60)
@@ -29,8 +29,6 @@ def long_pause():
 
 
 def short_pause():
-    # log = logging.getLogger(__name__)
-    # sleep for between 5 and ten seconds between each request
     if config.debug_local_files_only:
         return
     pause_length = 10
