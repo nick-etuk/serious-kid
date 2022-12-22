@@ -10,6 +10,7 @@ const FONT_LARGE = 20;
 const FONT_NORMAL = 18;
 const FONT_SMALL = 12;
 const FONT_COLOUR = "rgb(37, 40, 42)"; // or rgb(36, 41, 47) (lighter) or rgb(45, 55, 72) (even lighter)
+export const FOOTER_COLOUR = "mistyrose";
 
 export const styles = StyleSheet.create({
   container: {
@@ -38,8 +39,10 @@ export const styles = StyleSheet.create({
     flex: 1, // push footer to end of screen
   },
   footer: {
-    backgroundColor: "mistyrose",
+    backgroundColor: FOOTER_COLOUR,
+    flexDirection: "row",
     height: 100,
+    justifyContent: "space-between",
   },
   link: {
     fontFamily: FONT_FAMILY,

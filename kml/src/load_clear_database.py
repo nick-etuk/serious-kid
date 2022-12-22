@@ -7,7 +7,7 @@ def clear_database(file_id: int):
     delete from snippet_child
     where exists
         (select 1 from snippet
-        where level_id=snippet_child.level_id
+        where topic_id=snippet_child.topic_id
         and subject_id=snippet_child.subject_id
         and snippet_id=snippet_child.parent_id
         and file_id = ?)
@@ -17,7 +17,7 @@ def clear_database(file_id: int):
     delete from question
     where exists
         (select 1 from snippet
-        where level_id=question.level_id
+        where topic_id=question.topic_id
         and subject_id=question.subject_id
         and snippet_id=question.snippet_id
         and file_id = ?)

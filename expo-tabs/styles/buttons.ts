@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import { FOOTER_COLOUR } from "./main";
 
-export const btnStyles = StyleSheet.create({
+export const buttonStyles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
@@ -32,10 +33,39 @@ export const btnStyles = StyleSheet.create({
     minWidth: "48%",
     textAlign: "center",
   },
+  show: {
+    //display: "flex",
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "skyblue",
+    //alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  hide: {
+    //display: "none",
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: FOOTER_COLOUR,
+    //alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
   navButtonLabel: {
     fontSize: 12,
     fontWeight: "500",
     color: "black",
+  },
+  navButtonLabelHidden: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: FOOTER_COLOUR,
   },
   text: {
     fontSize: 16,

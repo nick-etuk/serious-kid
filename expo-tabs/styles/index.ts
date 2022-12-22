@@ -1,4 +1,4 @@
-import { btnStyles } from "./buttons";
+import { buttonStyles } from "./buttons";
 import { styles } from "./main";
 
-export { styles, btnStyles };
+export { styles, buttonStyles };

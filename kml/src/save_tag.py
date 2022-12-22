@@ -1,32 +1,40 @@
 import sqlite3 as sl
 from config import db
 from dictionary_save_hard_word import save_hard_word
-from utils_get_last_item import get_last_item
+from utils_get_last_question import get_last_question
 from lib import named_tuple_factory
 from utils_next_id import next_id
+from utils_utils import log
 from save_answers import save_answers
 from question_save_question import save_question
 
 
-def save_tag(level_id: int, subject_id: str, tag_name: str, type: str, content: str, para_id: int, file_id: int) -> int:
+def save_tag(subject_id: str, topic_id: int, level_id: str, parent_id: int, tag_name: str, type: str, content: str, file_id: int) -> int:
     if not content:
         return
+
+    if tag_name == 'question':
+        save_question(subject_id=subject_id, topic_id=topic_id,
+                      snippet_id=parent_id, content=content)
     if tag_name == 'answers':
-        save_answers(level_id, subject_id, content, file_id)
+        question_id = get_last_question(
+            subject_id=subject_id, topic_id=topic_id, snippet_id=parent_id)
+        save_answers(subject_id=subject_id, topic_id=topic_id,
+                     snippet_id=parent_id, question_id=question_id, content=content)
         return
-    elif tag_name == 'question':
-        save_question(level_id=level_id, subject_id=subject_id,
-                      snippet_id=para_id, content=content)
     elif tag_name == 'hard':
-        save_hard_word(level_id=level_id, subject_id=subject_id,
+        save_hard_word(subject_id=subject_id, level_id=level_id,
                        word=content)
         return
 
+    # Warn of duplicate tags
+    # duplicates are allowed, e.g multiple keyword tags for one snippet
     sql = """
     select snippet_id
     from snippet
-    where level_id = ?
-    and subject_id = ?
+    where subject_id = ?
+    and topic_id = ?
+    and level_id = ?
     and descr = ?
     and snippet_type = ?
     and descrlong = ?
@@ -34,42 +42,45 @@ def save_tag(level_id: int, subject_id: str, tag_name: str, type: str, content: 
     with sl.connect(db) as conn:
         conn.row_factory = named_tuple_factory
         c = conn.cursor()
-        row = c.execute(sql, (level_id, subject_id,
+        row = c.execute(sql, (subject_id, topic_id, level_id,
                         tag_name, type, content)).fetchone()
 
     if row:
-        return row.snippet_id
+        log(f"Warning: duplicate tag",
+            f"{tag_name} already exists for snippet {parent_id}")
+        # return row.snippet_id
 
-    tag_id = next_id('snippet')
+    tag_id = next_id(subject_id=subject_id,
+                     table='snippet', key_values=[topic_id])
 
     sql = """
-    insert into snippet(level_id, subject_id, snippet_id, snippet_type, descr, descrlong, file_id)
-    values (? ,? ,?, ? ,? ,? ,?)
+    insert into snippet(subject_id, topic_id, level_id, snippet_id, snippet_type, descr, descrlong, file_id)
+    values (? ,? ,?, ? ,? ,? ,? ,?)
     """
     with sl.connect(db) as conn:
         c = conn.cursor()
-        c.execute(sql, (level_id, subject_id,
+        c.execute(sql, (subject_id, topic_id, level_id,
                         tag_id, type, tag_name, content, file_id))
 
     sql = """
         select 1 from snippet_child
-        where level_id=?
-        and subject_id=?
+        where subject_id = ?
+        and topic_id = ?
         and parent_id = ? 
         and child_id = ?
     """
     with sl.connect(db) as conn:
         c = conn.cursor()
         child_row = c.execute(
-            sql, (level_id, subject_id, para_id, tag_id)).fetchone()
+            sql, (subject_id, topic_id, parent_id, tag_id)).fetchone()
 
     if not child_row:
         sql = """
-        insert into snippet_child(level_id, subject_id, parent_id, child_id)
+        insert into snippet_child(subject_id, topic_id, parent_id, child_id)
         values (?, ?, ?, ?)
         """
         with sl.connect(db) as conn:
             c = conn.cursor()
-            c.execute(sql, (level_id, subject_id, para_id, tag_id))
+            c.execute(sql, (subject_id, topic_id, parent_id, tag_id))
 
     return tag_id

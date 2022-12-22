@@ -1,7 +1,6 @@
 from icecream import ic
 from requests import get
-
-from utils import pause
+from utils_utils import pause
 
 
 def dictionary_api(word: str):

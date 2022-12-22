@@ -13,7 +13,7 @@ class KML:
         self.stack = []
 
         self.word_boundaries = [' ', '.', ',', ';', ':', '!', "\n"]
-        self.sentence_boundaries = ['.', '?', "\n"]
+        self.sentence_boundaries = ['.', '?', "\n", ';', '!']
 
         self.content_factory = {
             TAG_TYPE['word']: self.next_word,
