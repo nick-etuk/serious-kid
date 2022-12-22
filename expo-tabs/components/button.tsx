@@ -7,7 +7,7 @@ export function NavButton(props:ButtonProps) {
   const { onPress, title, style } = props;
   return (
     <Pressable style={style} onPress={onPress}>
-      <Text style={style===buttonStyles.hide ? buttonStyles.navButtonLabelHidden : buttonStyles.navButtonLabel}>{title}</Text>
+      <Text style={buttonStyles.newNavButtonLabel}>{title}</Text>
     </Pressable>
   );
 }

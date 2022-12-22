@@ -4,10 +4,16 @@ from config import db
 from icecream import ic
 
 
-def next_id(subject_id: str, table: str, key_values: List[str] = []) -> int:
+def add_quotes(obj) -> str:
+    if type(obj) is str:
+        return "'" + obj + "'"
+    return str(obj)
+
+
+def next_id(table: str, key_values: List[str] = []) -> int:
     lookup_keys = {
         'kml_file': ['file_id'],
-        'snippet': ['snippet_id', 'topic_id']
+        'snippet': ['snippet_id', 'subject_id', 'topic_id']
     }
 
     keys = lookup_keys[table]
@@ -15,7 +21,7 @@ def next_id(subject_id: str, table: str, key_values: List[str] = []) -> int:
     if len(keys) > 1:
         secondary_keys = keys[1:]
         for index, key in enumerate(secondary_keys):
-            where_clause += f'and {key} = {key_values[index]} '
+            where_clause += f'and {key} = {add_quotes(key_values[index])} '
 
     sql = f"""
     select max({keys[0]}) as next_id 
@@ -23,7 +29,7 @@ def next_id(subject_id: str, table: str, key_values: List[str] = []) -> int:
     where 1=1
     {where_clause}
     """
-    # ic(sql)
+    # print(sql)
     with sl.connect(db) as conn:
         c = conn.cursor()
         row = c.execute(sql).fetchone()
@@ -37,4 +43,4 @@ def next_id(subject_id: str, table: str, key_values: List[str] = []) -> int:
 
 
 if __name__ == "__main__":
-    print(next_id('snippet'))
+    print(next_id('snippet', ['OLIV', 1]))

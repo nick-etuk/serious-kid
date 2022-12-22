@@ -19,7 +19,7 @@ def test_utils_next_id():
             row = c.execute(sql).fetchone()
 
         expected = int(row[0]) + 1
-        actual = next_id('GEOG', 'snippet', ['1'])
+        actual = next_id('snippet', ['GEOG', '1'])
 
         ic(expected)
         ic(actual)
@@ -35,7 +35,7 @@ def test_utils_next_id():
             row = c.execute(sql).fetchone()
 
         expected = int(row[0]) + 1 if row and row[0] else 1
-        actual = next_id('OLIV', 'kml_file')
+        actual = next_id('kml_file')
 
         ic(expected)
         ic(actual)
@@ -47,3 +47,4 @@ def test_utils_next_id():
 
 if __name__ == "__main__":
     test_utils_next_id()
+    #print(next_id('snippet', ['OLIV', 1]))

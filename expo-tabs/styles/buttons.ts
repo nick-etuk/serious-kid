@@ -61,6 +61,8 @@ export const buttonStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     color: "black",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   navButtonLabelHidden: {
     fontSize: 12,
@@ -89,5 +91,24 @@ export const buttonStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     color: "coral",
+  },
+  newNavButton: {
+    //display: "block",
+    minWidth: 50,
+    alignItems: "center",
+    textAlignVertical: "center",
+    backgroundColor: "whitesmoke",
+    borderRadius: 70,
+    borderColor: "gainsboro",
+    borderWidth: 3,
+    height: 70,
+    justifyContent: "center",
+  },
+  newNavButtonLabel: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "gainsboro",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 });

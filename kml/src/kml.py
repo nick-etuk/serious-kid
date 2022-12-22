@@ -65,7 +65,8 @@ class KML:
             'a': 'answers',
             'answer': 'answers',
             'k': 'keyword',
-            'h': 'heading'
+            'h': 'heading',
+            't': 'topic'
         }
 
     def unknown_tag(self):

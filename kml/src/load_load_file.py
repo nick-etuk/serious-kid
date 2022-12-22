@@ -5,8 +5,8 @@ from dictionary_save_hard_word import save_hard_word
 from init import init
 from kml import KML
 from utils_get_last_snippet import get_last_snippet
-from save_tag import save_tag
-from save_para import save_para
+from tag_save_tag import save_tag
+from snippet_save_snippet import save_snippet
 from tags_get_tags import get_tags
 
 from utils_next_id import next_id
@@ -36,7 +36,7 @@ def load_file(subject_id, topic_id: int, level_id: str, filename: str) -> int:
         insert into kml_file(file_id, filename, subject_id, topic_id, level_id)
         values (?, ?, ?, ?, ?)
         """
-        file_id = next_id(subject_id=subject_id, table='kml_file')
+        file_id = next_id(table='kml_file')
         with sl.connect(db) as conn:
             c = conn.cursor()
             c.execute(sql, (file_id, filename, level_id, topic_id, subject_id))
@@ -65,8 +65,8 @@ def load_file(subject_id, topic_id: int, level_id: str, filename: str) -> int:
             snippet_id, descr = get_last_snippet(
                 subject_id=subject_id, topic_id=topic_id, snippet_type='P')
         else:
-            snippet_id = save_para(subject_id=subject_id, topic_id=topic_id,
-                                   level_id=level_id, content=updated_para, file_id=file_id)
+            snippet_id = save_snippet(subject_id=subject_id, topic_id=topic_id,
+                                      level_id=level_id, content=updated_para, file_id=file_id)
 
         for tag in tags:
             save_tag(subject_id=subject_id, topic_id=topic_id,

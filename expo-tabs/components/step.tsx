@@ -3,7 +3,7 @@ import { Snippet } from '../services/data/data.interface';
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 
-import { buttonStyles, styles } from '../styles';
+import { buttonStyles, containerStyles, styles } from '../styles';
 import { log } from '../utils';
 import { StepProps } from '../app.interface';
 import { QuestionPage } from './questions';
@@ -77,12 +77,21 @@ export function StepPage({ steps, display }: StepProps) {
   //const questionsButtonStyle = pageLastSnippetId === steps[stepNum].end  ? buttonStyles.show : buttonStyles.hide;
 
     return (
-        <View style={styles.container}>
-            <View style={styles.contentContainer}> 
-                <View style={styles.header}>
+        <View style={containerStyles.container}>
+            <View style={containerStyles.contentContainer}> 
+                <View style={containerStyles.header}>
                     <Text>Step {stepNum}: Page snippets:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}  Step snippets: {steps[stepNum].snippets.reduce((a, i) => a + i.snippetId + ',', '')}</Text>
-                </View>
-                <View style={styles.body}>
+          </View>
+          <View style={containerStyles.panelContainer}>
+            <View style={containerStyles.leftPanel}>
+              <View style={{ flex: 1 }}></View>
+              <View style={{ flex: 1 }}>
+                {pageFirstSnippetId > steps[stepNum].start && <NavButton title='<' style={buttonStyles.newNavButton} onPress={() => setPageFirstSnippetID(pageHistory.pop() ?? 1)} />}
+              </View>
+              <View style={{flex: 1}}></View>
+            </View>
+            <View style={containerStyles.centrePanel}>
+            <View style={containerStyles.body}>
                     { pageLastSnippetId <= steps[stepNum].end && !showQuestions &&
                         <View>
                             <>
@@ -92,6 +101,16 @@ export function StepPage({ steps, display }: StepProps) {
                     }
                     {showQuestions && <QuestionPage questions={steps[stepNum].questions} stepStart={steps[stepNum].start} /> }        
                 </View>
+            </View>
+            <View style={containerStyles.rightPanel}>
+              <View style={{ flex: 1 }}></View>
+              <View style={{ flex: 1 }}>
+                {pageLastSnippetId < steps[stepNum].end && <NavButton title='>' style={buttonStyles.newNavButton} onPress={() => { setPageFirstSnippetID(pageLastSnippetId + 1); pageHistory.push(pageLastSnippetId + 1) }} />}
+              </View>
+              <View style={{flex: 1}}></View>
+            </View>
+          </View>
+                
             </View>
         <View style={styles.footer}>
           {pageLastSnippetId === steps[stepNum].end && 

@@ -3,7 +3,7 @@ from icecream import ic
 #from lib import named_tuple_factory
 #from init import init, log
 from kml import KML
-from save_para import save_para
+from snippet_save_snippet import save_snippet
 
 
 def get_paragraphs():
@@ -21,7 +21,7 @@ def get_paragraphs():
     for para in paragraphs:
         if para == "":
             continue
-        para_id = save_para(para)
+        para_id = save_snippet(para)
         get_tags(para_id=para_id, content=para)
 
     # ic(paragraphs)
