@@ -4,6 +4,7 @@ from dictionary_hard_words import hard_words
 from dictionary_save_hard_word import save_hard_word
 from init import init
 from kml import KML
+from question_generate_questions import generate_questions
 from utils_get_last_snippet import get_last_snippet
 from tag_save_tag import save_tag
 from snippet_save_snippet import save_snippet
@@ -79,6 +80,8 @@ def load_file(subject_id, topic_id: int, level_id: str, filename: str) -> int:
         save_hard_word(level_id=level_id, subject_id=subject_id, word=word)
     if hard:
         add_meanings()
+
+    generate_questions(subject_id=subject_id, topic_id=topic_id, word_count=50)
 
 
 if __name__ == "__main__":

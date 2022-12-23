@@ -5,32 +5,25 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { StepPage } from './components/step';
-import { Step } from './services/journey';
+import { buildStages, Step } from './services/journey';
 import { log } from './utils';
-import { nextLap } from './services/pagination/next-lap';
+import { nextStage as nextStage } from './services/journey/z-next-stage';
 
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { student } from './services/student';
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
 
-    let steps: Step[] = [];
-
-    function getSteps() {
-        log(0, '=>getSteps');
-        steps = nextLap(0, 80);
-        //log(0, 'steps', steps, true);
-    }
-    
     const display = {
         chars: 300
     };
 
     
-    //const [stepNum, setStepNum] = useState(0);
-    const stepNum = 0;  //useAppSelector(state => state.counter.value);
+    //const [stageNum, setstageNum] = useState(0);
+    const stageNum = 0;  //useAppSelector(state => state.counter.value);
     /*
     useEffect(() => {
         log(0, '=>App.useEffect');
@@ -38,15 +31,18 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     });
     */
-    log(0, 'stepNum', stepNum, true);
-    getSteps();
+    log(0, 'stageNum', stageNum, true);
+    const subjectId = 'GEOG';
+    const unitId = 1;
+
+    const stages = buildStages(student.studentId, subjectId, unitId, 80);
 
     if (!isLoadingComplete) return null;
 
     return (
         <Provider store={store}>
             <SafeAreaProvider>
-                <StepPage steps={steps} display={display} />
+                <StepPage stage={stages[stageNum]} display={display} />
                 <StatusBar />
             </SafeAreaProvider>
         </Provider>

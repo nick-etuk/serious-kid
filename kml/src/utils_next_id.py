@@ -13,7 +13,7 @@ def add_quotes(obj) -> str:
 def next_id(table: str, key_values: List[str] = []) -> int:
     lookup_keys = {
         'kml_file': ['file_id'],
-        'snippet': ['snippet_id', 'subject_id', 'topic_id']
+        'snippet': ['snippet_id', 'subject_id']
     }
 
     keys = lookup_keys[table]

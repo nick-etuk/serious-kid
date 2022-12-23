@@ -3,3 +3,5 @@ TAG_TYPE = {
     'sentence': 2,
     'unknown': 3
 }
+
+FREQUENCY_THRESHOLD_MEDIUM = 7660350

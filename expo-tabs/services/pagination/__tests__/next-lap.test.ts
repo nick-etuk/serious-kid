@@ -1,7 +1,7 @@
 //import { log } from "../../../utils";
 import { snippetTable } from "../../data/files/snippet-table";
 import { Step } from "../../journey";
-import { nextLap } from "../next-lap";
+import { nextStage } from "../../journey/z-next-stage";
 
 let snippets = snippetTable.slice(1 - 1, 10);
 let questions = snippets.filter((s) => s.questions).flatMap((s) => s.questions);
@@ -39,7 +39,7 @@ const step3: Step = {
   questions: questions,
 };
 
-const lap = nextLap(0, 80);
+const lap = nextStage(0, 80);
 
 describe("Next lap", () => {
   test("Step one", () => {

@@ -8,13 +8,12 @@ def save_hard_word(level_id: int, subject_id: str, word: str):
     select 1 as result 
     from dictionary
     where level_id = ?
-    and subject_id = ?
     and word = ?
     """
     with sl.connect(db) as conn:
         conn.row_factory = named_tuple_factory
         c = conn.cursor()
-        row = c.execute(exists, (level_id, subject_id, word)).fetchone()
+        row = c.execute(exists, (level_id, word)).fetchone()
 
     if row and row[0]:
         print(f'{word} is already in the dictionary')

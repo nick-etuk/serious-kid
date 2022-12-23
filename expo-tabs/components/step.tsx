@@ -34,7 +34,7 @@ export function StepPage({ steps, display }: StepProps) {
   }
 
 
-  const getPage = (currentSnippetId: number) => {
+  function getPage (currentSnippetId: number) {
     setLoading(true);
     const result = getPageSub(currentSnippetId);
     setPageContent(result.snippets);

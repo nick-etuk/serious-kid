@@ -5,8 +5,11 @@ interface Step {
   start: number;
   end: number;
   currentSnippetId: number;
-  snippets: Snippet[];
-  questions: Question[];
+  snippetIds: number[];
+}
+interface Stage {
+  stageId: number;
+  steps: Step[];
 }
 
-export type { Step };
+export type { Step, Stage };

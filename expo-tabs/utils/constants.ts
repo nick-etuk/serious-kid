@@ -18,7 +18,12 @@ const DATA_SOURCE = SOURCE.http;
 const API_URL = "http://localhost:3000";
 
 const STEP_MAX_WORDS = 300;
-const LAP_MAX_STEPS = 5;
+const STAGE_MAX_STEPS = 5;
+const DIFFICULTY = {
+  easy: 1,
+  medium: 2,
+  hard: 3,
+};
 
 export {
   SEVERITY,
@@ -27,5 +32,6 @@ export {
   DATA_SOURCE,
   API_URL,
   STEP_MAX_WORDS,
-  LAP_MAX_STEPS,
+  STAGE_MAX_STEPS,
+  DIFFICULTY,
 };
