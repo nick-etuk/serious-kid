@@ -12,6 +12,7 @@ import { setCurrentSnippetId } from '../store/current-snippet-id-slice';
 
 import { View, Text } from 'react-native';
 import { AnswerButton, NavButton } from './button';
+import { buttonStyles } from '../styles';
 
 export function QuestionPage({ questions, stepStart }:QuestionProps) {
     const dispatch = useAppDispatch();
@@ -43,7 +44,7 @@ export function QuestionPage({ questions, stepStart }:QuestionProps) {
             <Text>{q ? q.descr : 'There are no questions for this section'}</Text>
             <br></br>
             {q && q.answers.map(a =>
-                <AnswerButton title={a.descr} key={a.answerSeq} onPress={() => {
+                <AnswerButton style={buttonStyles.answerButton} title={a.descr} key={a.answerSeq} onPress={() => {
                     alert('answer ' + a.answerSeq + ' clicked');
                     recordAction('answer', [q.snippetId, q.questionSeq].join(','), a.answerSeq + '.' + a.descr);
                     if (questionNum === questions.length-1) navigateNextStep;
@@ -51,8 +52,6 @@ export function QuestionPage({ questions, stepStart }:QuestionProps) {
                 }
                 }/>)
           }
-            <NavButton title='Wrong Answer' onPress={() => { dispatch(hideQuestionsAction()); dispatch(setCurrentSnippetId(stepStart)) }} />
-            <NavButton title='Right Answer' onPress={() => { dispatch(increment()); dispatch(hideQuestionsAction()); dispatch(setCurrentSnippetId(stepStart)) }} />
         </View>
     );
 }

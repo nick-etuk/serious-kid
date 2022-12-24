@@ -9,6 +9,10 @@ interface AppProps {
   display: Display;
 }
 
+interface StageProps {
+  stages: Stage[];
+}
+
 interface StepProps {
   stage: Stage;
   display: Display;
@@ -44,6 +48,7 @@ interface Display {
 
 export type {
   AppProps,
+  StageProps,
   StepProps,
   QuestionProps,
   LayoutProps,
