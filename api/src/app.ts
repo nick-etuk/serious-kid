@@ -1,5 +1,8 @@
 import express from "express";
+import { getQuestionsBySnippet } from "./questions/get-questions-by-snippet";
+import { getSnippets } from "./snippets/get-snippets";
 import { getQuestions } from "./questions/get-questions";
+import { getAnswers } from "./answers/get-answers";
 const cors = require("cors");
 
 import { getBackendChanges, getDictionary } from "./sync-db";
@@ -39,14 +42,48 @@ app.get("/push", async (req, res) => {
   res.send(response);
 });
 
-app.get("/questions", async (req, res) => {
-  console.log("=>questions:");
-  log(0, "snippets:", req.query.s, true);
-  const questions = await getQuestions(req.query.s as string);
+app.get("/snippets", async (req, res) => {
+  console.log("=>snippets:");
+  const result = await getSnippets();
   const response = {
     statusCode: 200,
     headers: headers,
-    body: questions,
+    body: result,
+  };
+  res.send(response);
+});
+
+app.get("/questions", async (req, res) => {
+  console.log("=>questions:");
+  log(0, "questions:", req.query.s, true);
+  const result = await getQuestions();
+  const response = {
+    statusCode: 200,
+    headers: headers,
+    body: result,
+  };
+  res.send(response);
+});
+
+app.get("/questions-by-snippet", async (req, res) => {
+  console.log("=>questions:");
+  log(0, "questions:", req.query.s, true);
+  const result = await getQuestionsBySnippet(req.query.s as string);
+  const response = {
+    statusCode: 200,
+    headers: headers,
+    body: result,
+  };
+  res.send(response);
+});
+
+app.get("/answers", async (req, res) => {
+  console.log("=>answers:");
+  const result = await getAnswers();
+  const response = {
+    statusCode: 200,
+    headers: headers,
+    body: result,
   };
   res.send(response);
 });

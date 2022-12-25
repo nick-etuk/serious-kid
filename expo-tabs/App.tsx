@@ -41,8 +41,6 @@ export default function App() {
     const stateUnitId = 1;
     const stateStudentId = student.studentId;    
 
-    //const stateStages = buildStages(stateStudentId, stateSubjectId, stateUnitId, 80);
-
     if (!isLoadingComplete) return null;
 
     return (

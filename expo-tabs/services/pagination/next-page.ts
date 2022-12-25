@@ -3,7 +3,7 @@ import { Display } from "../../app.interface";
 import { Snippet } from "../data/data.interface";
 import { getSnippet } from "../data";
 
-export function nextPage(
+function nextPagev2(
   currentSnippetId: number,
   snippetIds: number[],
   display: Display
@@ -23,6 +23,35 @@ export function nextPage(
           result.push(s);
           charCount += len;
         }
+      }
+    }
+  }
+  //log(0, "result", result.reduce((a, i) => a + i.snippetId + ",", ""));
+  if (result[result.length - 1].snippetType === "HE") result.pop(); //remove orphaned heading. Reove last snippet if it is a heading.
+  //log(0, "<=nextPage", "");
+
+  return result;
+}
+
+export function nextPage(
+  snippets: Snippet[],
+  currentSnippetId: number,
+  snippetIds: number[],
+  display: Display
+): Snippet[] {
+  log(0, "=>nextPage", "");
+  log(0, "currentSnippetId", currentSnippetId);
+  //log(0, "snippets", snippetIds.join(","));
+  const result: Snippet[] = [];
+  let charCount = 0;
+  const arrayLen = snippets.length;
+  for (let i = 0; i < arrayLen; i++) {
+    if (snippets[i].snippetId === currentSnippetId) {
+      for (let j = i; j < arrayLen; j++) {
+        const len = snippets[j].descr.length;
+        if (charCount + len > display.chars) break;
+        result.push(snippets[j]);
+        charCount += len;
       }
     }
   }

@@ -1,5 +1,6 @@
 import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
 import { Question } from "./services/data";
+import { Answer } from "./services/data/data.interface";
 import { Step } from "./services/journey";
 import { Stage } from "./services/journey/journey.interface";
 
@@ -20,6 +21,7 @@ interface StepProps {
 
 interface QuestionProps {
   questions: Question[];
+  answers: Answer[];
   stepStart: number;
 }
 

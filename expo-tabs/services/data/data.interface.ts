@@ -1,20 +1,25 @@
 interface Snippet {
+  subjectId: string;
+  topicId: number;
   snippetId: number;
   snippetType: string;
   descr: string;
-  questions: Question[];
 }
 
 interface Question {
+  subjectId: string;
   snippetId: number;
-  questionSeq: number;
+  questionId: number;
   questionType: string;
   descr: string;
   answers: Answer[];
 }
 
 interface Answer {
-  answerSeq: number;
+  subjectId: string;
+  snippetId: number;
+  questionId: number;
+  answerId: number;
   descr: string;
 }
 
