@@ -43,15 +43,19 @@ export function nextPage(
   log(0, "currentSnippetId", currentSnippetId);
   //log(0, "snippets", snippetIds.join(","));
   const result: Snippet[] = [];
+  const displayableTypes = ["P", "I", "T", "HE"];
   let charCount = 0;
   const arrayLen = snippets.length;
   for (let i = 0; i < arrayLen; i++) {
     if (snippets[i].snippetId === currentSnippetId) {
       for (let j = i; j < arrayLen; j++) {
-        const len = snippets[j].descr.length;
-        if (charCount + len > display.chars) break;
-        result.push(snippets[j]);
-        charCount += len;
+        const s = snippets[j];
+        if (displayableTypes.includes(s.snippetType)) {
+          const len = s.descr.length;
+          if (charCount + len > display.chars) break;
+          result.push(s);
+          charCount += len;
+        }
       }
     }
   }

@@ -15,7 +15,7 @@ const SOURCE = {
 
 const DATA_SOURCE = SOURCE.http;
 
-const API_URL = "http://localhost:3000";
+const API_URL = "http://192.168.1.221:3000";
 
 const STEP_MAX_WORDS = 300;
 const STAGE_MAX_STEPS = 5;

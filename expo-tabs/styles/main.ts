@@ -10,7 +10,7 @@ const FONT_LARGE = 20;
 const FONT_NORMAL = 18;
 const FONT_SMALL = 12;
 const FONT_COLOUR = "rgb(37, 40, 42)"; // or rgb(36, 41, 47) (lighter) or rgb(45, 55, 72) (even lighter)
-export const FOOTER_COLOUR = "mistyrose";
+export const FOOTER_COLOUR = "ivory";
 
 export const styles = StyleSheet.create({
   container: {
@@ -30,10 +30,12 @@ export const styles = StyleSheet.create({
     marginTop: "5%",
   },
   image: {
-    backgroundColor: "ghostwhite ",
+    backgroundColor: "white ",
     marginTop: "3%",
     marginBottom: "3%",
     alignSelf: "center",
+    height: 200,
+    width: 200,
   },
   contentContainer: {
     flex: 1, // push footer to end of screen

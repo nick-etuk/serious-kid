@@ -4,6 +4,7 @@ import { getSnippets } from "./snippets/get-snippets";
 import { getQuestions } from "./questions/get-questions";
 import { getAnswers } from "./answers/get-answers";
 const cors = require("cors");
+const path = require("path");
 
 import { getBackendChanges, getDictionary } from "./sync-db";
 import { log } from "./utils/log";
@@ -17,6 +18,8 @@ const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "*",
 };
+
+app.use("/image", express.static(path.join(__dirname, "public")));
 
 app.get("/pull", async (req, res) => {
   const changes = await getBackendChanges();

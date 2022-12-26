@@ -1,33 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { Image, ImageStyle, StyleProp } from "react-native";
-import shorthash from 'shorthash2';
-import * as FileSystem from "expo-file-system";
+import React, { useEffect, useState, useRef } from 'react'
 
+import { Image } from 'react-native'
+
+import * as FileSystem from 'expo-file-system';
+import shorthash from 'shorthash2';
+import { styles } from '../styles';
+import { log } from '../utils';
+
+
+//import PropTypes from 'prop-types'
 interface CachedImageProps {
     url: string;
-    style: StyleProp<ImageStyle>;
-}
+    filename: string;
+  }
+
 function CachedImage (props:CachedImageProps) {
-    const { url, style } = props;
-    const [ uri, setUri ] = useState(''); 
-    useEffect(() => { Cached(); }, []);
-    
-    async function Cached() {
-        //hash the image url
-        const name = shorthash(url);
-        //save image in user system using the shorthash filename 
-        const path = `${FileSystem.cacheDirectory}${name}`;
-        //invoke the user file system to check if the the path with specific name 
-        const image = await FileSystem.getInfoAsync(path);
-        //if image path exists, display it without loading the external url 
-        if (image.exists) {
-            setUri(image.uri);
-            return;
+    const { url, filename } = props;
+    const cacheKey = shorthash(url);
+  const filesystemURI = `${FileSystem.cacheDirectory}${cacheKey}`
+
+  const [imgURI, setImgURI] = useState(filesystemURI)
+
+  const componentIsMounted = useRef(true)
+
+  useEffect(() => {
+    const loadImage = async (fileURI:string) => {
+      try {
+        // Use the cached image if it exists
+        const metadata = await FileSystem.getInfoAsync(fileURI)
+        if (!metadata.exists) {
+          // download to cache
+          if (componentIsMounted.current) {
+              //setImgURI(null)
+              setImgURI(url)
+            await FileSystem.downloadAsync(
+              url,
+              fileURI
+            )
+          }
+          if (componentIsMounted.current) {
+            setImgURI(fileURI)
+          }
         }
-        //if the image path not exists then we cache it in the user system for further use
-        const newImage = await FileSystem.downloadAsync(url, path);
-        setUri(newImage.uri);
+      } catch (err) {
+        console.log() // eslint-disable-line no-console
+        setImgURI(url)
+      }
     }
-        return <Image style={style} source={{ uri: url }} />;
+
+    loadImage(filesystemURI)
+
+    return () => {
+      componentIsMounted.current = false
+    }
+  }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
+    //          {/* ...props */}
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {log(0, 'image uri', imgURI, true)}
+
+    return (
+        <Image style={styles.image} source={{ uri: imgURI }}/>
+    )
 }
-export default CachedImage;
+
+
+export { CachedImage };

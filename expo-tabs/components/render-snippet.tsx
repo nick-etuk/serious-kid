@@ -4,6 +4,7 @@ import { Snippet } from '../services/data';
 import { snippetLinkTable } from '../services/data/files/snippet-link-table';
 import { fragments } from '../services/pagination/fragments';
 import { renderFragments } from '../services/pagination/render-fragments';
+import { CachedImage } from '../store/cached-image';
 import { styles } from '../styles';
 
 function simpleSnippet(s: Snippet) {
@@ -13,12 +14,14 @@ function simpleSnippet(s: Snippet) {
             result = <Text key={s.snippetId} style={styles.heading}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
             break;
         case 'I':
-            /* result =
+            const url = "https://cdn.britannica.com/34/231234-050-5B2280BB/volcanic-eruption-Antigua-Guatemala-volcano.jpg"
+            result =
                 <View key={s.snippetId} style={styles.image}>
-                    <Image key={s.snippetId} source={require('../assets/images/' + s.descr)} style={{ height: 200, width: 200 }} />
+                    <CachedImage key={s.snippetId} url={url} filename={s.descr} />
+                    <Text key={`${s.snippetId}-legend`}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >
                 </View>
-                */
-            result = <Text key={s.snippetId}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
+            
+            //result = <Text key={s.snippetId}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
             break;
         default:
             result = <Text key={s.snippetId} style={styles.para}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
