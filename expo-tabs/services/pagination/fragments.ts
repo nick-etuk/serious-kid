@@ -23,7 +23,7 @@ export function fragments(input: string, tags: string[]): Fragment[] {
         type: "P",
         descr: remainder.slice(0, pos),
       };
-      log(0, fragment["descr"]);
+      //log(0, fragment["descr"]);
       fragments.push(fragment);
 
       fragment_num += 1;
@@ -32,11 +32,11 @@ export function fragments(input: string, tags: string[]): Fragment[] {
         type: "L",
         descr: word,
       };
-      log(0, fragment["descr"]);
+      //log(0, fragment["descr"]);
       fragments.push(fragment);
 
       remainder = remainder.slice(pos + word.length);
-      log(0, remainder);
+      //log(0, remainder);
     }
   }
   if (remainder) fragment_num += 1;
@@ -47,6 +47,6 @@ export function fragments(input: string, tags: string[]): Fragment[] {
   };
   fragments.push(fragment);
 
-  log(0, "fragments", fragments, true);
+  //log(0, "fragments", fragments, true);
   return fragments;
 }

@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
 
-function relativeLineHeight(fontSize: number) {
+export function relativeLineHeight(fontSize: number) {
   const multiplier = fontSize > 20 ? 1.5 : 1.8;
   return Math.floor(fontSize * multiplier);
 }
 
 const FONT_FAMILY = "opensans";
-const FONT_LARGE = 20;
-const FONT_NORMAL = 18;
+export const FONT_LARGE = 20;
+export const FONT_NORMAL = 18;
 const FONT_SMALL = 12;
 const FONT_COLOUR = "rgb(37, 40, 42)"; // or rgb(36, 41, 47) (lighter) or rgb(45, 55, 72) (even lighter)
 export const FOOTER_COLOUR = "ivory";

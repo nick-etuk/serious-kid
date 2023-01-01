@@ -10,6 +10,6 @@ export async function getQuestions() {
     driver: sqlite3.Database,
   });
   
-  const rows = await db.all("select subject_id as subjectID, topic_id as topicID, snippet_id as snippetId, question_id as questionId, question_type as questionType from question");
+  const rows = await db.all("select subject_id as subjectID, topic_id as topicID, snippet_id as snippetId, question_id as questionId, question_type as questionType from question where subject_id='GEOG'");
   return rows;
 }
