@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   header: {
     backgroundColor: "azure",
     marginBottom: "50",
-    borderBottom: 1,
+    //borderBottom: 1,
   },
   body: {
     backgroundColor: "ivory",

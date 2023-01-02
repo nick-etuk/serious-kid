@@ -25,6 +25,8 @@ const DIFFICULTY = {
   hard: 3,
 };
 
+const DISPLAYABLE = ["P", "T", "HE"];
+
 export {
   SEVERITY,
   LOG_FENCE,
@@ -34,4 +36,5 @@ export {
   STEP_MAX_WORDS,
   STAGE_MAX_STEPS,
   DIFFICULTY,
+  DISPLAYABLE,
 };

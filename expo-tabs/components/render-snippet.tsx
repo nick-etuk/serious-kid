@@ -6,6 +6,7 @@ import { fragments } from '../services/pagination/fragments';
 import { renderFragments } from '../services/pagination/render-fragments';
 import { CachedImage } from '../store/cached-image';
 import { styles } from '../styles';
+import { API_URL } from '../utils/constants';
 
 function simpleSnippet(s: Snippet) {
     let result = <></>;
@@ -15,6 +16,7 @@ function simpleSnippet(s: Snippet) {
             break;
         case 'I':
             const url = "https://cdn.britannica.com/34/231234-050-5B2280BB/volcanic-eruption-Antigua-Guatemala-volcano.jpg"
+            const url2 = `${API_URL}/images/${s.descr}`;
             result =
                 <View key={s.snippetId} style={styles.image}>
                     <CachedImage key={s.snippetId} url={url} filename={s.descr} />

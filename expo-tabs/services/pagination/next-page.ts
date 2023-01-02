@@ -7,15 +7,13 @@ import { FONT_LARGE, FONT_NORMAL, relativeLineHeight } from "../../styles/main";
 export function nextPage(
   snippets: Snippet[],
   currentSnippetId: number,
-  snippetIds: number[],
   height: number,
   width: number
 ): Snippet[] {
   log(0, "=>nextPage", "");
   log(0, "currentSnippetId", currentSnippetId);
-  //log(0, "snippets", snippetIds.join(","));
+  log(0, "snippets", snippets, true);
   const result: Snippet[] = [];
-  const displayable = ["P", "T", "HE"];
   const HORIZONTAL_MARGINS = 200 * 2;
   //const MAX_WIDTH = 800 - HORIZONTAL_MARGINS;
   const MAX_WIDTH = 800;
@@ -36,14 +34,14 @@ export function nextPage(
   log(0, "chars Per Line", Math.round(charsPerLine));
 
   const arrayLen = snippets.length;
-  const stepSnippets: Snippet[] = [];
+  const snippetSlice: Snippet[] = [];
 
   //snippets.slice(currentSnippetId,end);
   for (let i = 0; i < arrayLen; i++)
     if (snippets[i].snippetId === currentSnippetId)
-      for (let j = i; j < arrayLen; j++) stepSnippets.push(snippets[j]);
-
-  for (const s of stepSnippets) {
+      for (let j = i; j < arrayLen; j++) snippetSlice.push(snippets[j]);
+  log(0, "snippetSlice", snippetSlice, true);
+  for (const s of snippetSlice) {
     log(0, "remaining", Math.round(charsRemaining));
     if (charsRemaining <= 0) break;
     switch (s.snippetType) {
@@ -86,7 +84,11 @@ export function nextPage(
         break;
     }
   }
-  //log(0, "result", result.reduce((a, i) => a + i.snippetId + ",", ""));
+  log(
+    0,
+    "result",
+    result.reduce((a, i) => a + i.snippetId + ",", "")
+  );
   if (result[result.length - 1].snippetType === "HE") result.pop();
   //remove orphaned heading. Remove last snippet if it is a heading.
   log(0, "<=nextPage", "");

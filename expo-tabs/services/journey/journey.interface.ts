@@ -4,7 +4,7 @@ interface Step {
   stepNum: number;
   start: number;
   end: number;
-  currentSnippetId: number;
+  //currentSnippetId: number;
   snippetIds: number[];
 }
 interface Stage {

@@ -19,7 +19,8 @@ const headers = {
   "Access-Control-Allow-Methods": "*",
 };
 
-app.use("/image", express.static(path.join(__dirname, "public")));
+//app.use("/image", express.static(path.join(__dirname, "public", "images")));
+app.use(express.static("public"));
 
 app.get("/pull", async (req, res) => {
   const changes = await getBackendChanges();
@@ -46,8 +47,8 @@ app.get("/push", async (req, res) => {
 });
 
 app.get("/snippets", async (req, res) => {
-  console.log("=>snippets:");
-  const result = await getSnippets();
+  console.log("=>snippets:", req.query.s, true);
+  const result = await getSnippets(req.query.s as string);
   const response = {
     statusCode: 200,
     headers: headers,
