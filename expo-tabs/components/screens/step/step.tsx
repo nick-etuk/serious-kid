@@ -1,25 +1,25 @@
-import { nextPage } from '../../../services/pagination/next-page';
-import { Answer, Question, Snippet } from '../../../services/data/data.interface';
+import { nextPage } from 'services/pagination/next-page';
+import { Answer, Question, Snippet } from 'services/data/data.interface';
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, useWindowDimensions } from 'react-native';
 
-import { buttonStyles, containerStyles, styles } from '../../../styles';
-import { log } from '../../../utils';
+import { buttonStyles, containerStyles, styles } from 'styles';
+import { log } from 'utils';
 import { StepProps } from '../../../app.interface';
-import { QuestionPage } from '../../questions';
+import { QuestionPage } from 'components/questions';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { showQuestionsAction } from '../../../store/show-questions-slice';
-import { increment } from '../../../store/step-num-slice';
-import { hideQuestionsAction } from '../../../store/show-questions-slice';
-import { setCurrentSnippetId } from '../../../store/current-snippet-id-slice';
-import { useGetAnswersQuery, useGetQuestionsQuery, useGetSnippetsQuery } from "../../../store/features/api/api-slice";
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { showQuestionsAction } from 'store/show-questions-slice';
+import { increment } from 'store/step-num-slice';
+import { hideQuestionsAction } from 'store/show-questions-slice';
+import { setCurrentSnippetId } from 'store/current-snippet-id-slice';
+import { useGetAnswersQuery, useGetQuestionsQuery, useGetSnippetsQuery } from "store/features/api/api-slice";
 
-import { NavButton } from '../../button';
-import { renderSnippet } from '../../render-snippet';
-import { buildStages, questionAnswers, refineQuestions, Step } from '../../../services/journey';
-import { StepHeader } from './header';
-import { student } from '../../../services/student';
+import { NavButton } from 'components/button';
+import { renderSnippet } from 'components/render-snippet';
+import { buildStages, questionAnswers, refineQuestions, Step } from 'services/journey';
+import { StepHeader } from 'components/screens/step/header';
+import { student } from 'services/student';
 
 interface pageResult {
     snippets: Snippet[];

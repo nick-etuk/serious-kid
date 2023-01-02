@@ -1,11 +1,7 @@
 import { isEmpty } from "lodash";
-import { wordCount } from "../../utils";
-import {
-  DIFFICULTY,
-  STAGE_MAX_STEPS,
-  STEP_MAX_WORDS,
-} from "../../utils/constants";
-import { Question, Snippet } from "../data/data.interface";
+import { wordCount } from "utils";
+import { DIFFICULTY, STAGE_MAX_STEPS, STEP_MAX_WORDS } from "utils/constants";
+import { Question, Snippet } from "services/data/data.interface";
 import { nextSnippet, refineQuestions, Step, topicDifficulty } from ".";
 
 export function nextStage(

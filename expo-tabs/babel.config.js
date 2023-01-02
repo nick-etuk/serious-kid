@@ -1,7 +1,7 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ["babel-preset-expo", "module:metro-react-native-babel-preset"],
+    presets: ["babel-preset-expo"],
     plugins: [
       ["@babel/plugin-proposal-decorators", { legacy: true }],
       ["@babel/plugin-proposal-class-properties", { loose: true }],
@@ -10,6 +10,20 @@ module.exports = function (api) {
         {
           helpers: true,
           regenerator: true,
+        },
+      ],
+      [
+        "module-resolver",
+        {
+          root: ["."],
+          alias: {
+            assets: "./assets",
+            components: "./components",
+            services: "./services",
+            store: "./store",
+            utils: "./utils",
+            styles: "./styles",
+          },
         },
       ],
     ],

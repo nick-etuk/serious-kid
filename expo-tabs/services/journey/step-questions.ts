@@ -1,6 +1,6 @@
-import { log } from "../../utils";
-import { getSnippet, questionTable, snippetTable } from "../data";
-import { Question, Snippet } from "../data/data.interface";
+import { log } from "utils";
+import { getSnippet, questionTable, snippetTable } from "services/data";
+import { Question, Snippet } from "services/data/data.interface";
 import { Step } from "./journey.interface";
 import { refineQuestions } from "./refine-questions";
 

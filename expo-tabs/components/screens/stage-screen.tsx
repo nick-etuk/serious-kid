@@ -1,15 +1,15 @@
 import { View, Text, Button } from 'react-native';
 
-import { StageProps } from '../../app.interface';
-import { buildStages } from '../../services/journey';
+import { StageProps } from 'app.interface';
+import { buildStages } from 'services/journey';
 import {
     Stage, Step
-} from '../../services/journey/journey.interface';
-import { student } from '../../services/student';
-import { useGetSnippetsQuery } from "../../store/features/api/api-slice";
-import { log } from '../../utils';
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { setCurrentSnippetId } from '../../store/current-snippet-id-slice';
+} from 'services/journey/journey.interface';
+import { student } from 'services/student';
+import { useGetSnippetsQuery } from 'store/features/api/api-slice';
+import { log } from 'utils';
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { setCurrentSnippetId } from 'store/current-snippet-id-slice';
 
 
 const stateSubjectId = 'GEOG';

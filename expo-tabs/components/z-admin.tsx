@@ -1,8 +1,8 @@
 /*
 import React from 'react';
-import { Snippet } from '../services/data';
-import { listSnippetsDB, listSnippetsDB3 } from '../services/data/list-snippets';
-import { resetDB, syncDB } from '../services/data/watermelon-db/sync-db';
+import { Snippet } from 'services/data';
+import { listSnippetsDB, listSnippetsDB3 } from 'services/data/list-snippets';
+import { resetDB, syncDB } from 'services/data/watermelon-db/sync-db';
 
 const snippets = await listSnippetsDB(1, 3).then((x) => x);
 

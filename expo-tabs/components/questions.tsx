@@ -1,20 +1,20 @@
 
-//import { Answer, Question } from '../services/data/data.interface';
+//import { Answer, Question } from 'services/data/data.interface';
 import React, { useEffect, useState } from 'react';
-import { log, recordAction } from '../utils';
+import { log, recordAction } from 'utils';
 import { QuestionProps } from '../app.interface';
 
-import { useAppDispatch } from '../store/hooks'
-import { increment } from '../store/step-num-slice';
-import { hideQuestionsAction } from '../store/show-questions-slice';
-import { setCurrentSnippetId } from '../store/current-snippet-id-slice';
+import { useAppDispatch } from 'store/hooks'
+import { increment } from 'store/step-num-slice';
+import { hideQuestionsAction } from 'store/show-questions-slice';
+import { setCurrentSnippetId } from 'store/current-snippet-id-slice';
 
 
 import { View, Text } from 'react-native';
 import { AnswerButton, NavButton } from './button';
-import { buttonStyles } from '../styles';
-import { questionAnswers } from '../services/journey';
-import { Answer, Question } from '../services/data/data.interface';
+import { buttonStyles } from 'styles';
+import { questionAnswers } from 'services/journey';
+import { Answer, Question } from 'services/data/data.interface';
 
 async function zgetAnswers(q: Question) {
     const result = await questionAnswers(q);

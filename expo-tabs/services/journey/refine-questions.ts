@@ -1,4 +1,4 @@
-import { Question } from "../data/data.interface";
+import { Question } from "services/data/data.interface";
 
 export function refineQuestions(questions: Question[]): Question[] {
   /*

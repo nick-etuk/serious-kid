@@ -1,4 +1,4 @@
-import { log } from "../../../utils";
+import { log } from "utils";
 import { listSnippets } from "../list-snippets";
 import { snippetTable } from "../files/snippet-table";
 

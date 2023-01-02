@@ -1,6 +1,6 @@
 import { View, Text, Button, useWindowDimensions } from 'react-native';
-import { Snippet } from '../../../services/data/data.interface';
-import { Step } from '../../../services/journey/journey.interface';
+import { Snippet } from 'services/data/data.interface';
+import { Step } from 'services/journey/journey.interface';
 
 interface StepHeaderProps {
     stageId: number;

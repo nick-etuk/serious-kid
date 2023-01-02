@@ -1,3 +1,3 @@
-import { Question } from "../data.interface";
+import { Question } from "services/data.interface";
 
 export const questionTable: Question[] = [];

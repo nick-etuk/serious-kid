@@ -1,5 +1,5 @@
-import { API_URL } from "../../../utils/constants";
-import { Snippet } from "../data.interface";
+import { API_URL } from "utils/constants";
+import { Snippet } from "services/data.interface";
 import fetch from "cross-fetch";
 
 async function zsnippetTable(): Promise<[Snippet]> {
@@ -11,7 +11,7 @@ async function zsnippetTable(): Promise<[Snippet]> {
   return Promise.resolve(result.body);
 }
 
-export async function snippetTable(subjectId:string) {
+export async function snippetTable(subjectId: string) {
   const response = await fetch(`${API_URL}/snippets?subject_id=?`);
   if (!response.ok) throw new Error(await response.text());
   const result = await response.json();

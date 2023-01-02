@@ -1,6 +1,6 @@
 import { Button } from "react-native"
-import { apiSlice } from "../../store/features/api/api-slice"
-import { useAppDispatch } from "../../store/hooks"
+import { apiSlice } from "store/features/api/api-slice"
+import { useAppDispatch } from "store/hooks"
 
 
 export function Admin({ route, navigation }: any /*todo remove 'any' see TabOnescreen */) {

@@ -4,8 +4,8 @@ import { Image } from 'react-native'
 
 import * as FileSystem from 'expo-file-system';
 import shorthash from 'shorthash2';
-import { styles } from '../styles';
-import { log } from '../utils';
+import { styles } from 'styles';
+import { log } from 'utils';
 
 
 //import PropTypes from 'prop-types'

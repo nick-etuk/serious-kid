@@ -1,4 +1,4 @@
-import { useGetSnippetsQuery } from "../../../store/features/api/api-slice";
+import { useGetSnippetsQuery } from "store/features/api/api-slice";
 
 export function snippetTable() {
   const {

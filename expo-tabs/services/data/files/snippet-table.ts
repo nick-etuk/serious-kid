@@ -1,4 +1,4 @@
-import { Snippet } from "../data.interface";
+import { Snippet } from "services/data.interface";
 
 export const snippetTable: Snippet[] = [];
 export const snippetTable2: Snippet[] = [

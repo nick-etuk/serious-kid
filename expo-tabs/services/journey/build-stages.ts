@@ -1,15 +1,15 @@
 import { isEmpty } from "lodash";
-import { log, wordCount } from "../../utils";
+import { log, wordCount } from "utils";
 import {
   DIFFICULTY,
   DISPLAYABLE,
   STAGE_MAX_STEPS,
   STEP_MAX_WORDS,
-} from "../../utils/constants";
-import { nextSnippet, Step, topicDifficulty } from ".";
+} from "utils/constants";
+import { nextSnippet, Step, topicDifficulty } from "services/journey";
 import { Stage } from "./journey.interface";
-import { Snippet } from "../data";
-import { Student } from "../student";
+import { Snippet } from "services/data";
+import { Student } from "services/student";
 
 export function buildStages(
   snippetTable: Snippet[],

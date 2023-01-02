@@ -1,6 +1,6 @@
-//import { log } from "../../../utils";
-import { snippetTable } from "../../data/http/snippet-table";
-import { Student } from "../../student";
+//import { log } from "utils";
+import { snippetTable } from "../services/data/http/snippet-table";
+import { Student } from "../services/student";
 import { buildStages } from "../build-stages";
 import { stepQuestions } from "../step-questions";
 const expected = [

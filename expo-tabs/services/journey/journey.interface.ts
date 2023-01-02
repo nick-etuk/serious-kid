@@ -1,4 +1,4 @@
-import { Question, Snippet } from "../data";
+import { Question, Snippet } from "services/data";
 
 interface Step {
   stepNum: number;

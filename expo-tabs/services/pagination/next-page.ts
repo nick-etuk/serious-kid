@@ -1,8 +1,8 @@
-import { log } from "../../utils";
+import { log } from "utils";
 import { Display } from "../../app.interface";
-import { Snippet } from "../data/data.interface";
-import { getSnippet } from "../data";
-import { FONT_LARGE, FONT_NORMAL, relativeLineHeight } from "../../styles/main";
+import { Snippet } from "services/data/data.interface";
+import { getSnippet } from "services/data";
+import { FONT_LARGE, FONT_NORMAL, relativeLineHeight } from "styles/main";
 
 export function nextPage(
   snippets: Snippet[],

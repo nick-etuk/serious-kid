@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Image, ImageStyle, StyleProp, Text, Platform } from "react-native";
 import shorthash from 'shorthash2';
 import * as FileSystem from "expo-file-system";
-import { log } from "../utils";
-import { API_URL } from "../utils/constants";
-import { styles } from "../styles";
+import { log } from "utils";
+import { API_URL } from "utils/constants";
+import { styles } from "styles";
 
 interface zCachedImageProps {
     url: string;

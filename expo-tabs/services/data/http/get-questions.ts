@@ -1,5 +1,5 @@
-import { API_URL } from "../../../utils/constants";
-import { Question } from "../data.interface";
+import { API_URL } from "utils/constants";
+import { Question } from "services/data.interface";
 
 async function getQuestionsAPI(snippets: number[]): Promise<[Question]> {
   const params = snippets.join(",");

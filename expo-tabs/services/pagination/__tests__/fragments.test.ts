@@ -1,4 +1,4 @@
-import { log } from "../../../utils";
+import { log } from "utils";
 import { Fragment, fragments } from "../fragments";
 
 describe("Fragments", () => {

@@ -1,5 +1,5 @@
-import { getSnippet, Snippet } from "../data";
-import { snippetTable } from "../data/files/snippet-table";
+import { getSnippet, Snippet } from "services/data";
+import { snippetTable } from "services/data/files/snippet-table";
 
 export function nextSnippetV1(current: number): Snippet | undefined {
   const currentID = snippetTable[current].snippetId;

@@ -1,10 +1,10 @@
 
 import { Text, } from 'react-native';
 import { Fragment } from './fragments';
-import { styles } from '../../styles';
+import { styles } from 'styles';
 import  TextLink  from  'react-native-text-link';
-import { Snippet } from '../data';
-import { snippetLinkTable } from '../data';
+import { Snippet } from 'services/data';
+import { snippetLinkTable } from 'services/data';
 import { meaning } from '../dictionary';
 
 function zrenderFragments(fragments: Fragment[], snippetId: number) {

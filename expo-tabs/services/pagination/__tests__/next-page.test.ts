@@ -1,5 +1,5 @@
-import { log } from "../../../utils";
-import { snippetTable } from "../../data/files/snippet-table";
+import { log } from "utils";
+import { snippetTable } from "../services/data/files/snippet-table";
 import { nextPage } from "../next-page";
 
 const display = {

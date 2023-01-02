@@ -1,5 +1,5 @@
 import { Collection, Model, Q } from "@nozbe/watermelondb";
-import { log } from "../../utils";
+import { log } from "utils";
 import { Snippet } from "./data.interface";
 import { snippetTable } from "./files/snippet-table";
 //import { database } from "./watermelon-db";
