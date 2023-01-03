@@ -1,8 +1,8 @@
 //import { log } from "utils";
-import { snippetTable } from "../services/data/http/snippet-table";
-import { Student } from "../services/student";
-import { buildStages } from "../build-stages";
-import { stepQuestions } from "../step-questions";
+import { snippetTable } from "services/data/http/snippet-table";
+import { Student } from "services/student";
+import { buildStages } from "services/journey/build-stages";
+import { stepQuestions } from "services/journey/step-questions";
 const expected = [
   {
     snippetId: 5,

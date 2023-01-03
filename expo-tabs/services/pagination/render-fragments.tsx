@@ -1,20 +1,19 @@
-
 import { Text, } from 'react-native';
 import { Fragment } from './fragments';
-import { styles } from 'styles';
+import { textStyles } from 'styles';
 import  TextLink  from  'react-native-text-link';
 import { Snippet } from 'services/data';
 import { snippetLinkTable } from 'services/data';
-import { meaning } from '../dictionary';
+import { meaning } from 'services/dictionary';
 
 function zrenderFragments(fragments: Fragment[], snippetId: number) {
     let result:JSX.Element[] = [];
     //result.push(<Text onPress={lookupWord(f.descr)} key={snippetId+'-'+f.seq}>{f.descr}</Text >);
     for (const f of fragments) {
-        const style = f.type == 'L' ? styles.link : styles.para;
+        const style = f.type == 'L' ? textStyles.link : textStyles.normal;
         result.push(<Text style={style} key={snippetId + '-' + f.seq}>{f.descr}</Text >);
     }
-    result.push(<Text style={styles.para} key={snippetId}>&nbsp;&nbsp;&nbsp;[{snippetId}]</Text >);
+    result.push(<Text style={textStyles.normal} key={snippetId}>&nbsp;&nbsp;&nbsp;[{snippetId}]</Text >);
     return result;
 }
 
@@ -29,7 +28,7 @@ function subFunction(fragments: Fragment[], snippetId:number) {
 
 function z2renderFragments(fragments: Fragment[], snippetId: number) {
     return (
-        <Text style={styles.para} key={snippetId}>
+        <Text style={textStyles.normal} key={snippetId}>
             {subFunction(fragments, snippetId)}
             [{snippetId}]
         </Text >
@@ -37,7 +36,7 @@ function z2renderFragments(fragments: Fragment[], snippetId: number) {
     //result.push(<Text onPress={lookupWord(f.descr)} key={snippetId+'-'+f.seq}>{f.descr}</Text >);
 }
 function z3renderFragments(fragments: Fragment[], snippetId: number) { 
-    const CustomTag = `<Text style=${styles.para} key=${snippetId}>
+    const CustomTag = `<Text style=${textStyles.normal} key=${snippetId}>
     ${subFunction(fragments, snippetId)}
     [${snippetId}]
 </Text >`;
@@ -57,13 +56,15 @@ export function renderFragments(s: Snippet) {
             onPress: ()=>alert(meaning(word))
         })
     }
-    return (<TextLink key={s.snippetId} links={links} textStyle={styles.para} textLinkStyle={styles.para}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
+    return (<TextLink key={s.snippetId} links={links} textStyle={textStyles.normal} textLinkStyle={textStyles.normal}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
 }
 
+/*
 const linkStyle = {
-    fontFamily: styles.para.fontFamily,
-    fontSize: styles.para.fontSize,
-    lineHeight: styles.para.lineHeight,
-    fontWeight: styles.para.fontWeight,
-    color: styles.para.color
+    fontFamily: textStyles.normal.fontFamily,
+    fontSize: textStyles.normal.fontSize,
+    lineHeight: textStyles.normal.lineHeight,
+    fontWeight: textStyles.normal.fontWeight,
+    color: textStyles.normal.color
 }
+*/

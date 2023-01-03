@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Pressable } from 'react-native';
-import { ButtonProps } from '../app.interface';
+import { ButtonProps } from 'components/components.interface';
 import { buttonStyles } from 'styles';
 
 export function NavButton(props:ButtonProps) {

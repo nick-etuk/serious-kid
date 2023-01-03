@@ -8,101 +8,113 @@ const path = require("path");
 
 import { getBackendChanges, getDictionary } from "./sync-db";
 import { log } from "./utils/log";
+import { getStack } from "./stack/get-stack";
 
 const app = express();
 app.use(cors());
 const port = 3000;
 
 const headers = {
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "*",
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "*",
 };
 
 //app.use("/image", express.static(path.join(__dirname, "public", "images")));
 app.use(express.static("public"));
 
 app.get("/pull", async (req, res) => {
-  const changes = await getBackendChanges();
-  //log(0, "=>pull.changes:", changes, true);
+    const changes = await getBackendChanges();
+    //log(0, "=>pull.changes:", changes, true);
 
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: changes,
-  };
-  res.send(response);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: changes,
+    };
+    res.send(response);
 });
 
 app.get("/push", async (req, res) => {
-  console.log("=>push request:");
-  console.log(req);
+    console.log("=>push request:");
+    console.log(req);
 
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: {},
-  };
-  res.send(response);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: {},
+    };
+    res.send(response);
 });
 
 app.get("/snippets", async (req, res) => {
-  console.log("=>snippets:", req.query.s, true);
-  const result = await getSnippets(req.query.s as string);
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: result,
-  };
-  res.send(response);
+    console.log("=>snippets:", req.query.s, true);
+    const result = await getSnippets(req.query.s as string);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: result,
+    };
+    res.send(response);
+});
+
+app.get("/stack", async (req, res) => {
+    console.log("=>stack:", req.query.s, true);
+    const result = await getStack(req.query.s as string);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: result,
+    };
+    res.send(response);
 });
 
 app.get("/questions", async (req, res) => {
-  console.log("=>questions:");
-  log(0, "questions:", req.query.s, true);
-  const result = await getQuestions();
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: result,
-  };
-  res.send(response);
+    console.log("=>questions:");
+    log(0, "questions:", req.query.s, true);
+    const result = await getQuestions(req.query.s as string);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: result,
+    };
+    res.send(response);
 });
 
 app.get("/questions-by-snippet", async (req, res) => {
-  console.log("=>questions:");
-  log(0, "questions:", req.query.s, true);
-  const result = await getQuestionsBySnippet(req.query.s as string);
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: result,
-  };
-  res.send(response);
+    console.log("=>questions-by-snippet:");
+    log(0, "questions-by-snippet:", req.query.s, true);
+    const result = await getQuestionsBySnippet(req.query.s as string);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: result,
+    };
+    res.send(response);
 });
 
 app.get("/answers", async (req, res) => {
-  console.log("=>answers:");
-  const result = await getAnswers();
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: result,
-  };
-  res.send(response);
+    console.log("=>answers:");
+    const result = await getAnswers(req.query.s as string);
+    const response = {
+        statusCode: 200,
+        headers: headers,
+        body: result,
+    };
+    res.send(response);
 });
 
 app.get("/dictionary", async (req, res) => {
-  console.log("=>dict:");
-  const result = await getDictionary();
-  const response = {
-    statusCode: 200,
-    //headers: headers,
-    body: result,
-  };
-  res.send(response);
+    console.log("=>dict:");
+    const result = await getDictionary(req.query.s as string);
+    const response = {
+        statusCode: 200,
+        //headers: headers,
+        body: result,
+    };
+    res.send(response);
 });
 
 app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+    return console.log(`Express is listening at http://localhost:${port}`);
 });

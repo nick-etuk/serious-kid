@@ -4,18 +4,18 @@ import { Text } from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-import { StepPage } from './components/screens/step/step';
+import { StepPage } from 'components/screens/step/step';
 import { StageScreen } from 'components/screens/stage-screen';
-import { buildStages, Step } from './services/journey';
+import { buildStages, Step } from 'services/journey';
 import { log } from './utils';
-import { nextStage as nextStage } from './services/journey/z-next-stage';
+import { nextStage as nextStage } from 'services/journey/z-next-stage';
 
 import { Provider } from 'react-redux';
-import { store } from './store/store';
-import { student } from './services/student';
+import { store } from 'store/store';
+import { student } from 'services/student';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Admin } from './components/screens/admin';
+import { Admin } from 'components/screens/admin';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,7 +48,7 @@ export default function App() {
         <Provider store={store}>
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen name="Admin" component={Admin}/>
+                    { /*<Stack.Screen name="Admin" component={Admin}/> */ }
                     <Stack.Screen name="Stages" component={StageScreen}/>
                     <Stack.Screen name="Steps" component={StepPage} />
                 </Stack.Navigator>

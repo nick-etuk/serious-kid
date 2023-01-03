@@ -4,7 +4,7 @@ import { Image } from 'react-native'
 
 import * as FileSystem from 'expo-file-system';
 import shorthash from 'shorthash2';
-import { styles } from 'styles';
+import { imageStyles } from 'styles';
 import { log } from 'utils';
 
 
@@ -58,7 +58,7 @@ function CachedImage (props:CachedImageProps) {
         {log(0, 'image uri', imgURI, true)}
 
         return (
-            <Image style={styles.image} source={{ uri: imgURI }}/>
+            <Image style={imageStyles.normal} source={{ uri: imgURI }}/>
         )
     }
 

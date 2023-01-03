@@ -1,6 +1,7 @@
 import { View, Text, Button, useWindowDimensions } from 'react-native';
 import { Snippet } from 'services/data/data.interface';
 import { Step } from 'services/journey/journey.interface';
+import { log } from 'utils';
 
 interface StepHeaderProps {
     stageId: number;
@@ -13,13 +14,26 @@ interface StepHeaderProps {
 
 
 export function StepHeader({ stageId, stepNum, pageContent, step, height, width }: StepHeaderProps) {
+    const log_level = 1;
+    const stepSnippetIds = step.snippets.reduce((a, i) => a + i.snippetId + ',', '');
+    const pageSnippetIds = pageContent.reduce((a, i) => a + i.snippetId + ',', '');
+    log(log_level, 'Stage', stageId, true);
+    log(log_level, 'stepNum', stepNum, true);
+    log(log_level, 'Step', step, true);
+    log(log_level, 'Page snippets', pageSnippetIds, true);
+
     return (
         <>
-            <Text>Stage {stageId}   Step {stepNum}:
-                Page snippets:{pageContent.reduce((a, i) => a + i.snippetId + ',', '')}
-                Step snippets: {step.snippetIds.join(',')}
-            </Text>
-            <Text>Height: {height} Width: {width}</Text>
+            <View style={{ flexDirection:'row' }} >
+                <Text style={{width:100}}>Stage: {stageId}</Text>
+                <Text style={{width:100}}>Step: {stepNum}</Text>
+                <Text style={{marginLeft:50}}>Step snippets: {stepSnippetIds}</Text>
+                <Text style={{marginLeft:50}}>Page snippets: {pageSnippetIds}</Text>
+            </View>
+            <View style={{ flexDirection:'row' }} >
+                <Text style={{width:100}}>Height: {height}</Text>
+                <Text style={{width:100}}>Width: {width}</Text>
+            </View>
             </>
     )
 }

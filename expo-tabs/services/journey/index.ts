@@ -1,5 +1,5 @@
 import { buildStages } from "./build-stages";
-import { Step } from "./journey.interface";
+import { Stage, Step } from "./journey.interface";
 import { nextSnippet } from "./next-snippet";
 import { questionAnswers } from "./question-answers";
 import { refineQuestions } from "./refine-questions";
@@ -13,4 +13,4 @@ export {
   topicDifficulty,
 };
 
-export type { Step };
+export type { Step, Stage };

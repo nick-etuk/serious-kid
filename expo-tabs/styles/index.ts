@@ -1,5 +1,6 @@
 import { buttonStyles } from "./buttons";
 import { containerStyles } from "./containers";
-import { styles } from "./main";
+import { imageStyles } from "./images";
+import { textStyles } from "./text";
 
-export { styles, buttonStyles, containerStyles };
+export { textStyles, buttonStyles, containerStyles, imageStyles };

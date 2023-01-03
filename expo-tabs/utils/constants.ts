@@ -5,7 +5,7 @@ const SEVERITY = {
   error: 3,
 };
 
-const LOG_FENCE = SEVERITY.debug;
+const LOG_FENCE = SEVERITY.info;
 
 const SOURCE = {
   offline: 0,

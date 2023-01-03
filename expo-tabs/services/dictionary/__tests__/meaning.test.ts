@@ -1,4 +1,4 @@
-import { meaning } from "../meaning";
+import { meaning } from "services/dictionary/meaning";
 
 describe("Dictionary", () => {
   test("Meaning", () => {

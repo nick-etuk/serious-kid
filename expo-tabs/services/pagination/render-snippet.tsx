@@ -5,28 +5,28 @@ import { snippetLinkTable } from 'services/data/files/snippet-link-table';
 import { fragments } from 'services/pagination/fragments';
 import { renderFragments } from 'services/pagination/render-fragments';
 import { CachedImage } from 'store/cached-image';
-import { styles } from 'styles';
+import { imageStyles, textStyles } from 'styles';
 import { API_URL } from 'utils/constants';
 
 function simpleSnippet(s: Snippet) {
     let result = <></>;
     switch (s.snippetType) {
         case 'HE':
-            result = <Text key={s.snippetId} style={styles.heading}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
+            result = <Text key={s.snippetId} style={textStyles.heading2}>{s.descr}<Text style={textStyles.snippetNum}>{s.snippetId}</Text></Text >;
             break;
         case 'I':
             const url = "https://cdn.britannica.com/34/231234-050-5B2280BB/volcanic-eruption-Antigua-Guatemala-volcano.jpg"
             const url2 = `${API_URL}/images/${s.descr}`;
             result =
-                <View key={s.snippetId} style={styles.image}>
+                <View key={s.snippetId} style={imageStyles.normal}>
                     <CachedImage key={s.snippetId} url={url} filename={s.descr} />
-                    <Text key={`${s.snippetId}-legend`}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >
+                    <Text key={`${s.snippetId}-legend`}>{s.descr}<Text style={textStyles.snippetNum}>{s.snippetId}</Text></Text >
                 </View>
             
             //result = <Text key={s.snippetId}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
             break;
         default:
-            result = <Text key={s.snippetId} style={styles.para}>{s.descr}<Text style={styles.snippetNum}>{s.snippetId}</Text></Text >;
+            result = <Text key={s.snippetId} style={textStyles.normal}>{s.descr}<Text style={textStyles.snippetNum}>{s.snippetId}</Text></Text >;
         }
     return result;
 }

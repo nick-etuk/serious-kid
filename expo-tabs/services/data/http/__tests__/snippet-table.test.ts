@@ -1,5 +1,5 @@
-import { log } from "../utils";
-import { snippetTable } from "../../index";
+import { log } from "utils";
+import { snippetTable } from "services/data";
 
 describe("Snippet table", () => {
   test("Snippet table", async () => {
@@ -9,7 +9,7 @@ describe("Snippet table", () => {
       descr: "Volcanoes",
     };
 
-    const actual = await snippetTable();
+    const actual = await snippetTable("GEOG");
     log(0, "actual", actual[0], true);
 
     expect(actual[0]).toStrictEqual(expected);

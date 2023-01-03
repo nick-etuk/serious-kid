@@ -1,6 +1,6 @@
 import { log } from "utils";
-import { listSnippets } from "../list-snippets";
-import { snippetTable } from "../files/snippet-table";
+import { listSnippets } from "services/data/list-snippets";
+import { snippetTable } from "services/data/files/snippet-table";
 
 describe("List snippets watermelon db", () => {
   test("List snippets 1 to 3", async () => {

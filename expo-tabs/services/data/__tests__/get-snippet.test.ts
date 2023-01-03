@@ -1,4 +1,4 @@
-import { getSnippet } from "../get-snippet";
+import { getSnippet } from "services/data/get-snippet";
 
 describe("Get snippet by ID", () => {
   test("Get snippet number two", () => {

@@ -1,5 +1,5 @@
 import { log } from "utils";
-import { Fragment, fragments } from "../fragments";
+import { Fragment, fragments } from "services/pagination/fragments";
 
 describe("Fragments", () => {
   test("Content 1", () => {

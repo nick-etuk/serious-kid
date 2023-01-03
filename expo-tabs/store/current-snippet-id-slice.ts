@@ -22,6 +22,6 @@ export const currentSnippetIdSlice = createSlice({
 export const { setCurrentSnippetId } = currentSnippetIdSlice.actions;
 
 export const selectShowQuestionCount = (state: RootState) =>
-  state.counter.value;
+  state.stepNum.value;
 
 export default currentSnippetIdSlice.reducer;

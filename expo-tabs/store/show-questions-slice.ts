@@ -10,7 +10,7 @@ const initialState: ShowQuestionsState = {
 };
 
 export const showQuestionsSlice = createSlice({
-  name: "currentSnippetId",
+  name: "showingQuestions",
   initialState,
   reducers: {
     showQuestionsAction: (state) => {
@@ -27,6 +27,6 @@ export const { showQuestionsAction, hideQuestionsAction } =
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectShowQuestionCount = (state: RootState) =>
-  state.counter.value;
+  state.stepNum.value;
 
 export default showQuestionsSlice.reducer;

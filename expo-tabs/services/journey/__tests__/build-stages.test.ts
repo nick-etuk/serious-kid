@@ -1,7 +1,7 @@
 import { buildStages } from "..";
 import { log } from "utils";
-import { snippetTable } from "../services/data/http/snippet-table";
-import { Student } from "../services/student";
+import { snippetTable } from "services/data/http/snippet-table";
+import { Student } from "services/student";
 
 const expected = [
   {

@@ -2,17 +2,17 @@
 //import { Answer, Question } from 'services/data/data.interface';
 import React, { useEffect, useState } from 'react';
 import { log, recordAction } from 'utils';
-import { QuestionProps } from '../app.interface';
+import { QuestionProps } from 'components/components.interface';
 
 import { useAppDispatch } from 'store/hooks'
-import { increment } from 'store/step-num-slice';
+import { stepNumIncrement } from 'store/step-num-slice';
 import { hideQuestionsAction } from 'store/show-questions-slice';
 import { setCurrentSnippetId } from 'store/current-snippet-id-slice';
 
 
 import { View, Text } from 'react-native';
-import { AnswerButton, NavButton } from './button';
-import { buttonStyles } from 'styles';
+import { AnswerButton, NavButton } from 'components/button';
+import { buttonStyles, textStyles } from 'styles';
 import { questionAnswers } from 'services/journey';
 import { Answer, Question } from 'services/data/data.interface';
 
@@ -60,8 +60,10 @@ export function QuestionPage({ questions, answers, stepStart }:QuestionProps) {
     }, []);
     */
     return (
-        <View>  
-            <Text>{q ? q.descr : 'There are no questions for this section'}</Text>
+        <View>
+            <Text style={textStyles.heading2}>Questions</Text>
+            <br></br>
+            <Text style={textStyles.normal}>{q ? q.descr : 'There are no questions for this section'}</Text>
             <br></br>
             {q && answers.filter(a=>a.questionId===q.questionId).map(a =>
                 <AnswerButton style={buttonStyles.answerButton} title={a.descr} key={a.answerId} onPress={() => {

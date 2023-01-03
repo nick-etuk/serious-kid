@@ -1,8 +1,8 @@
 import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
-import { Question } from "./services/data";
-import { Answer } from "./services/data/data.interface";
-import { Step } from "./services/journey";
-import { Stage } from "./services/journey/journey.interface";
+import { Question } from "services/data";
+import { Answer } from "services/data/data.interface";
+import { Step } from "services/journey";
+import { Stage } from "services/journey/journey.interface";
 
 interface AppProps {
   step: Step;

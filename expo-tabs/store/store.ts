@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./step-num-slice";
+import stepNumReducer from "./step-num-slice";
 import showQuestionsReducer from "./show-questions-slice";
 import currentSnippetIdReducer from "./current-snippet-id-slice";
 import { apiSlice } from "./features/api/api-slice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    stepNum: stepNumReducer,
     showQuestions: showQuestionsReducer,
     currentSnippetId: currentSnippetIdReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
