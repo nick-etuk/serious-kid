@@ -11,9 +11,9 @@ export async function getQuestions(subjectId: string) {
     });
 
     const sql = `
-    select subject_id as subjectID,
+    select subject_id as subjectId,
     snippet_id as snippetId, question_id as questionId, 
-    question_type as questionType, descr 
+    question_type as questionType, descr
     from question 
     where subject_id=?
   `;

@@ -16,6 +16,7 @@ import { student } from 'services/student';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Admin } from 'components/screens/admin';
+import { GameFactory } from 'components/screens/game-factory/game-factory';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,7 +51,8 @@ export default function App() {
                 <Stack.Navigator>
                     { /*<Stack.Screen name="Admin" component={Admin}/> */ }
                     <Stack.Screen name="Stages" component={StageScreen}/>
-                    <Stack.Screen name="Steps" component={StepPage} />
+                    <Stack.Screen name="Step" component={StepPage} />
+                    <Stack.Screen name="GameFactory" component={GameFactory} />
                 </Stack.Navigator>
           </NavigationContainer>
         </Provider>

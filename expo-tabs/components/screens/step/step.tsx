@@ -151,7 +151,8 @@ export function StepPage({ route, navigation }: any) /*todo remove 'any' see Tab
         }
 
         if (pageLastSnippetId === step.end) {
-            dispatch(showQuestionsAction());
+            //dispatch(showQuestionsAction());
+            navigation.navigate('GameFactory', { game: 'MULTI', step: step, stageEnd: stage.end })
             return;
         }
 

@@ -92,9 +92,8 @@ export function StageScreen({ route, navigation }: any /*todo remove 'any' see T
                 <Button key={stage.stageId.toString()} title={stage.stageId.toString()}
                     onPress={() => {
                         dispatch(setCurrentSnippetId(stage.steps[0].start));
-                        dispatch(hideQuestionsAction());
                         dispatch(setStepNum(0));
-                        navigation.navigate('Steps', { stage: stage })
+                        navigation.navigate('Step', { stage: stage })
                     }}
                 />
             )}
