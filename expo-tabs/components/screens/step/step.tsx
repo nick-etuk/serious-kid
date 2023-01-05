@@ -18,13 +18,10 @@ import { useGetAnswersQuery, useGetQuestionsQuery, useGetSnippetsQuery } from "s
 import { NavButton } from 'components/button';
 import { renderSnippet } from 'services/pagination/render-snippet';
 import { buildStages, questionAnswers, refineQuestions, Step } from 'services/journey';
-import { StepHeader } from 'components/screens/step/header';
+import { TutorHeader } from 'components/screens/step/tutor-header';
 import { student } from 'services/student';
+import { nextPageResult } from 'services/pagination/pagination.interface';
 
-interface pageResult {
-    snippets: Snippet[];
-    lastSnippetId: number;
-}
   
 //export function StepPage({ stage, display }: StepProps) {
 export function StepPage({ route, navigation }: any) /*todo remove 'any' see TabOnescreen */ {
@@ -125,7 +122,7 @@ export function StepPage({ route, navigation }: any) /*todo remove 'any' see Tab
                 stepAnswers.push(a);
     */
     
-    function getPage(snippets:Snippet[], current: number, stepStart:number):pageResult {
+    function getPage(snippets:Snippet[], current: number, stepStart:number):nextPageResult {
         log(0, 'current', current, true);
         const c = current < stepStart ? stepStart : current;
         const result = nextPage(snippets, c, height, width);
@@ -192,7 +189,7 @@ export function StepPage({ route, navigation }: any) /*todo remove 'any' see Tab
         <View style={containerStyles.container}>
             <View style={containerStyles.contentContainer}> 
                 <View style={containerStyles.header}>
-                    <StepHeader stageId={stage.stageId} stepNum={stepNum} pageContent={pageContent} step={step} height={height} width={width} />
+                    <TutorHeader stageId={stage.stageId} stepNum={stepNum} pageContent={pageContent} step={step} height={height} width={width} />
                 </View>
           <View style={containerStyles.panelContainer}>
             <View style={containerStyles.leftPanel}>

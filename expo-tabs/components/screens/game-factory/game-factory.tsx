@@ -16,7 +16,7 @@ import { Answer, Question } from 'services/data/data.interface';
 import { GameHeader } from './game-header';
 import { random } from 'lodash';
 import { incrementScore } from 'store/score-slice';
-import { MulitpleChoice } from './multiple-choice';
+import { MultipleChoice } from './multiple-choice';
 import { getNextGame } from './next-game';
 import { student } from 'services/student';
 import { shuffle } from './shuffle';
@@ -92,8 +92,8 @@ export function GameFactory({ route, navigation }: any) /*todo remove 'any' see 
                 </View>
                 <View style={containerStyles.centrePanel}>
                     <View style={containerStyles.body}>
-                        {game === 'MULTI' && <MulitpleChoice question={question} answers={answers} questionIndex={questionIndex} questionCount={questionCount} stageEnd={stageEnd} navigation={navigation} />}
-                        {game === 'INPUT' && <TextInputQuestion question={question} answers={answers} questionIndex={questionIndex} questionCount={questionCount} stageEnd={stageEnd} navigation={navigation} />}
+                        {game === 'MULTI' && <MultipleChoice question={question} answers={answers} questionIndex={questionIndex} questionCount={questionCount} stageEnd={stageEnd} navigation={navigation} pageContent={[]}/>}
+                        {game === 'INPUT' && <TextInputQuestion question={question} answers={answers} questionIndex={questionIndex} questionCount={questionCount} stageEnd={stageEnd} navigation={navigation} pageContent={[]}/>}
                     </View>
                 </View>
                 <View style={containerStyles.rightPanel}>

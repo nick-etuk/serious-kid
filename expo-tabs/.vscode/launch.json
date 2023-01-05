@@ -37,6 +37,7 @@
             "type": "reactnative",
             "request": "launch",
             "platform": "exponent"
+            
         }
     ]
 }

@@ -1,4 +1,5 @@
 import { Answer, Question, Snippet } from "services/data";
+import { Dictionary } from "services/dictionary";
 
 interface Step {
     stepNum: number;
@@ -7,6 +8,7 @@ interface Step {
     snippets: Snippet[];
     questions: Question[];
     answers: Answer[];
+    dictionary: Dictionary[];
 }
 interface Stage {
     stageId: number;

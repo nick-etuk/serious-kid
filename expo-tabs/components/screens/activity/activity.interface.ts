@@ -1,4 +1,5 @@
 import { Answer, Question, Snippet } from "services/data";
+import { Dictionary } from "services/dictionary";
 
 interface GameProps {
     question: Question;
@@ -10,4 +11,9 @@ interface GameProps {
     pageContent: Snippet[];
 }
 
-export type { GameProps };
+interface TutorProps {
+    pageContent: Snippet[];
+    dictionary: Dictionary[];
+}
+
+export type { TutorProps, GameProps };

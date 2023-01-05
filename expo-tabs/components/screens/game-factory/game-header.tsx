@@ -12,25 +12,30 @@ interface GameHeaderProps {
 }
 
 export function GameHeader({ game, stepNum, questionIndex, questionCount }: GameHeaderProps) {
-    const log_level = 1;
-    let score = useAppSelector(state => state.score.value);
+    const logLevel = 1;
+    const score = useAppSelector(state => state.score.value);
+    const stageNum = useAppSelector(state => state.stageNum.value);
 
-    log(log_level, 'game', game, true);
-    log(log_level, 'stepNum', stepNum, true);
-    log(log_level, 'questionIndex', questionIndex, true);
-    log(log_level, 'score', score, true);
-    log(log_level, 'questionCount', questionCount, true);
+    log(logLevel, 'game', game, true);
+    log(logLevel, 'stage', stageNum, true);
+    log(logLevel, 'stepNum', stepNum, true);
+    log(logLevel, 'questionIndex', questionIndex, true);
+    log(logLevel, 'score', score, true);
+    log(logLevel, 'questionCount', questionCount, true);
 
     return (
         <>
             <View style={{ flexDirection:'row' }} >
                 <Text style={{width:100}}>Game: {game}</Text>
+                <Text style={{width:100}}>Stage: {stageNum}</Text>
                 <Text style={{width:100}}>Step: {stepNum}</Text>
                 <Text style={{marginLeft:50}}>Question: {questionIndex}</Text>
                 <Text style={{ marginLeft: 50 }}>Score: {score}/{questionCount}</Text>
             </View>
-            <Text/>
-            <Text style={textStyles.heading2}>Questions</Text>
+            <Text />
+            <View style={{ flexDirection:'row', justifyContent:'center' }} >
+                <Text style={textStyles.heading2}>Questions</Text>
+            </View>
         </>
     )
 }

@@ -1,5 +1,5 @@
 import { AnswerButton } from 'components/button';
-import { View, Text, TextInput, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Answer, Question } from 'services/data';
 import { buttonStyles, textStyles } from 'styles';
 import { log, recordAction } from 'utils';
@@ -49,13 +49,20 @@ export function TextInputQuestion({ question, answers, questionIndex, questionCo
         dispatch(resetQuestionIndex()); 
         dispatch(stepNumIncrement());
         //dispatch(setCurrentSnippetId(step.start))       
-        navigation.navigate('Step'); //*todo: do we need StepPage parameters?
+        //navigation.navigate('Step'); //*todo: do we need StepPage parameters?
     }
     return (
         <>
-            <Text style={textStyles.normal}>{question ? question.descr : 'There are no questions for this section'}</Text>
-            <TextInput style={textStyles.input} onChangeText={setAnswer} onSubmitEditing={()=>answerSubmitted(question, answer, answers)} />
-            <Text style={textStyles.normal}>Answer: {answers.find(a => a.answerId === 1)?.descr}</Text>
+            {questionCount > 0
+                ?
+                <>
+                    <Text style={textStyles.normal}>{question.descr}</Text>
+                    <TextInput style={textStyles.input} onChangeText={setAnswer} onSubmitEditing={() => answerSubmitted(question, answer, answers)} />
+                    <Text style={textStyles.normal}>Answer: {answers.find(a => a.answerId === 1)?.descr}</Text>
+                </>
+                :
+                <Text style={textStyles.normal}>There are no questions for this paragraph</Text>
+            }
         </>
     )
 }

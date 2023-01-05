@@ -13,7 +13,9 @@ import { setCurrentSnippetId } from 'store/current-snippet-id-slice';
 import { hideQuestionsAction } from 'store/show-questions-slice';
 import { setStepNum } from 'store/step-num-slice';
 import { Answer, Question, Snippet } from 'services/data';
-
+import { resetActivity } from 'store/activity-slice';
+import { setStageNum } from 'store/stage-num-slice';
+import { Dictionary } from 'services/dictionary';
 
 const stateSubjectId = 'GEOG';
 const stateUnitId = 1;
@@ -32,7 +34,8 @@ export function StageScreen({ route, navigation }: any /*todo remove 'any' see T
 
     let snippetTable:Snippet[] = [];
     let questionTable:Question[] = [];
-    let answerTable:Answer[] = [];;
+    let answerTable: Answer[] = [];
+    let dictionaryTable: Dictionary[] = [];
 
     const {
         data: stackResponse,
@@ -45,46 +48,15 @@ export function StageScreen({ route, navigation }: any /*todo remove 'any' see T
     if (isLoading) {
         return <Text>Loading paragraphs, questions and answers...</Text>;
     } else if (isSuccess) {
-        snippetTable = stackResponse.body.snippets;
-        questionTable = stackResponse.body.questions;
-        answerTable = stackResponse.body.answers;
+         snippetTable= stackResponse.body.snippets;
+         questionTable = stackResponse.body.questions;
+         answerTable = stackResponse.body.answers;
+         dictionaryTable = stackResponse.body.dictionary;
     } else if (isError) {
         return <Text>{error.toString()}</Text>;
     }
-    /*
-    const {
-        data: questionsResponse,
-        isLoading: questionsLoading,
-        isSuccess: questionsSuccess,
-        isError: questionsError,
-        error: questionsMsg
-    } = useGetQuestionsQuery(student.currentSubjectId);
     
-    if (questionsLoading) {
-        return <Text>Loading questions...</Text>;
-    } else if (questionsSuccess) {
-        questionTable = questionsResponse.body;
-    } else if (questionsError) {
-        return <Text>{questionsMsg.toString()}</Text>;
-    }
-    const {
-        data: answersResponse,
-        isLoading: answersLoading,
-        isSuccess:answersSuccess,
-        isError: answersError,
-        error: answersMsg
-    } = useGetAnswersQuery(student.currentSubjectId);
-    
-    if (answersLoading) {
-        return <Text>Loading answers...</Text>;
-    } else if (answersSuccess) {
-        answerTable = answersResponse.body;
-    } else if (answersError) {
-        return <Text>{answersMsg.toString()}</Text>;
-    }
-    */
-    const stages = buildStages(snippetTable, questionTable, answerTable, student);
-    //log(0, 'stages', stages, true);
+    const stages = buildStages(snippetTable, questionTable, answerTable, dictionaryTable, student);
     
     return (
       <View style={{ flex: 1, flexDirection:'row', alignItems: 'center', justifyContent: 'space-around' }}>
@@ -92,8 +64,10 @@ export function StageScreen({ route, navigation }: any /*todo remove 'any' see T
                 <Button key={stage.stageId.toString()} title={stage.stageId.toString()}
                     onPress={() => {
                         dispatch(setCurrentSnippetId(stage.steps[0].start));
+                        dispatch(setStageNum(0));
                         dispatch(setStepNum(0));
-                        navigation.navigate('Step', { stage: stage })
+                        dispatch(resetActivity())
+                        navigation.navigate('Activity', { stage: stage })
                     }}
                 />
             )}

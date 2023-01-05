@@ -7,18 +7,10 @@ import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { stepNumIncrement } from 'store/step-num-slice';
 import { incrementScore, decrementScore } from 'store/score-slice';
 import { incrementQuestionIndex, decrementQuestionIndex, resetQuestionIndex } from 'store/question-index-slice';
+import { GameProps } from './game.interface';
 
 
-interface GameHeaderProps {
-    question: Question;
-    answers: Answer[];
-    questionIndex: number;
-    questionCount: number;
-    stageEnd: number;
-    navigation: any;
-}
-
-export function MulitpleChoice({ question, answers, questionIndex, questionCount, stageEnd, navigation }: GameHeaderProps) {
+export function MultipleChoice({ question, answers, questionIndex, questionCount, stageEnd, navigation, pageContent }: GameProps) {
     const logLevel = 1;
     const dispatch = useAppDispatch();
     
@@ -53,14 +45,25 @@ export function MulitpleChoice({ question, answers, questionIndex, questionCount
         dispatch(resetQuestionIndex()); 
         dispatch(stepNumIncrement());
         //dispatch(setCurrentSnippetId(step.start))       
-        navigation.navigate('Step'); //*todo: do we need StepPage parameters?
+        //navigation.navigate('Step'); //*todo: do we need StepPage parameters?
     }
     return (
         <>
-            <Text style={textStyles.normal}>{question ? question.descr : 'There are no questions for this section'}</Text>
-            { question && answers.filter(a =>a.snippetId===question.snippetId && a.questionId === question.questionId).map(a =>
-                <AnswerButton style={buttonStyles.answerButton} title={a.answerId + '. ' + a.descr} key={a.answerId}
-                onPress={() => answerClick(question, a)} />)
+            {questionCount > 0
+                ?
+                <>
+                    <Text style={textStyles.normal}>{question.descr}</Text>
+                    { question && answers.filter(a =>a.snippetId===question.snippetId && a.questionId === question.questionId).map(a =>
+                        <AnswerButton
+                            style={buttonStyles.answerButton}
+                            title={a.answerId + '. ' + a.descr}
+                            key={a.answerId}
+                            onPress={() => answerClick(question, a)
+                            } />
+                    )}
+                </>
+                :
+                <Text style={textStyles.normal}>There are no questions for this paragraph</Text>
             }
         </>
     )

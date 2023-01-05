@@ -58,13 +58,3 @@ export function renderFragments(s: Snippet) {
     }
     return (<TextLink key={s.snippetId} links={links} textStyle={textStyles.normal} textLinkStyle={textStyles.normal}>{s.descr + '   [' + s.snippetId + ']'}</TextLink>);
 }
-
-/*
-const linkStyle = {
-    fontFamily: textStyles.normal.fontFamily,
-    fontSize: textStyles.normal.fontSize,
-    lineHeight: textStyles.normal.lineHeight,
-    fontWeight: textStyles.normal.fontWeight,
-    color: textStyles.normal.color
-}
-*/

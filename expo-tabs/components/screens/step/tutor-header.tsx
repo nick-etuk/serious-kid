@@ -3,7 +3,7 @@ import { Snippet } from 'services/data/data.interface';
 import { Step } from 'services/journey/journey.interface';
 import { log } from 'utils';
 
-interface StepHeaderProps {
+interface TutorHeaderProps {
     stageId: number;
     stepNum: number;
     step: Step;
@@ -13,8 +13,9 @@ interface StepHeaderProps {
 }
 
 
-export function StepHeader({ stageId, stepNum, pageContent, step, height, width }: StepHeaderProps) {
-    const log_level = 1;
+export function TutorHeader({ stageId, stepNum, pageContent, step, height, width }: TutorHeaderProps) {
+    const log_level = 0;
+
     const stepSnippetIds = step.snippets.reduce((a, i) => a + i.snippetId + ',', '');
     const pageSnippetIds = pageContent.reduce((a, i) => a + i.snippetId + ',', '');
     log(log_level, 'Stage', stageId, true);
@@ -27,7 +28,7 @@ export function StepHeader({ stageId, stepNum, pageContent, step, height, width 
             <View style={{ flexDirection:'row' }} >
                 <Text style={{width:100}}>Stage: {stageId}</Text>
                 <Text style={{width:100}}>Step: {stepNum}</Text>
-                <Text style={{marginLeft:50}}>Step snippets: {stepSnippetIds}</Text>
+                <Text style={{marginLeft:50}}>Snippets: {stepSnippetIds}</Text>
                 <Text style={{marginLeft:50}}>Page snippets: {pageSnippetIds}</Text>
             </View>
             <View style={{ flexDirection:'row' }} >

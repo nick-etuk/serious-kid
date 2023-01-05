@@ -1,22 +1,25 @@
 import { log, wordCount } from "utils";
-import { DISPLAYABLE, STAGE_MAX_STEPS } from "utils/constants";
-import { Step, Stage } from "services/journey";
+import { DISPLAYABLE, STAGE_MAX_STEPS, WORD_BOUNDARIES } from "utils/constants";
+import { Step, Stage, splitWords } from "services/journey";
 import { Answer, Question, Snippet } from "services/data";
 import { Student } from "services/student";
 import { stepBoundary } from "./step-boundary";
+import { Dictionary } from "services/dictionary";
 
 export function buildStages(
     snippetTable: Snippet[],
     questionTable: Question[],
     answerTable: Answer[],
+    dictionaryTable: Dictionary[],
     student: Student
 ): Stage[] {
-    const log_level = 0;
-    log(log_level, "=>buildStages", "");
+    const logLevel = 1;
+    log(logLevel, "=>buildStages", "");
+    log(logLevel, "dictionaryTable", dictionaryTable, true);
     /*
         Max 5 steps per stage.
         */
-    const MAX_STAGES = 8;
+    const TERM_STAGES = 8;
     const stages: Stage[] = [];
 
     /*
@@ -57,10 +60,10 @@ export function buildStages(
     const wordsPerStep = studentRank?.wordsPerStep ?? 80;
     const snippetsPerStep = studentRank?.snippetsPerStep ?? 1;
 
-    log(log_level, "partitionStepsBy", partitionStepsBy);
-    if (partitionStepsBy === "W") log(log_level, "wordsPerStep", wordsPerStep);
+    log(logLevel, "partitionStepsBy", partitionStepsBy);
+    if (partitionStepsBy === "W") log(logLevel, "wordsPerStep", wordsPerStep);
     if (partitionStepsBy === "S")
-        log(log_level, "snippetsPerStep", snippetsPerStep);
+        log(logLevel, "snippetsPerStep", snippetsPerStep);
 
     let stageCount = 0;
     let steps: Step[] = [];
@@ -69,6 +72,7 @@ export function buildStages(
     let stepWordCount = 0;
     let stepSnippetCount = 0;
     let snippets: Snippet[] = [];
+    let dictionary: Dictionary[] = [];
     let snippetIds: number[] = [];
     let questions: Question[] = [];
     let answers: Answer[] = [];
@@ -77,11 +81,20 @@ export function buildStages(
     for (const s of snippetTable) {
         //using a for loop assumes (incorrectly) that snippetTable is sequentially ordered by snippet id. Won't always be so.
         if (!DISPLAYABLE.includes(s.snippetType)) continue;
+
+        snippets.push(s);
+        snippetIds.push(s.snippetId);
+        const distinctWords = splitWords(s.descr);
+        for (const word of distinctWords) {
+            const match = dictionaryTable.find((dict) => dict.word === word);
+            if (match) dictionary.push(match);
+        }
+
         stepWordCount += wordCount(s.descr);
         stepSnippetCount += 1;
 
         if (partitionStepsBy === "W")
-            log(log_level, "stepWordCount", stepWordCount);
+            log(logLevel, "stepWordCount", stepWordCount);
         if (
             stepBoundary(
                 partitionStepsBy,
@@ -96,9 +109,14 @@ export function buildStages(
             const questions = questionTable.filter((q) =>
                 snippetIds.includes(q.snippetId)
             );
-            const answers = answerTable.filter((a) =>
-                snippetIds.includes(a.snippetId)
-            );
+            const answers: Answer[] = [];
+            for (const q of questions)
+                for (const a of answerTable)
+                    if (
+                        a.snippetId === q.snippetId &&
+                        a.questionId === q.questionId
+                    )
+                        answers.push(a);
             steps.push({
                 stepNum: stepCount,
                 start: snippets[0].snippetId,
@@ -107,15 +125,18 @@ export function buildStages(
                 snippets,
                 questions,
                 answers,
+                dictionary,
             });
             stepCount += 1;
             stepWordCount = 0;
             snippets = [];
+            snippetIds = [];
             stepSnippetIndex = 0;
+            dictionary = [];
 
             if (stepCount === STAGE_MAX_STEPS) {
-                log(log_level, "stage", stageCount);
-                log(log_level, "steps", steps);
+                log(logLevel, "stage", stageCount);
+                log(logLevel, "steps", steps);
                 stages.push({
                     stageId: stageCount,
                     start: 0,
@@ -127,9 +148,9 @@ export function buildStages(
                 steps = [];
             }
         }
-        snippets.push(s);
-        snippetIds.push(s.snippetId);
+        if (stageCount === TERM_STAGES) break;
     }
-    log(log_level, "<=buildStages", "");
+    log(logLevel, "Stages", stages);
+    log(logLevel, "<=buildStages", "");
     return stages;
 }

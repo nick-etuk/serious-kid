@@ -12,7 +12,7 @@ const FONT_SMALL = 12;
 const FONT_COLOUR = "rgb(37, 40, 42)"; // or rgb(36, 41, 47) (lighter) or rgb(45, 55, 72) (even lighter)
 
 export const textStyles = StyleSheet.create({
-    link: {
+    dictionary: {
         fontFamily: FONT_FAMILY,
         fontSize: FONT_NORMAL,
         fontWeight: "normal",

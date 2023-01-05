@@ -104,7 +104,7 @@ app.get("/answers", async (req, res) => {
     res.send(response);
 });
 
-app.get("/dictionary", async (req, res) => {
+app.get("/dict", async (req, res) => {
     console.log("=>dict:");
     const result = await getDictionary(req.query.s as string);
     const response = {

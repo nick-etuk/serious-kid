@@ -7,7 +7,6 @@ export async function getDictionary(subjectId: string) {
     /*
     
     */
-    const result = [];
     const db = await open({
         filename: dbFilename,
         mode: sqlite3.OPEN_READWRITE,
@@ -16,8 +15,7 @@ export async function getDictionary(subjectId: string) {
 
     const sql = `select * from dictionary where subject_id=?`;
     const rows = await db.all(sql, [subjectId]);
-    result.push(rows);
 
     await db.close();
-    return result;
+    return rows;
 }

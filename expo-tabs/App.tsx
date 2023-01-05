@@ -1,5 +1,5 @@
+import React, { StrictMode } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Text } from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -17,6 +17,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Admin } from 'components/screens/admin';
 import { GameFactory } from 'components/screens/game-factory/game-factory';
+import { Activity } from 'components/screens/activity/activity';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,15 +47,17 @@ export default function App() {
     if (!isLoadingComplete) return null;
 
     return (
-        <Provider store={store}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    { /*<Stack.Screen name="Admin" component={Admin}/> */ }
-                    <Stack.Screen name="Stages" component={StageScreen}/>
-                    <Stack.Screen name="Step" component={StepPage} />
-                    <Stack.Screen name="GameFactory" component={GameFactory} />
-                </Stack.Navigator>
-          </NavigationContainer>
-        </Provider>
+        <StrictMode>
+            <Provider store={store}>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        { /*<Stack.Screen name="Admin" component={Admin}/> */ }
+                        <Stack.Screen name="Stages" component={StageScreen}/>
+                        <Stack.Screen name="Step" component={StepPage} />
+                        <Stack.Screen name="Activity" component={Activity} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </Provider>
+        </StrictMode>
     )
 }
