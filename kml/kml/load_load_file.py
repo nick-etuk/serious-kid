@@ -1,5 +1,5 @@
 import os
-from dictionary.dictionary_add_meanings import add_meanings
+from kml.dictionary.add_meanings import add_meanings
 from dictionary_hard_words import hard_words
 from dictionary_save_hard_word import save_hard_word
 from init import init

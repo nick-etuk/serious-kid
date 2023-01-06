@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { log, recordAction } from 'utils';
 import { QuestionProps } from 'components/components.interface';
 import { useAppDispatch, useAppSelector } from 'store/hooks'

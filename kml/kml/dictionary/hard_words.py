@@ -1,8 +1,8 @@
 import os
 from typing import List
 
-from dictionary_unique_words import unique_words
-from dictionary_world_hard_words import world_hard_words
+from kml.dictionary.unique_words import unique_words
+from kml.dictionary.world_hard_words import world_hard_words
 
 from config import data_dir
 import sqlite3 as sl

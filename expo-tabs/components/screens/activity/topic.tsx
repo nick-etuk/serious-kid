@@ -8,7 +8,6 @@ import { stepNumIncrement } from 'store/step-num-slice';
 import { incrementScore, decrementScore } from 'store/score-slice';
 import { incrementQuestionIndex, decrementQuestionIndex, resetQuestionIndex } from 'store/question-index-slice';
 import { GameProps } from 'components/screens/game-factory/game.interface';
-import { useState } from 'react';
 import { renderSnippet } from 'services/pagination/render-snippet';
 import { TutorProps } from './activity.interface';
 

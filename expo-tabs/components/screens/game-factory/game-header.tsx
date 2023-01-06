@@ -33,8 +33,8 @@ export function GameHeader({ game, stepNum, questionIndex, questionCount }: Game
                 <Text style={{width:100}}>Step: {stepNum}</Text>
                 <Text style={{marginLeft:50}}>Question: {questionIndex}</Text>
                 <Text style={{ marginLeft: 50 }}>Score: {score}/{questionCount}</Text>
-                <Text style={{ marginLeft: 50 }}>Lives: {lives}/{questionCount}</Text>
-                <Text style={{ marginLeft: 50 }}>Health: {health}/{questionCount}</Text>
+                <Text style={{ marginLeft: 50 }}>Lives: {lives}</Text>
+                <Text style={{ marginLeft: 50 }}>Health: {health}</Text>
             </View>
             <Text />
             <View style={{ flexDirection:'row', justifyContent:'center' }} >

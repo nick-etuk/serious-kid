@@ -1,8 +1,7 @@
 {
   "expo": {
     "slug": "expo-tabs",
-    "name": "expo-tabs",
-    "sdkVersion": "47.0.0"
+    "name": "expo-tabs"
   },
   "name": "expo-tabs"
 }

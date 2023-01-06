@@ -1,6 +1,6 @@
 import sqlite3 as sl
 from config import db
-from dictionary_fetch_meaning import fetch_meaning
+from kml.dictionary.fetch_meaning import fetch_meaning
 from init import init
 from lib import named_tuple_factory
 from icecream import ic

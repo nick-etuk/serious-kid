@@ -32,6 +32,8 @@ if host == 'Evesham':
 data_dir = config[host]['data_dir']
 db = config[host]['db']
 log_dir = config[host]['log_dir']
+oxford_id = config['default']['oxford_dict_api_id']
+oxford_key = config['default']['oxford_dict_api_key']
 
 log_file = os.path.join(
     log_dir, f'{datetime.now().strftime("%Y-%m-%d")}.log')

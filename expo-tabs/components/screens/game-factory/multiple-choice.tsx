@@ -72,9 +72,9 @@ export function MultipleChoice({ question, answers, questionIndex, questionCount
     }
     
     const dontKnow: Answer = {
-        subjectId: question.subjectId,
-        snippetId: question.snippetId,
-        questionId: question.questionId,
+        subjectId: question?.subjectId,
+        snippetId: question?.snippetId,
+        questionId: question?.questionId,
         answerId: DONT_KNOW.labelId,
         descr: DONT_KNOW.descr
     }
