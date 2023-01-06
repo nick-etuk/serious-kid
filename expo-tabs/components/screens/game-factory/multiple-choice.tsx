@@ -8,6 +8,11 @@ import { stepNumIncrement } from 'store/step-num-slice';
 import { incrementScore, decrementScore } from 'store/score-slice';
 import { incrementQuestionIndex, decrementQuestionIndex, resetQuestionIndex } from 'store/question-index-slice';
 import { GameProps } from './game.interface';
+import { DONT_KNOW } from 'constants/labels';
+import { decrementHealth } from 'store/health-slice';
+import { setActivity } from 'store/activity-slice';
+import { ACTIVITY } from 'utils/constants';
+import { decrementLives } from 'store/lives-slice';
 
 
 export function MultipleChoice({ question, answers, questionIndex, questionCount, stageEnd, navigation, pageContent }: GameProps) {
@@ -26,11 +31,22 @@ export function MultipleChoice({ question, answers, questionIndex, questionCount
 
     function answerClick(q:Question, a: Answer) {
         log(logLevel, 'answer', a);
-        if (a.answerId === 1) {
-            alert(`Correct! ${a.answerId} - ${a.descr}`);
-            dispatch(incrementScore());
-        } else {
-            alert(`Wrong! ${a.answerId} - ${a.descr}`);
+        switch (a.answerId) {
+            case 1:
+                alert(`Correct! ${a.answerId} - ${a.descr}`);
+                dispatch(incrementScore());
+                break;
+            
+            case DONT_KNOW.labelId:
+                alert(`Dont' know`);
+                dispatch(decrementHealth());
+                navigateBackToStep();
+                break;
+                
+                default:
+                    alert(`Wrong! ${a.answerId} - ${a.descr}`);
+                dispatch(decrementScore());
+                dispatch(decrementLives());
         }
         recordAction('answer', [q.snippetId, q.questionId].join(','), a.answerId + '.' + a.descr);
         if (questionIndex === questionCount - 1) navigateNextStep();
@@ -47,6 +63,22 @@ export function MultipleChoice({ question, answers, questionIndex, questionCount
         //dispatch(setCurrentSnippetId(step.start))       
         //navigation.navigate('Step'); //*todo: do we need StepPage parameters?
     }
+
+    function navigateBackToStep() {
+        log(logLevel, 'questionIndex', questionIndex, true);
+        dispatch(resetQuestionIndex());
+        //navigation.navigate('Step'); //*todo: do we need StepPage parameters?
+        dispatch(setActivity(ACTIVITY.tutor));
+    }
+    
+    const dontKnow: Answer = {
+        subjectId: question.subjectId,
+        snippetId: question.snippetId,
+        questionId: question.questionId,
+        answerId: DONT_KNOW.labelId,
+        descr: DONT_KNOW.descr
+    }
+
     return (
         <>
             {questionCount > 0
@@ -58,9 +90,16 @@ export function MultipleChoice({ question, answers, questionIndex, questionCount
                             style={buttonStyles.answerButton}
                             title={a.answerId + '. ' + a.descr}
                             key={a.answerId}
-                            onPress={() => answerClick(question, a)
-                            } />
+                            onPress={() => answerClick(question, a)}
+                        />
                     )}
+                    
+                    <AnswerButton
+                        style={buttonStyles.answerButton}
+                        title={dontKnow.descr}
+                        key={dontKnow.answerId}
+                        onPress={() => answerClick(question, dontKnow)}
+                    />
                 </>
                 :
                 <Text style={textStyles.normal}>There are no questions for this paragraph</Text>

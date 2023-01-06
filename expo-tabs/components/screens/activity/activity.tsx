@@ -26,6 +26,10 @@ import { setActivity } from 'store/activity-slice';
 import { getPage } from 'services/pagination/get-next-page';
 import { TutorHeader } from '../step/tutor-header';
 import { Tutor } from './tutor';
+import { activityFactory } from './activity-factory';
+import { popPageHistory, pushPageHistory } from 'store/page-history-slice';
+import { setPageFirstSnippetId } from 'store/page-first-snippet-id-slice';
+import { setPageLastSnippetId } from 'store/page-last-snippet-id-slice';
 
 export function Activity({ route, navigation }: any) /*todo remove 'any' see TabOnescreen */ {
     const logLevel = 1;
@@ -50,15 +54,21 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
     log(logLevel, 'questionCount', questionCount, true);
 
     const currentSnippetId = useAppSelector(state => state.currentSnippetId.value);
-  
-    let pageFirstSnippetId = step.start;
-    let pageLastSnippetId = 3; //*to-do: fix this
-
-    const pageHistory: number[] = [];
-    pageHistory.push(step.start);
-
-    let pageSnippetList = ''; 
+    //const pageFirstSnippetId = useAppSelector(state => state.currentSnippetId.value);
+    //const pageLastSnippetId = useAppSelector(state => state.currentSnippetId.value);
+    const p = getPage(step.snippets, currentSnippetId, step.start, height, width);
     let pageContent:Snippet[] = [];
+    pageContent = p.snippets;
+    let pageFirstSnippetId = step.start;
+    dispatch(setPageFirstSnippetId(pageFirstSnippetId));
+    let pageLastSnippetId = p.lastSnippetId;
+    dispatch(setPageLastSnippetId(pageLastSnippetId));
+    const pageSnippetIds = pageContent.reduce((a, i) => a + i.snippetId + ',', '');
+
+    //const pageHistory: number[] = [];
+    //pageHistory.push(step.start);
+    const pageHistory = useAppSelector(state => state.pageHistory.value);
+    //dispatch(pushPageHistory(step.start));
 
     function navigateNext() {
         log(logLevel, 'navigate Next', '', true);
@@ -88,7 +98,8 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
             return;
         }
         
-        pageHistory.push(pageLastSnippetId); 
+        //pageHistory.push(pageLastSnippetId);
+        dispatch(pushPageHistory(pageLastSnippetId));
         dispatch(setCurrentSnippetId(pageLastSnippetId + 1));
     }
     
@@ -104,12 +115,10 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
         }
         
         //dispatch(setCurrentSnippetId(step.start))
-        dispatch(setCurrentSnippetId(pageHistory.pop() ?? step.start))
+        dispatch(setCurrentSnippetId(pageHistory.slice(-1)[0] ?? step.start));
+        dispatch(popPageHistory);
     }
-    const p = getPage(step.snippets, currentSnippetId, step.start, height, width);
-    pageContent = p.snippets;
-    pageLastSnippetId = p.lastSnippetId;
-    
+
     function navigateNextStep() {
         log(logLevel, 'questionIndex', questionIndex, true);
         if (stepNum === stage.end) {
@@ -147,8 +156,6 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
         dispatch(decrementQuestionIndex());
     }
 
-    const pageSnippetIds = pageContent.reduce((a, i) => a + i.snippetId + ',', '');
-
     log(logLevel, 'Activity', activity, true);
     log(logLevel, 'Stage', stage.stageId, true);
     log(logLevel, 'stepNum', stepNum, true);
@@ -179,10 +186,7 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
                 </View>
                 <View style={containerStyles.centrePanel}>
                     <View style={containerStyles.body}>
-                        {/*activityFactory(activity)*/}
-                        {activity === ACTIVITY.multi && <MultipleChoice question={question} answers={answers} questionIndex={questionIndex} questionCount={questionCount} stageEnd={stage.end} navigation={navigation} pageContent={[]}/>}
-                        {activity === ACTIVITY.input && <TextInputQuestion question={question} answers={answers} questionIndex={questionIndex} questionCount={questionCount} stageEnd={stage.end} navigation={navigation} pageContent={[]} />}
-                        {activity === ACTIVITY.tutor && <Tutor pageContent={pageContent} dictionary={step.dictionary} />}
+                        {activityFactory(activity, pageContent, step.dictionary, question, answers, questionIndex, questionCount, stage.end, navigation )}
                     </View>
                 </View>
                 <View style={containerStyles.rightPanel}>

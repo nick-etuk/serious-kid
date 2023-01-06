@@ -14,6 +14,8 @@ interface GameHeaderProps {
 export function GameHeader({ game, stepNum, questionIndex, questionCount }: GameHeaderProps) {
     const logLevel = 1;
     const score = useAppSelector(state => state.score.value);
+    const health = useAppSelector(state => state.health.value);
+    const lives = useAppSelector(state => state.lives.value);
     const stageNum = useAppSelector(state => state.stageNum.value);
 
     log(logLevel, 'game', game, true);
@@ -31,6 +33,8 @@ export function GameHeader({ game, stepNum, questionIndex, questionCount }: Game
                 <Text style={{width:100}}>Step: {stepNum}</Text>
                 <Text style={{marginLeft:50}}>Question: {questionIndex}</Text>
                 <Text style={{ marginLeft: 50 }}>Score: {score}/{questionCount}</Text>
+                <Text style={{ marginLeft: 50 }}>Lives: {lives}/{questionCount}</Text>
+                <Text style={{ marginLeft: 50 }}>Health: {health}/{questionCount}</Text>
             </View>
             <Text />
             <View style={{ flexDirection:'row', justifyContent:'center' }} >

@@ -16,6 +16,8 @@ import { Answer, Question, Snippet } from 'services/data';
 import { resetActivity } from 'store/activity-slice';
 import { setStageNum } from 'store/stage-num-slice';
 import { Dictionary } from 'services/dictionary';
+import { containerStyles } from 'styles';
+import { resetPageHistory } from 'store/page-history-slice';
 
 const stateSubjectId = 'GEOG';
 const stateUnitId = 1;
@@ -59,14 +61,15 @@ export function StageScreen({ route, navigation }: any /*todo remove 'any' see T
     const stages = buildStages(snippetTable, questionTable, answerTable, dictionaryTable, student);
     
     return (
-      <View style={{ flex: 1, flexDirection:'row', alignItems: 'center', justifyContent: 'space-around' }}>
+      <View style={containerStyles.stageScreen}>
             {stages.map(stage =>
                 <Button key={stage.stageId.toString()} title={stage.stageId.toString()}
                     onPress={() => {
                         dispatch(setCurrentSnippetId(stage.steps[0].start));
                         dispatch(setStageNum(0));
                         dispatch(setStepNum(0));
-                        dispatch(resetActivity())
+                        dispatch(resetActivity());
+                        dispatch(resetPageHistory());
                         navigation.navigate('Activity', { stage: stage })
                     }}
                 />

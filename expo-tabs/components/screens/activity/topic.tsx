@@ -10,8 +10,9 @@ import { incrementQuestionIndex, decrementQuestionIndex, resetQuestionIndex } fr
 import { GameProps } from 'components/screens/game-factory/game.interface';
 import { useState } from 'react';
 import { renderSnippet } from 'services/pagination/render-snippet';
+import { TutorProps } from './activity.interface';
 
-export function Topic({ pageContent, question, answers, questionIndex, questionCount, stageEnd, navigation }: GameProps) {
+export function Topic({ pageContent, dictionary }: TutorProps) {
     const logLevel = 1;
     log(logLevel, 'pageContent', pageContent, true);
 

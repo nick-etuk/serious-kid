@@ -13,7 +13,7 @@ export function buildStages(
     dictionaryTable: Dictionary[],
     student: Student
 ): Stage[] {
-    const logLevel = 1;
+    const logLevel = 0;
     log(logLevel, "=>buildStages", "");
     log(logLevel, "dictionaryTable", dictionaryTable, true);
     /*

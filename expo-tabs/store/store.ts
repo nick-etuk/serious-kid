@@ -5,6 +5,11 @@ import showQuestionsReducer from "./show-questions-slice";
 import currentSnippetIdReducer from "./current-snippet-id-slice";
 import questionIndexReducer from "./question-index-slice";
 import activityReducer from "./activity-slice";
+import pageHistoryReducer from "./page-history-slice";
+import pageFirstSnippetIdReducer from "./page-first-snippet-id-slice";
+import pageLastSnippetIdReducer from "./page-last-snippet-id-slice";
+import healthReducer from "./health-slice";
+import livesReducer from "./lives-slice";
 import scoreReducer from "./score-slice";
 
 import { apiSlice } from "./features/api/api-slice";
@@ -17,7 +22,12 @@ export const store = configureStore({
         currentSnippetId: currentSnippetIdReducer,
         questionIndex: questionIndexReducer,
         score: scoreReducer,
+        health: healthReducer,
+        lives: livesReducer,
         activity: activityReducer,
+        pageHistory: pageHistoryReducer,
+        pageFirstSnippetId: pageFirstSnippetIdReducer,
+        pageLastSnippetId: pageLastSnippetIdReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
