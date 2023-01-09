@@ -1,5 +1,5 @@
 import os
-from constants import TAG_TYPE
+from constants import SENTENCE_BOUNDARIES, TAG_TYPE, WORD_BOUNDARIES
 from icecream import ic
 #from lib import named_tuple_factory
 #from init import init, log
@@ -12,8 +12,8 @@ class KML:
         self.cursor_pos = 0
         self.stack = []
 
-        self.sentence_boundaries = ['.', '?', "\n", ';', '!']
-        self.word_boundaries = [' ', '.', ',', ';', ':', '!', "\n"]
+        #self.sentence_boundaries = ['.', '?', "\n", ';', '!']
+        #self.word_boundaries = [' ', '.', ',', ';', ':', '!', '?', "\n"]
 
         self.content_factory = {
             TAG_TYPE['word']: self.next_word,
@@ -134,7 +134,7 @@ class KML:
         start = self.cursor_pos - 1
         end = self.cursor_pos - 1
         char = self.content[start]
-        while start > 0 and self.content[start] not in self.word_boundaries:
+        while start > 0 and self.content[start] not in WORD_BOUNDARIES:
             char = self.content[start]
             start -= 1
         #if start > 0:start += 1
@@ -146,7 +146,7 @@ class KML:
         result = ''
         end = self.cursor_pos
         start = 0
-        for boundary in self.word_boundaries:
+        for boundary in WORD_BOUNDARIES:
             end = self.content.find(boundary)
             if end:
                 break
@@ -165,7 +165,7 @@ class KML:
             result = self.content[self.cursor_pos + 2:end]
         else:
             max_len = len(self.content)
-            while end > 0 and end < max_len and self.content[end] not in self.word_boundaries:
+            while end > 0 and end < max_len and self.content[end] not in WORD_BOUNDARIES:
                 end += 1
             result = self.content[self.cursor_pos + 1:end]
 
@@ -176,7 +176,7 @@ class KML:
         result = ""
         i = self.cursor_pos + 1
         end = len(self.content)
-        while i > 0 and i < end and self.content[i] not in self.sentence_boundaries:
+        while i > 0 and i < end and self.content[i] not in SENTENCE_BOUNDARIES:
             char = self.content[i]
             i += 1
 
@@ -188,7 +188,7 @@ class KML:
         result = ''
         start = self.cursor_pos + 1
         end = 0
-        for boundary in self.sentence_boundaries:
+        for boundary in SENTENCE_BOUNDARIES:
             end = self.content.find(boundary)
             if end >= 0:
                 break
@@ -202,7 +202,7 @@ class KML:
     def prev_sentence(self):
         result = ""
         i = self.cursor_pos
-        while i >= 0 and self.content[i] not in self.sentence_boundaries:
+        while i >= 0 and self.content[i] not in SENTENCE_BOUNDARIES:
             i -= 1
 
         result = self.content[i:self.cursor_pos]

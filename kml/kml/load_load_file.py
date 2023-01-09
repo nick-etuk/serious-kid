@@ -1,6 +1,6 @@
 import os
 from kml.dictionary.add_meanings import add_meanings
-from dictionary_hard_words import hard_words
+from kml.dictionary_file_significant_words import file_significant_words
 from dictionary_save_hard_word import save_hard_word
 from init import init
 from kml import KML
@@ -76,7 +76,7 @@ def load_file(subject_id, topic_id: int, level_id: str, filename: str) -> int:
                      tag_name=tag[0], type=kml.get_tag_code(tag[0]), content=tag[1], file_id=file_id)
 
     frequency_file = os.path.join(data_dir, 'word_frequency.csv')
-    hard = hard_words(filename, frequency_file)
+    hard = file_significant_words(filename, frequency_file)
     for word in hard:
         save_hard_word(level_id=level_id, subject_id=subject_id, word=word)
     if hard:

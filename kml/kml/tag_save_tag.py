@@ -1,6 +1,6 @@
 import sqlite3 as sl
 from config import db
-from dictionary_save_hard_word import save_hard_word
+from dictionary.save_hard_word import save_hard_word
 from utils_get_last_question import get_last_question
 from lib import named_tuple_factory
 from utils_next_id import next_id
@@ -42,7 +42,7 @@ def save_tag(subject_id: str, topic_id: int, level_id: str, parent_id: int, tag_
         conn.row_factory = named_tuple_factory
         c = conn.cursor()
         row = c.execute(sql, (subject_id, topic_id, level_id,
-                         type, content)).fetchone()
+                              type, content)).fetchone()
 
     if row:
         log(f"Warning: duplicate tag",

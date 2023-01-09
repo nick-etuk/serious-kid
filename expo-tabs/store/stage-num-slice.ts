@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
 // Define a type for the slice state
-interface stageNumState {
+export interface stageNumState {
     value: number;
 }
 
@@ -11,16 +11,18 @@ const initialState: stageNumState = {
     value: 0,
 };
 
+type StageNumReducer = typeof initialState;
+
 export const stageNumSlice = createSlice({
     name: "stageNum",
     // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {
         stageNumIncrement: (state) => {
-            state.value += 1;
+            state.value ? (state.value += 1) : 0;
         },
         stageNumDecrement: (state) => {
-            state.value -= 1;
+            state.value ? (state.value -= 1) : 0;
         },
         setStageNum: (state, action: PayloadAction<number>) => {
             state.value = action.payload;

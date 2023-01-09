@@ -5,7 +5,8 @@ export function splitWords(text: string): string[] {
     for (const char of WORD_BOUNDARIES) {
         // plainText = plainText.replaceAll(char, " ");
         //plainText = plainText.replace(new RegExp(char, "g"), " ");
-        plainText = plainText.replace(char, " "); //todo: fix this.  proper replaceAll
+        //while (plainText.indexOf(char) > -1) plainText = plainText.replace(char, " ");
+        plainText = plainText.replace(char, " ");
     }
 
     const words = plainText.split(" ");
