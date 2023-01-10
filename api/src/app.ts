@@ -10,6 +10,8 @@ import { getBackendChanges, getDictionary } from "./sync-db";
 import { log } from "./utils/log";
 import { getStack } from "./stack/get-stack";
 
+const logLevel = 1;
+
 const app = express();
 app.use(cors());
 const port = 3000;
@@ -48,7 +50,7 @@ app.get("/push", async (req, res) => {
 });
 
 app.get("/snippets", async (req, res) => {
-    console.log("=>snippets:", req.query.s, true);
+    log(logLevel, "=>snippets:", req.query.s, true);
     const result = await getSnippets(req.query.s as string);
     const response = {
         statusCode: 200,
@@ -59,7 +61,7 @@ app.get("/snippets", async (req, res) => {
 });
 
 app.get("/stack", async (req, res) => {
-    console.log("=>stack:", req.query.s, true);
+    log(logLevel, "=>stack:", req.query.s, true);
     const result = await getStack(req.query.s as string);
     const response = {
         statusCode: 200,
@@ -70,8 +72,7 @@ app.get("/stack", async (req, res) => {
 });
 
 app.get("/questions", async (req, res) => {
-    console.log("=>questions:");
-    log(0, "questions:", req.query.s, true);
+    log(logLevel, "questions:", req.query.s, true);
     const result = await getQuestions(req.query.s as string);
     const response = {
         statusCode: 200,
@@ -82,7 +83,6 @@ app.get("/questions", async (req, res) => {
 });
 
 app.get("/questions-by-snippet", async (req, res) => {
-    console.log("=>questions-by-snippet:");
     log(0, "questions-by-snippet:", req.query.s, true);
     const result = await getQuestionsBySnippet(req.query.s as string);
     const response = {
@@ -94,7 +94,7 @@ app.get("/questions-by-snippet", async (req, res) => {
 });
 
 app.get("/answers", async (req, res) => {
-    console.log("=>answers:");
+    log(logLevel, "=>answers:", req.query.s, true);
     const result = await getAnswers(req.query.s as string);
     const response = {
         statusCode: 200,
@@ -105,7 +105,7 @@ app.get("/answers", async (req, res) => {
 });
 
 app.get("/dict", async (req, res) => {
-    console.log("=>dict:");
+    log(logLevel, "=>dict:", req.query.s, true);
     const result = await getDictionary(req.query.s as string);
     const response = {
         statusCode: 200,

@@ -27,6 +27,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     //stageNum: persistReducer<stageNumState, any>(persistConfig, stageNumReducer),
+
     stageNum: stageNumReducer,
 
     stepNum: stepNumReducer,
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
 });
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
+//const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 /*
 const reducers = combineReducers({
@@ -80,9 +82,11 @@ export type AppDispatch = typeof store.dispatch;
 
 export const store = configureStore({
     reducer: rootReducer,
-    //devTools: process.env.NODE_ENV !== "production",
+    devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiSlice.middleware),
+        getDefaultMiddleware({ serializableCheck: false }).concat(
+            apiSlice.middleware
+        ),
 });
 
 export const persistor = persistStore(store);
