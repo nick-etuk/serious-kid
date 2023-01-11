@@ -1,7 +1,6 @@
 import sqlite3 as sl
-from kml.config import db
-from kml.lib import named_tuple_factory
-from utils_next_id import next_id
+from kml.utils.config import db
+from kml.utils.lib import named_tuple_factory
 from icecream import ic
 
 

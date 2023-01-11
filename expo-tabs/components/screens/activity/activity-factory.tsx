@@ -9,9 +9,10 @@ import { Topic } from "./topic";
 import { Tutor } from "./tutor";
 
 export function activityFactory(activity: string, pageContent:Snippet[], dictionary:Dictionary[], question: Question, answers: Answer[], questionIndex: number, questionCount: number, stageEnd:number, navigation:any){
-    log(1, '=>activityFactory', '', true);
-    log(1, 'activity', activity, true);
-    log(1, 'pageContent', pageContent, true);
+    const logLevel = 0;
+    log(logLevel, '=>activityFactory', '', true);
+    log(logLevel, 'activity', activity, true);
+    log(logLevel, 'pageContent', pageContent, true);
     let result = <></>;
     switch (activity) {
         case ACTIVITY.multi:
@@ -29,6 +30,6 @@ export function activityFactory(activity: string, pageContent:Snippet[], diction
         default:
             result = <Text>Unknown activity: {activity}</Text>
         }
-    log(1, '<=activityFactory', '', true);
+    log(logLevel, '<=activityFactory', '', true);
     return result;
 }

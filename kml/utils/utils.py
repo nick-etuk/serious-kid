@@ -1,9 +1,8 @@
-import config
+from kml.utils.config import config
 import time
 import random
-import logging
 from datetime import datetime
-from init import log
+from kml.utils.init import log
 
 
 def pause(pause_length: int):

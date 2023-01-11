@@ -85,11 +85,14 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
     }
 
     function navigateNextPage() {
-        log(logLevel, 'navigate NextPage', '', true);
-        if (pageLastSnippetId === step.end) {
-            log(logLevel, 'bp 1 dispatch(setActivity(game));', '', true);
+        log(logLevel, '=>navigateNextPage', '', true);
+        if (pageLastSnippetId === step.end && pageContent[0].snippetType !== 'T') {
             dispatch(setActivity(game));
-            log(logLevel, 'bp2 - done', '', true);
+            return;
+        }
+        
+        if (pageLastSnippetId === step.end) {
+            navigateNextStep();
             return;
         }
         
@@ -99,6 +102,7 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
         }
         
         //pageHistory.push(pageLastSnippetId);
+        log(logLevel, 'navigating to paragraph', pageLastSnippetId + 1, true);
         dispatch(pushPageHistory(pageLastSnippetId));
         dispatch(setCurrentSnippetId(pageLastSnippetId + 1));
     }
@@ -118,8 +122,9 @@ export function Activity({ route, navigation }: any) /*todo remove 'any' see Tab
         dispatch(setCurrentSnippetId(pageHistory.slice(-1)[0] ?? step.start));
         dispatch(popPageHistory);
     }
-
+    
     function navigateNextStep() {
+        log(logLevel, '=>navigateNextStep', '', true);
         log(logLevel, 'questionIndex', questionIndex, true);
         if (stepNum === stage.end) {
             navigation.navigate('Stages');

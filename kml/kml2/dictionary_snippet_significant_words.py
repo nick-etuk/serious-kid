@@ -6,7 +6,7 @@ from kml.dictionary.lemmatize import lemmatize
 from kml.dictionary.filter_stopwords import filter_stopwords
 from kml.tests.data.para import raw_para
 
-from kml.config import data_dir
+from kml.utils.config import data_dir
 from icecream import ic
 
 

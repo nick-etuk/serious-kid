@@ -3,7 +3,7 @@ from kml.utils.config import db
 from kml.dictionary.save_significant_word import save_significant_word
 from kml.utils.get_last_question import get_last_question
 from kml.utils.lib import named_tuple_factory
-from kml.utils.next_id import next_id
+from kml.utils.next_snippet_id import next_snippet_id
 from kml.utils.utils import log
 from kml.question.save_answers import save_answers
 from kml.question.save_question import save_question
@@ -19,12 +19,12 @@ def save_tag(subject_id: str, level_id: str, parent_id: int, tag_name: str, type
     if tag_name == 'answers':
         question_id, question_text = get_last_question(
             subject_id=subject_id, snippet_id=parent_id)
-        save_answers(subject_id=subject_id, snippet_id=parent_id,
-                     question_id=question_id, question_text=question_text, answer_text=content)
+        save_answers(subject_id=subject_id,
+                     snippet_id=parent_id, question_id=question_id, question_text=question_text, answer_text=content)
         return
     elif tag_name == 'hard':
-        save_significant_word(subject_id=subject_id, level_id=level_id,
-                              word=content)
+        # todo: hard words are not the same as significant words. do this properly.
+        # save_significant_word(subject_id=subject_id, snippet_id=parent_id, word=content, lemma=content, pos='NNP')
         return
 
     # Warn of duplicate tags
@@ -48,11 +48,11 @@ def save_tag(subject_id: str, level_id: str, parent_id: int, tag_name: str, type
             f"{tag_name} already exists for snippet {parent_id}")
         # return row.snippet_id
 
-    tag_id = next_id(table='snippet', secondary_keys=[subject_id])
+    tag_id = next_snippet_id(subject_id)
 
     sql = """
     insert into snippet(subject_id, level_id, snippet_id, snippet_type, descrlong, file_id)
-    values (? ,? ,?, ? ,? ,? ,?)
+    values (? ,? ,?, ? ,? ,?)
     """
     with sl.connect(db) as conn:
         c = conn.cursor()

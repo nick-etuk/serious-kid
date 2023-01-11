@@ -1,16 +1,15 @@
 import os
 
-from kml.dictionary.pipeline import pipeline
-from kml.utils_get_last_snippet import get_last_snippet
-from kml.utils_next_id import next_id
+from kml.dictionary.dictionary_pipeline import dictionary_pipeline
+from kml.utils.get_last_snippet import get_last_snippet
 from kml.tests.data.para import raw_para
 
-from kml.config import data_dir
+from kml.utils.config import data_dir
 from icecream import ic
 
 import sqlite3 as sl
-from kml.config import db
-from kml.lib import named_tuple_factory
+from kml.utils.config import db
+from kml.utils.lib import named_tuple_factory
 
 
 def test_pipeline():
@@ -22,9 +21,8 @@ def test_pipeline():
     ]
 
     subject_id = 'TST1'
-    topic_id = 1
     snippet_id, discard_me = get_last_snippet(
-        subject_id=subject_id, topic_id=topic_id, snippet_type='P')
+        subject_id=subject_id, snippet_type='P')
 
     ic(subject_id)
     ic(snippet_id)
@@ -38,7 +36,8 @@ def test_pipeline():
         c = conn.cursor()
         c.execute(delete_sql, (subject_id, snippet_id))
 
-    pipeline(subject_id=subject_id, snippet_id=snippet_id, text=raw_para)
+    dictionary_pipeline(subject_id=subject_id,
+                        snippet_id=snippet_id, text=raw_para)
 
     actual = []
     sql = """

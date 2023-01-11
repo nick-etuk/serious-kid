@@ -1,6 +1,6 @@
 import sqlite3 as sl
-from kml.config import db
-from kml.lib import named_tuple_factory
+from kml.utils.config import db
+from kml.utils.lib import named_tuple_factory
 
 
 def save_significant_word(subject_id: str, snippet_id: int, word: str, lemma, pos: str):

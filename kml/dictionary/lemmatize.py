@@ -5,24 +5,26 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 
 
-def wordnet_pos(treebank_tag):
+def wordnet_pos(tag):
 
-    if treebank_tag.startswith('J'):
+    if tag.startswith('J'):
         return wordnet.ADJ
-    elif treebank_tag.startswith('V'):
+    elif tag.startswith('V'):
         return wordnet.VERB
-    elif treebank_tag.startswith('N'):
+    elif tag.startswith('N'):
         return wordnet.NOUN
-    elif treebank_tag.startswith('R'):
+    elif tag.startswith('R'):
         return wordnet.ADV
     else:
-        return ''
+        print(
+            f'No Treebank to WordNet part-of-speech mapping for {tag}. Defaulting to Noun')
+        return wordnet.NOUN
 
 
 def lemmatize(tags: List[tuple[Any, str]]) -> List[tuple[str, str]]:
     lemmatizer = WordNetLemmatizer()
-    result = [(lemmatizer.lemmatize(
-        tag[0], pos=wordnet_pos(tag[1])), tag[1]) for tag in tags]
+    result = [(lemmatizer.lemmatize(tag[0], pos=wordnet_pos(tag[1])), tag[1])
+              for tag in tags]
     return result
 
 

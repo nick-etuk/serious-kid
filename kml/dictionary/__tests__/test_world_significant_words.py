@@ -1,7 +1,7 @@
 import pytest
 import os
 from icecream import ic
-from kml.config import data_dir
+from kml.utils.config import data_dir
 from kml.dictionary.world_significant_words import world_significant_words
 
 

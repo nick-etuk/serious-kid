@@ -1,7 +1,7 @@
 import os
 import pandas as pd
-from kml.constants import FREQUENCY_THRESHOLD_MEDIUM
-from kml.config import data_dir
+from kml.utils.constants import FREQUENCY_THRESHOLD_MEDIUM
+from kml.utils.config import data_dir
 
 
 def world_significant_words(frequency_file):
